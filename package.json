@@ -1,0 +1,9 @@
+{
+  "name": "oni-on-cheese",
+  "version": "0.0.1",
+  "description": "Tag Game with Google maps.",
+  "main": "index.js",
+  "repository": "https://github.com/ryutaudo/oni-on-cheese.git",
+  "author": "Tsuyoshi Maeda <oasis5tsuyoshi@gmail.com>",
+  "license": "MIT"
+}
