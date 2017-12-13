@@ -5,7 +5,7 @@ import { withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 const MyMap = withGoogleMap(props => {
   return (
   <GoogleMap
-    defaultZoom={8}
+    defaultZoom={15}
     defaultCenter={{ lat: 35.6641, lng: 139.7294 }}
   >
   <Marker
@@ -22,28 +22,11 @@ class Map extends Component {
     this.state = { isMarkerShown: false }
   }
 
-  componentDidMount() {
-    this.delayedShowMarker()
-  }
-
-  delayedShowMarker = () => {
-    setTimeout(() => {
-      this.setState({ isMarkerShown: true })
-    }, 3000)
-  }
-
-  handleMarkerClick = () => {
-    this.setState({ isMarkerShown: false })
-    this.delayedShowMarker()
-  }
-
   render() {
     return (
       <MyMap
-        isMarkerShown={this.state.isMarkerShown}
-        onMarkerClick={this.handleMarkerClick}
         containerElement={
-          <div style={{ height: '100%' }} />
+          <div style={{ height: '500px' }} />
         }
         mapElement={
           <div style={{ height: '100%' }} />
