@@ -11,40 +11,52 @@ dotenv.config()
 
 
 const io = socketIO();
-io.adapter(redisAdapter(process.env.REDIS_URL, {key: 'prefix_name'}));
+io.adapter(redisAdapter(process.env.REDIS_URL));
 const server = http.createServer(app);
 
 io.attach(server);
 const isWorker = sticky.listen(server, SOCKET_PORT);
 
 if (isWorker) {
-  io.on('connection', (socket) => {
+  // https://github.com/socketio/socket.io-redis
+
+  const game = io.of('/game').on('connection', (socket) => {
     console.log(`connected, id: ${socket.id}`);
 
     socket.on('getRooms', () => {
-      socket.join(roomId, () => {
-        io.to(roomId).emit(`${user.name} has joined the room`); // broadcast to everyone in the room
+      game.adapter.allRooms((err, rooms) => {
+        console.log(rooms); // an array containing all rooms (accross every node)
+        socket.emit('gameRooms', rooms);
       });
     });
 
-    // If roomId is empty, set socket.id as a unique room Id.
-    //
-    // https://socket.io/docs/rooms-and-namespaces/#default-room
-    // Each Socket in Socket.IO is identified by a random, unguessable, unique identifier Socket#id.
-    // For your convenience, each socket automatically joins a room identified by this id.
-    socket.on('joinRoom', ({roomId = socket.id, user}) => {
+    socket.on('createRoom', ({user}) => {
+      const roomId = socket.id;
+      game.adapter.remoteJoin(socket.id, roomId, (err) => {
+        if (err) { /* unknown id */ }
+        // success
+        socket.emit('gameRooms', 'success');
+      });
+    });
+
+
+    socket.on('joinRoom', ({roomId, user}) => {
       if(!user || !user.id || !user.name) return;
 
-      socket.join(roomId, () => {
-        io.to(roomId).emit(`${user.name} has joined the room`); // broadcast to everyone in the room
+      game.adapter.remoteJoin(socket.id, roomId, (err) => {
+        if (err) { /* unknown id */ }
+
+        socket.to(roomId).emit('join', `${user.name} has joined this room.`);
       });
     });
 
     socket.on('leaveRoom', ({roomId, user}) => {
       if(!socket.rooms.hasOwnProperty(roomId)) return;
       if(!user || !user.id || !user.name) return;
-      socket.leave(roomId, () => {
-        io.to(roomId).emit(`${user.name} has joined the room`); // broadcast to everyone in the room
+      game.adapter.remoteLeave('<my-id>', 'room1', (err) => {
+        if (err) { /* unknown id */ }
+
+        socket.to(roomId).emit('leave', `${user.name} has left this room.`);
       });
     });
 
@@ -54,7 +66,7 @@ if (isWorker) {
       if(!location.latitude || !location.longitude) return;
 
       // TODO update Redis and
-      io.in(roomId).emit('notifyLocation', 'the game will start soon');
+      game.in(roomId).emit('updateLocations', 'TODO: notify locations of all users to all.');
     });
 
     socket.on('disconnect', () => {
