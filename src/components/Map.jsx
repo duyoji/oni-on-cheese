@@ -45,9 +45,6 @@ class Map extends Component {
     }, 1000);
   }
 
-
-
-
   render() {
     return (
       <MyMap
