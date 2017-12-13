@@ -3,9 +3,9 @@ import bluebird from 'bluebird';
 import dotenv from 'dotenv';
 
 const result = dotenv.config()
-if (result.error) {
-  throw result.error;
-}
+// if (result.error) {
+//   throw result.error;
+// }
 
 bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);
