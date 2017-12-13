@@ -42,6 +42,12 @@ class Map extends Component {
       <MyMap
         isMarkerShown={this.state.isMarkerShown}
         onMarkerClick={this.handleMarkerClick}
+        containerElement={
+          <div style={{ height: '100%' }} />
+        }
+        mapElement={
+          <div style={{ height: '100%' }} />
+        }
       />
     )
   }
