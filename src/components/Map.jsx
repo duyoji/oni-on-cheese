@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import { compose, withProps } from "recompose"
 import { withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 
 const dummyMarkers = [
@@ -11,15 +10,12 @@ const dummyMarkers = [
 ]
 
 const MyMap = withGoogleMap(props => {
-  dummyMarkers.map((marker, index) => {
-    console.log(marker)
-  })
   return (
   <GoogleMap
     defaultZoom={15}
     defaultCenter={{ lat: 35.6641, lng: 139.7294 }}
   >
-  {dummyMarkers.map((marker, index) => (
+  {props.locations.map((marker, index) => (
     <Marker
       position={marker}
       key={index}
@@ -32,7 +28,25 @@ const MyMap = withGoogleMap(props => {
 class Map extends Component {
   constructor(props){
     super(props);
+    this.state = {
+      locations: dummyMarkers
+    }
   }
+
+  componentDidMount(){
+    setInterval(() => {
+      const newlocations = this.state.locations.map(l => {
+        return {
+          lat: l.lat + 0.0001,
+          lng: l.lng + 0.0001
+        }
+      })
+      this.setState({locations: newlocations})
+    }, 1000);
+  }
+
+
+
 
   render() {
     return (
@@ -43,6 +57,7 @@ class Map extends Component {
         mapElement={
           <div style={{ height: '100%' }} />
         }
+        locations={this.state.locations}
       />
     )
   }
