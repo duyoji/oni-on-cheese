@@ -1,9 +1,11 @@
 import redisClient from '../../redis/client';
 
+const PREFIX_FOR_TEST = 'test-';
+
 describe('server/redis/client.js', () => {
   beforeEach(() => {});
   afterEach((done) => {
-    redisClient.keys('*', async (err, keys) => {
+    redisClient.keys(`${PREFIX_FOR_TEST}*`, async (err, keys) => {
       for(let i = 0; i < keys.length; i++) {
         await redisClient.delAsync(keys[i]);
       }
@@ -27,8 +29,8 @@ describe('server/redis/client.js', () => {
   });
 
   it('should set, get and delete data asynchronously', async (done) => {
-    const key = 'test-key';
-    const expectedValue = 'test-value';
+    const key = `${PREFIX_FOR_TEST}key`;
+    const expectedValue = `${PREFIX_FOR_TEST}value`;
 
     // set and get
     await redisClient.setAsync(key, expectedValue);
