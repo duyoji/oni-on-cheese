@@ -30,6 +30,7 @@
     "react-scripts": "^1.0.17",
     "redis": "^2.8.0",
     "socket.io": "^2.0.4",
+    "socket.io-redis": "^5.2.0",
     "sticky-session": "^1.1.2"
   },
   "scripts": {
