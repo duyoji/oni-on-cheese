@@ -1,6 +1,6 @@
 # Oni On Cheese
 
-鬼 on 地図 - Tag Game
+鬼(👹) on 地図(🗺) - Tag Game
 
 ## Summary
 This app, "Oni On Cheese", is that people can play tag in large area with google maps.
