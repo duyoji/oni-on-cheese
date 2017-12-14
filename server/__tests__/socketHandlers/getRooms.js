@@ -1,11 +1,3 @@
-import { getRooms } from '../../socketHandlers/getRooms';
+import { commonTestForSocketHandler } from '../helpers/socketHandlerHelper';
 
-describe('socket/socketHandlers/getRooms.js', () => {
-  it('should be a function.', () => {
-    expect(typeof getRooms).toEqual('function');
-  });
-
-  it('takes 2 arguments.', () => {
-    expect(getRooms.length).toEqual(2);
-  });
-});
+commonTestForSocketHandler('getRooms');
