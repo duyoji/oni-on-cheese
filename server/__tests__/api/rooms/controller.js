@@ -9,7 +9,7 @@ const END_POINT = '/api/rooms';
 const server = app.listen(PORT);
 chai.use(chaiHttp);
 
-describe('server/api/rooms/controller.js', () => {
+xdescribe('server/api/rooms/controller.js', () => {
 
   afterAll((done) => {
     // This code is for closing this test after finishing all test in this file.

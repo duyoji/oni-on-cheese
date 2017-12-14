@@ -2,7 +2,7 @@ import redisClient from '../../redis/client';
 
 const PREFIX_FOR_TEST = 'test-';
 
-describe('server/redis/client.js', () => {
+xdescribe('server/redis/client.js', () => {
   beforeEach(() => {});
   afterEach((done) => {
     redisClient.keys(`${PREFIX_FOR_TEST}*`, async (err, keys) => {
