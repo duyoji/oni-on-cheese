@@ -1,7 +1,7 @@
 // See: ./index.js
-const getRooms = (socket, socketNamespace) => {
+const getRooms = (socket, socketNameSpace) => {
   socket.on('getRooms', () => {
-    socketNamespace.adapter.allRooms((err, rooms) => {
+    socketNameSpace.adapter.allRooms((err, rooms) => {
       socket.emit('gameRooms', rooms);
     });
   });

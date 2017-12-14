@@ -3,7 +3,7 @@ const commonTestForSocketHandler = (fileNameWithoutExt) => {
   const path = `../../socketHandlers/${fileNameWithoutExt}`;
   const handler = require(path)[fileNameWithoutExt];
 
-  describe(`socket/socketHandlers/${fileNameWithoutExt}.js`, () => {
+  describe(`Common test of socketHandlers`, () => {
     it('should be a function.', () => {
       expect(typeof handler).toEqual('function');
     });
@@ -14,4 +14,33 @@ const commonTestForSocketHandler = (fileNameWithoutExt) => {
   });
 };
 
-export { commonTestForSocketHandler };
+const createDummySocket = (eventType, callbackForOn, callbackForEmit) => {
+  const socket = {
+    on: (eventType, callback) => {
+      callbackForOn();
+      callback();
+    },
+    emit: (eventType, data) => {
+      callbackForEmit(eventType, data);
+    }
+  };
+
+  return socket
+};
+
+const createDummyNameSpace = (adapterMethodName, callback) => {
+  const nameSpace = {
+    adapter: {}
+  };
+  nameSpace.adapter[adapterMethodName] = () => {
+    callback();
+  };
+
+  return nameSpace
+};
+
+export {
+  commonTestForSocketHandler,
+  createDummySocket,
+  createDummyNameSpace
+};
