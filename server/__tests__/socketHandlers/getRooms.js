@@ -5,7 +5,7 @@ import {
   createDummyNameSpace
 } from '../helpers/socketHandlerHelper';
 
-commonTestForSocketHandler('getRooms');
+commonTestForSocketHandler( getRooms );
 describe('server/socketHandlers/getRooms.js', () => {
 
   const EVENT_TYPE = 'getRooms';

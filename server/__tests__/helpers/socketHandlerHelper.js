@@ -1,8 +1,5 @@
-// fileNameWithoutExt should be filename without extension in `server/socket/Handler` directory
-const commonTestForSocketHandler = (fileNameWithoutExt) => {
-  const path = `../../socketHandlers/${fileNameWithoutExt}`;
-  const handler = require(path)[fileNameWithoutExt];
-
+// `handler` should be in `server/socket/Handler`
+const commonTestForSocketHandler = (handler) => {
   describe(`Common test of socketHandlers`, () => {
     it('should be a function.', () => {
       expect(typeof handler).toEqual('function');
