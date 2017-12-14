@@ -44,6 +44,9 @@ socket.on('joinRoom', function(data){
 socket.on('leaveRoom', function(data){
   console.log('io: leaveRoom in client', data);
 });
+socket.on('updateLocation', function(data){
+  console.log('io: updateLocation in client', data);
+});
 socket.on('closeGame', function(){
   console.log('io: closeGame in client');
 });
@@ -76,7 +79,11 @@ leaveRoomButton.addEventListener('click', (e) => {
   socket.emit('leaveRoom', {roomId: selectedRoom});
 });
 
+updateLocationButton.addEventListener('click', (e) => {
+  socket.emit('updateLocation', {roomId: selectedRoom});
+});
+
 
 closeGameButton.addEventListener('click', (e) => {
-  socket.emit('closeGame');
+  socket.emit('closeGame', {roomId: selectedRoom});
 });
