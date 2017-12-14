@@ -16,15 +16,11 @@ const listen = (expressApp, port = DEFAULT_PORT) => {
   io.adapter(redisAdapter(process.env.REDIS_URL));
   io.attach(server);
   const isWorker = sticky.listen(server, port);
-  console.log(`localhost:${port}`);
 
   if (isWorker) {
     const game = io.of('/game').on('connection', (socket) => {
-      console.log(`connected, id: ${socket.id}`);
-
       socket.on('getRooms', () => {
         game.adapter.allRooms((err, rooms) => {
-          console.log(rooms); // an array containing all rooms (accross every node)
           socket.emit('gameRooms', rooms);
         });
       });
@@ -35,8 +31,6 @@ const listen = (expressApp, port = DEFAULT_PORT) => {
           if (err) {
             console.error(err);
           }
-
-          console.log('success: createRoom');
           socket.emit('createRoom', 'success');
         });
       });
@@ -48,13 +42,7 @@ const listen = (expressApp, port = DEFAULT_PORT) => {
             console.error(err);
           }
 
-
           socket.to(roomId).emit('joinRoom', `${socket.id} has joined this room.`);
-
-          // Debugger
-          game.in(roomId).clients((err, clients) => {
-            console.log('joinRoom: current clients', clients);
-          });
         });
       });
 
@@ -65,11 +53,6 @@ const listen = (expressApp, port = DEFAULT_PORT) => {
           }
 
           socket.to(roomId).emit('leaveRoom', `${socket.id} has left this room.`);
-
-          // Debugger
-          game.in(roomId).clients((err, clients) => {
-            console.log('leaveRoom: current clients', clients);
-          });
         });
       });
 
@@ -83,8 +66,7 @@ const listen = (expressApp, port = DEFAULT_PORT) => {
           return;
         }
 
-        // TODO update Redis and
-        console.log('success: updateLocation');
+        // TODO update User information with Redis.
         game.in(roomId).emit('updateLocations', 'TODO: notify locations of all users to all.');
       });
 
@@ -96,9 +78,7 @@ const listen = (expressApp, port = DEFAULT_PORT) => {
         });
       });
 
-      socket.on('disconnect', () => {
-        console.log(`disconnected, id: ${socket.id}`);
-      });
+      socket.on('disconnect', () => {});
     });
   }
 };
