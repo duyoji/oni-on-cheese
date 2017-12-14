@@ -15,7 +15,7 @@ if(process.env.NODE_ENV !== 'test') {
   if(process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'))
   }
-  app.use('/', express.static(path.join(__dirname, '../build')));
+  app.use('/', express.static(path.join(__dirname, '../public')));
 }
 
 export default app;

@@ -19,8 +19,6 @@ const listen = (expressApp, port = DEFAULT_PORT) => {
   console.log(`localhost:${port}`);
 
   if (isWorker) {
-    // https://github.com/socketio/socket.io-redis
-
     const game = io.of('/game').on('connection', (socket) => {
       console.log(`connected, id: ${socket.id}`);
 
@@ -31,43 +29,71 @@ const listen = (expressApp, port = DEFAULT_PORT) => {
         });
       });
 
-      socket.on('createRoom', ({user}) => {
+      socket.on('createRoom', () => {
         const roomId = socket.id;
         game.adapter.remoteJoin(socket.id, roomId, (err) => {
-          if (err) { /* unknown id */ }
-          // success
-          socket.emit('gameRooms', 'success');
+          if (err) {
+            console.error(err);
+          }
+
+          console.log('success: createRoom');
+          socket.emit('createRoom', 'success');
         });
       });
 
 
-      socket.on('joinRoom', ({roomId, user}) => {
-        if(!user || !user.id || !user.name) return;
-
+      socket.on('joinRoom', ({roomId}) => {
         game.adapter.remoteJoin(socket.id, roomId, (err) => {
-          if (err) { /* unknown id */ }
+          if (err) {
+            console.error(err);
+          }
 
-          socket.to(roomId).emit('join', `${user.name} has joined this room.`);
+
+          socket.to(roomId).emit('joinRoom', `${socket.id} has joined this room.`);
+
+          // Debugger
+          game.in(roomId).clients((err, clients) => {
+            console.log('joinRoom: current clients', clients);
+          });
         });
       });
 
-      socket.on('leaveRoom', ({roomId, user}) => {
-        if(!socket.rooms.hasOwnProperty(roomId)) return;
-        if(!user || !user.id || !user.name) return;
-        game.adapter.remoteLeave('<my-id>', 'room1', (err) => {
-          if (err) { /* unknown id */ }
+      socket.on('leaveRoom', ({roomId}) => {
+        game.adapter.remoteLeave(socket.id, roomId, (err) => {
+          if (err) {
+            console.error(err);
+          }
 
-          socket.to(roomId).emit('leave', `${user.name} has left this room.`);
+          socket.to(roomId).emit('leaveRoom', `${socket.id} has left this room.`);
+
+          // Debugger
+          game.in(roomId).clients((err, clients) => {
+            console.log('leaveRoom: current clients', clients);
+          });
         });
       });
 
-      socket.on('updateLocation', ({user, location, roomId}) => {
-        if(!socket.rooms.hasOwnProperty(roomId)) return;
-        if(!user || !user.id || !user.name) return;
-        if(!location.latitude || !location.longitude) return;
+      socket.on('updateLocation', ({location, roomId}) => {
+        if(!socket.rooms.hasOwnProperty(roomId)) {
+          console.error('Need roomId');
+          return;
+        }
+        if(!location.latitude || !location.longitude) {
+          console.error('Need location:{latitude, longitude}');
+          return;
+        }
 
         // TODO update Redis and
+        console.log('success: updateLocation');
         game.in(roomId).emit('updateLocations', 'TODO: notify locations of all users to all.');
+      });
+
+      socket.on('closeGame', () => {
+        game.adapter.remoteDisconnect(socket.id, true, (err) => {
+          if (err) {
+            console.error(err);
+          }
+        });
       });
 
       socket.on('disconnect', () => {
