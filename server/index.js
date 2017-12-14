@@ -1,4 +1,6 @@
 import app from './server';
 import {listen} from './socket';
 
-listen(app);
+const PORT = process.env.PORT || 9000;
+
+listen(app, PORT);
