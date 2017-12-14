@@ -17,7 +17,7 @@ const commonTestForSocketHandler = (fileNameWithoutExt) => {
 const createDummySocket = (eventType, callbackForOn, callbackForEmit) => {
   const socket = {
     on: (eventType, callback) => {
-      callbackForOn();
+      callbackForOn(eventType);
       callback();
     },
     emit: (eventType, data) => {
@@ -32,8 +32,8 @@ const createDummyNameSpace = (adapterMethodName, callback) => {
   const nameSpace = {
     adapter: {}
   };
-  nameSpace.adapter[adapterMethodName] = () => {
-    callback();
+  nameSpace.adapter[adapterMethodName] = (eventType, data) => {
+    callback(eventType, data);
   };
 
   return nameSpace
