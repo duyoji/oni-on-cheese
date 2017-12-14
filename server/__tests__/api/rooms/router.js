@@ -1,7 +1,7 @@
 import apiRoomsRouter from '../../../api/rooms/router';
 import * as apiRoomsController from '../../../api/rooms/controller';
 
-xdescribe('resources/api/router.js', () => {
+describe('resources/api/router.js', () => {
   it('should exist.', () => {
     expect(typeof apiRoomsRouter).toEqual('function');
   });
