@@ -1,7 +1,11 @@
-import server from '../../socket/getRooms';
+import { getRooms } from '../../socketHandlers/getRooms';
 
-describe('socket/getRooms.js', () => {
-  it('should have `listen` method', () => {
-    expect(typeof server.listen).toEqual('function');
+describe('socket/socketHandlers/getRooms.js', () => {
+  it('should be a function.', () => {
+    expect(typeof getRooms).toEqual('function');
+  });
+
+  it('takes 2 arguments.', () => {
+    expect(getRooms.length).toEqual(2);
   });
 });
