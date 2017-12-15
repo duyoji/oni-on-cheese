@@ -2,11 +2,9 @@
 const updateLocation = (socket, socketNamespace) => {
   socket.on('updateLocation', ({location, roomId}) => {
     if(!roomId) {
-      console.error('Need roomId');
       return;
     }
     if(!location || !location.latitude || !location.longitude) {
-      console.error('Need location:{latitude, longitude}');
       return;
     }
 
