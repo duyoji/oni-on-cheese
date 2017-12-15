@@ -15,8 +15,7 @@ const createDummySocket = (callbackForOn, callbackForEmit) => {
   const socket = {
     on: (eventType, callback) => {
       if (callbackForOn) {
-        callbackForOn(eventType);
-        callback();
+        callbackForOn(eventType, callback);
       }
     },
     emit: (eventType, data) => {
@@ -25,6 +24,11 @@ const createDummySocket = (callbackForOn, callbackForEmit) => {
       }
     },
     id: 'DUMMY_SOCKET_ID'
+  };
+  socket['to'] = (roomId) => {
+    return {
+      emit: socket.emit
+    };
   };
 
   return socket
