@@ -25,21 +25,30 @@ const createDummySocket = (callbackForOn, callbackForEmit) => {
     },
     id: 'DUMMY_SOCKET_ID'
   };
-  socket['to'] = (roomId) => {
-    return {
-      emit: socket.emit
-    };
-  };
+  attachBridgeMethodToEmit(socket, socket.emit);
 
   return socket
 };
 
-const createDummyNameSpace = () => {
+const createDummyNameSpace = (emitMethod = () => {} ) => {
   const nameSpace = {
     adapter: {}
   };
+  attachBridgeMethodToEmit(nameSpace, emitMethod);
 
   return nameSpace
+};
+
+// Helper's helper function
+const attachBridgeMethodToEmit = (socketInterface, emitMethod) => {
+  const methodNamesOfBridgeToEmit = ['to', 'in'];
+  methodNamesOfBridgeToEmit.forEach(methodName => {
+    socketInterface[methodName] = (roomId) => {
+      return {
+        emit: emitMethod
+      };
+    };
+  });
 };
 
 export {

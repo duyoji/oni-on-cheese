@@ -1,7 +1,7 @@
 // See: ./index.js
 const updateLocation = (socket, socketNamespace) => {
   socket.on('updateLocation', ({location, roomId}) => {
-    if(!socket.rooms.hasOwnProperty(roomId)) {
+    if(!roomId) {
       console.error('Need roomId');
       return;
     }
@@ -11,8 +11,7 @@ const updateLocation = (socket, socketNamespace) => {
     }
 
     // TODO update user's location in redis.
-    console.log('success: updateLocation');
-    socketNamespace.in(roomId).emit('updateLocation', 'TODO: notify locations of all users to all.');
+    socketNamespace.in(roomId).emit('resultUpdateLocation', 'TODO: notify locations of all users to all.');
   });
 };
 
