@@ -9,8 +9,9 @@ commonTestForSocketHandler( closeGame );
 describe('server/socketHandlers/closeGame.js', () => {
   it('calls on and adapter method.', () => {
     let receivedEventTypeFromOn = '';
-    const callbackForOn = (eventType) => {
+    const callbackForOn = (eventType, callback) => {
       receivedEventTypeFromOn = eventType;
+      callback();
     };
 
     const socket = createDummySocket(callbackForOn);

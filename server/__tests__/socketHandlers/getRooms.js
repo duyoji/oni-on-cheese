@@ -9,8 +9,9 @@ commonTestForSocketHandler( getRooms );
 describe('server/socketHandlers/getRooms.js', () => {
   it('calls on, adapter method and emit.', () => {
     let receivedEventTypeFromOn = '';
-    const callbackForOn = (eventType) => {
+    const callbackForOn = (eventType, callback) => {
       receivedEventTypeFromOn = eventType;
+      callback();
     };
 
     let receivedEventTypeFromEmit = '';

@@ -9,8 +9,9 @@ commonTestForSocketHandler( disconnect );
 describe('server/socketHandlers/disconnect.js', () => {
   it('calls socket.on.', () => {
     let receivedEventTypeFromOn = '';
-    const callbackForOn = (eventType) => {
+    const callbackForOn = (eventType, callback) => {
       receivedEventTypeFromOn = eventType;
+      callback();
     };
 
     const socket = createDummySocket(callbackForOn);

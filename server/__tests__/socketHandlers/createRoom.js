@@ -9,8 +9,9 @@ commonTestForSocketHandler( createRoom );
 describe('server/socketHandlers/createRoom.js', () => {
   it('calls socket.on, namespace.adapter.method and socket.emit.', () => {
     let receivedEventTypeFromOn = '';
-    const callbackForOn = (eventType) => {
+    const callbackForOn = (eventType, callback) => {
       receivedEventTypeFromOn = eventType;
+      callback();
     };
 
     let receivedEventTypeFromEmit = '';
