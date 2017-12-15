@@ -18,7 +18,7 @@ describe('server/socketHandlers/getRooms.js', () => {
 
     let receivedSocketId = null;
     let receivedClose = null;
-    const nameSpace = createDummyNameSpace('remoteDisconnect');
+    const nameSpace = createDummyNameSpace();
     nameSpace.adapter['remoteDisconnect'] = (socketId, isClose, callback) => {
       receivedSocketId = socketId;
       receivedClose = isClose;
