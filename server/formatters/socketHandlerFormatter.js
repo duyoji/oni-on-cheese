@@ -1,5 +1,3 @@
-const formatInput = () => {};
-
 /**
  *
  * @param {Error} error
@@ -18,4 +16,4 @@ const formatOutput = ({error, data} = {}) => {
   };
 };
 
-export { formatInput, formatOutput };
+export { formatOutput };
