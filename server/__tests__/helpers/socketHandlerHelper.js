@@ -14,24 +14,25 @@ const commonTestForSocketHandler = (handler) => {
 const createDummySocket = (callbackForOn, callbackForEmit) => {
   const socket = {
     on: (eventType, callback) => {
-      callbackForOn(eventType);
-      callback();
+      if (callbackForOn) {
+        callbackForOn(eventType);
+        callback();
+      }
     },
     emit: (eventType, data) => {
-      callbackForEmit(eventType, data);
-    }
+      if(callbackForEmit) {
+        callbackForEmit(eventType, data);
+      }
+    },
+    id: null
   };
 
   return socket
 };
 
-const createDummyNameSpace = (adapterMethodName, ...argsForCallbackOfAdapterMethod) => {
+const createDummyNameSpace = () => {
   const nameSpace = {
     adapter: {}
-  };
-
-  nameSpace.adapter[adapterMethodName] = (fn) => {
-    fn.apply(null, argsForCallbackOfAdapterMethod);
   };
 
   return nameSpace
