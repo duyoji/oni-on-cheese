@@ -8,9 +8,8 @@ import { setSocketEventHandler } from './socketHandlers/index';
 
 // Read .env file and set value in process.env
 dotenv.config()
-const DEFAULT_PORT = '8888'
 
-const listen = (expressApp, port = DEFAULT_PORT) => {
+const listen = (expressApp, port) => {
   const io = socketIO();
   const server = http.createServer(expressApp);
 
