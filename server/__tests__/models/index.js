@@ -1,7 +1,7 @@
 import Nohm from '../../models/index';
 import redisClient from '../../redis/client';
 
-describe('server/redis/client.js', () => {
+describe('server/models/index.js', () => {
   afterAll(() => {
     // Need to quit to finish test completely.
     redisClient.quit();
