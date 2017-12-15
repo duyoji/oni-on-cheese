@@ -6,7 +6,7 @@ import {
 } from '../helpers/socketHandlerHelper';
 
 commonTestForSocketHandler( closeGame );
-describe('server/socketHandlers/getRooms.js', () => {
+describe('server/socketHandlers/closeGame.js', () => {
   it('calls on and adapter method.', () => {
     let receivedEventTypeFromOn = '';
     const callbackForOn = (eventType) => {

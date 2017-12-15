@@ -24,7 +24,7 @@ const createDummySocket = (callbackForOn, callbackForEmit) => {
         callbackForEmit(eventType, data);
       }
     },
-    id: null
+    id: 'DUMMY_SOCKET_ID'
   };
 
   return socket

@@ -4,7 +4,7 @@ const createRoom = (socket, socketNamespace) => {
     const roomId = socket.id;
     socketNamespace.adapter.remoteJoin(socket.id, roomId, (err) => {
       if (err) return;
-      socket.emit('createRoom', 'success');
+      socket.emit('resultCreateRoom', 'success');
     });
   });
 };
