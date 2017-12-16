@@ -9,9 +9,15 @@ describe('server/models/User.js', () => {
     setTimeout(() => done(), 1000);
   });
 
-  afterAll(() => {
+  afterAll(async () => {
     // Need to quit to finish test completely.
-    redisClient.quit();
+    redisClient.keys('oni-on-cheese*', async (err, keys) => {
+      for(let i = 0; i < keys.length; i++) {
+        await redisClient.delAsync(keys[i]);
+      }
+      redisClient.quit();
+      done();
+    });
   });
 
   it('should exist.', () => {
