@@ -3,7 +3,7 @@ import Nohm from './index';
 const User = Nohm.model('User', {
   properties: {
     id: {
-      type: 'integer',
+      type: 'string',
       unique: true,
       validations: [
         ['notEmpty'],
@@ -26,7 +26,36 @@ const User = Nohm.model('User', {
         ['notEmpty']
       ]
     }
+  },
+  methods: {
+    // If fat arrow is used here,
+    // `this` inside this function doesn't refer instance.
+    store: function (data) {
+      return new Promise((resolve, reject) => {
+        this.p(data);
+        this.save((err) => {
+          if (err) {
+            console.error(this.errors); // the errors in validation
+            reject(err);
+          } else {
+            resolve();
+          }
+        });
+      });
+
+    },
   }
 });
+
+User.create = async (data) => {
+  const user = await Nohm.factory('User');
+  try {
+    await user.store(data);
+  } catch (err) {
+    console.error(err);
+  }
+
+  return user;
+};
 
 export default User;

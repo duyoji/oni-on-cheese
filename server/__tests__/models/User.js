@@ -1,7 +1,14 @@
 import User from '../../models/User';
 import redisClient from '../../redis/client';
 
+const PREFIX_FOR_TEST = 'test-oni-on-cheese';
+
 describe('server/models/User.js', () => {
+  beforeAll((done) => {
+    // Wait connecting to redis
+    setTimeout(() => done(), 1000);
+  });
+
   afterAll(() => {
     // Need to quit to finish test completely.
     redisClient.quit();
@@ -9,13 +16,31 @@ describe('server/models/User.js', () => {
 
   it('should exist.', () => {
     expect(typeof User).toEqual('function');
-    const user = new User();
-    user.p('name', 'test');
-    console.log(user);
   });
 
-  xit('should create a user.', () => {
+  describe('class methods', () => {
+    it('should have create method (a class method). ', () => {
+      expect(typeof User.create).toEqual('function');
+    });
 
+    it('should return user instance and store data in redis. ', async (done) => {
+      const user = await User.create({
+        id: '999999',
+        name: 'dummy name',
+        icon_url: '',
+        location: JSON.stringify({
+          latitude: 9999,
+          longitude: -9999,
+        })
+      });
+
+      done();
+    });
+  });
+
+
+  it('should have create method (a class method). ', () => {
+    expect(typeof User.create).toEqual('function');
   });
 
   xit('should be set client.', () => {
