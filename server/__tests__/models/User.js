@@ -30,25 +30,27 @@ describe('server/models/User.js', () => {
   });
 
   describe('class methods', () => {
+    const USER_ID_FOR_TEST = '99999';
+    const INPUT_DATA = {
+      id: USER_ID_FOR_TEST,
+      name: 'dummy name',
+      icon_url: '',
+      location: JSON.stringify({
+        latitude: 9999,
+        longitude: -9999,
+      })
+    };
+
     it('should have create method (a class method). ', () => {
       expect(typeof User.create).toEqual('function');
     });
 
     it('should return user instance and store data in redis. ', async (done) => {
-      const INPUT_DATA = {
-        id: '999999',
-        name: 'dummy name',
-        icon_url: '',
-        location: JSON.stringify({
-          latitude: 9999,
-          longitude: -9999,
-        })
-      };
       const createUser = async () => {
         return await User.create(INPUT_DATA);
       };
       const user = await createUser();
-      expect(user.property('id')).toEqual(INPUT_DATA.id);
+      expect(user.property('id')).toEqual(USER_ID_FOR_TEST);
       expect(user.property('name')).toEqual(INPUT_DATA.name);
       expect(user.property('icon_url')).toEqual(INPUT_DATA.icon_url);
       expect(user.property('location')).toEqual(JSON.parse(INPUT_DATA.location));
@@ -60,6 +62,24 @@ describe('server/models/User.js', () => {
         error = err;
       }
       expect(JSON.parse(error.message).id[0]).toEqual('notUnique');
+      done();
+    });
+
+    it('should return stored data from Redis. ', async (done) => {
+
+      const user = await User.findById(USER_ID_FOR_TEST);
+      expect(user.property('id')).toEqual(USER_ID_FOR_TEST);
+      expect(user.property('name')).toEqual(INPUT_DATA.name);
+      expect(user.property('icon_url')).toEqual(INPUT_DATA.icon_url);
+      expect(user.property('location')).toEqual(JSON.parse(INPUT_DATA.location));
+
+      let error;
+      try {
+        await User.findById('UNREGISTERED_USER');
+      } catch (err) {
+        error = err;
+      }
+      expect(error.message).toEqual('not found');
       done();
     });
   });
