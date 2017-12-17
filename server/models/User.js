@@ -35,8 +35,16 @@ const User = Nohm.model('User', {
         this.p(data);
         this.save((err) => {
           if (err) {
-            console.error(this.errors); // the errors in validation
-            reject(err);
+            /**
+             * this.errors:
+             * {
+             *   id: [ 'notUnique' ],
+             *   name: [],
+             *   icon_url: [],
+             *   location: []
+             * }
+             */
+            reject(new Error(JSON.stringify(this.errors)));
           } else {
             resolve();
           }
@@ -52,7 +60,7 @@ User.create = async (data) => {
   try {
     await user.store(data);
   } catch (err) {
-    console.error(err);
+    throw err;
   }
 
   return user;

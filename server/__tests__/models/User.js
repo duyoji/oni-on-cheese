@@ -1,7 +1,12 @@
 import User from '../../models/User';
 import redisClient from '../../redis/client';
+import { Nohm } from 'nohm';
 
-const PREFIX_FOR_TEST = 'test-oni-on-cheese';
+// Delete data created by this test from Redis
+// after finishing this test.
+// This prefix should be unique not to delete other data in Redis.
+const PREFIX_FOR_TEST = 'server/__tests__/models/User';
+Nohm.setPrefix(PREFIX_FOR_TEST);
 
 describe('server/models/User.js', () => {
   beforeAll((done) => {
@@ -9,9 +14,9 @@ describe('server/models/User.js', () => {
     setTimeout(() => done(), 1000);
   });
 
-  afterAll(async () => {
+  afterAll(async (done) => {
     // Need to quit to finish test completely.
-    redisClient.keys('oni-on-cheese*', async (err, keys) => {
+    redisClient.keys(`${PREFIX_FOR_TEST}*`, async (err, keys) => {
       for(let i = 0; i < keys.length; i++) {
         await redisClient.delAsync(keys[i]);
       }
@@ -30,7 +35,7 @@ describe('server/models/User.js', () => {
     });
 
     it('should return user instance and store data in redis. ', async (done) => {
-      const user = await User.create({
+      const INPUT_DATA = {
         id: '999999',
         name: 'dummy name',
         icon_url: '',
@@ -38,22 +43,24 @@ describe('server/models/User.js', () => {
           latitude: 9999,
           longitude: -9999,
         })
-      });
+      };
+      const createUser = async () => {
+        return await User.create(INPUT_DATA);
+      };
+      const user = await createUser();
+      expect(user.property('id')).toEqual(INPUT_DATA.id);
+      expect(user.property('name')).toEqual(INPUT_DATA.name);
+      expect(user.property('icon_url')).toEqual(INPUT_DATA.icon_url);
+      expect(user.property('location')).toEqual(JSON.parse(INPUT_DATA.location));
 
+      let error;
+      try {
+        await createUser();
+      } catch (err) {
+        error = err;
+      }
+      expect(JSON.parse(error.message).id[0]).toEqual('notUnique');
       done();
     });
-  });
-
-
-  it('should have create method (a class method). ', () => {
-    expect(typeof User.create).toEqual('function');
-  });
-
-  xit('should be set client.', () => {
-    expect(Nohm.client).toEqual(redisClient);
-  });
-
-  xit('should has prefix and it is "oni-on-cheese".', () => {
-    expect(/^oni-on-cheese/.test(Nohm.prefix.channel)).toEqual(true);
   });
 });
