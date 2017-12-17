@@ -1,5 +1,5 @@
 import User from '../../models/User';
-import redisClient from '../../redis/client';
+import { getRedisClient } from '../../redis/client';
 import { Nohm } from 'nohm';
 
 // Delete data created by this test from Redis
@@ -11,16 +11,16 @@ Nohm.setPrefix(PREFIX_FOR_TEST);
 describe('server/models/User.js', () => {
   beforeAll((done) => {
     // Wait connecting to redis
-    setTimeout(() => done(), 1000);
+    setTimeout(() => done(), 100);
   });
 
   afterAll(async (done) => {
     // Need to quit to finish test completely.
-    redisClient.keys(`${PREFIX_FOR_TEST}*`, async (err, keys) => {
+    getRedisClient().keys(`${PREFIX_FOR_TEST}*`, async (err, keys) => {
       for(let i = 0; i < keys.length; i++) {
-        await redisClient.delAsync(keys[i]);
+        await getRedisClient().delAsync(keys[i]);
       }
-      redisClient.quit();
+      getRedisClient().quit();
       done();
     });
   });

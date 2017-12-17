@@ -1,10 +1,14 @@
 import Nohm from '../../models/index';
-import redisClient from '../../redis/client';
+import { getRedisClient } from '../../redis/client';
 
 describe('server/models/index.js', () => {
+  beforeAll((done) => {
+    // Wait connecting to redis
+    setTimeout(() => done(), 100);
+  });
   afterAll(() => {
     // Need to quit to finish test completely.
-    redisClient.quit();
+    getRedisClient().quit();
   });
 
   it('should exist.', () => {
@@ -12,7 +16,7 @@ describe('server/models/index.js', () => {
   });
 
   it('should be set client.', () => {
-    expect(Nohm.client).toEqual(redisClient);
+    expect(Nohm.client).toEqual(getRedisClient());
   });
 
   it('should has prefix and it is "oni-on-cheese".', () => {
