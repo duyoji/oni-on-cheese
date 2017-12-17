@@ -94,46 +94,49 @@ const User = Nohm.model('User', {
   }
 });
 
-User.create = async (data) => {
-  const user = await Nohm.factory('User');
-  user.id = data.id;
-  try {
-    await user.store(data);
-  } catch (err) {
-    throw err;
-  }
+const classMethodsOfUser = {
+  create: async (data) => {
+    const user = await Nohm.factory('User');
+    user.id = data.id;
+    try {
+      await user.store(data);
+    } catch (err) {
+      throw err;
+    }
 
-  return user;
+    return user;
+  },
+
+  findById: async (id) => {
+    const user = await Nohm.factory('User');
+
+    try {
+      await user.findById(id);
+    } catch (err) {
+      throw err;
+    }
+
+    return user;
+  },
+
+  /**
+   *
+   * @param {*} id
+   * @param {string} JSON.stringify({ latitude:..., longitude:...})
+   */
+  updateLocationById: async (id, location) => {
+    const user = await Nohm.factory('User');
+
+    try {
+      await user.findById(id);
+      await user.updateLocation(location);
+    } catch (err) {
+      throw err;
+    }
+
+    return user;
+  }
 };
 
-User.findById = async (id) => {
-  const user = await Nohm.factory('User');
 
-  try {
-    await user.findById(id);
-  } catch (err) {
-    throw err;
-  }
-
-  return user;
-};
-
-/**
- *
- * @param {*} id
- * @param {string} JSON.stringify({ latitude:..., longitude:...})
- */
-User.updateLocationById = async (id, location) => {
-  const user = await Nohm.factory('User');
-
-  try {
-    await user.findById(id);
-    await user.updateLocation(location);
-  } catch (err) {
-    throw err;
-  }
-
-  return user;
-};
-
-export default User;
+export default Object.assign(User, classMethodsOfUser);
