@@ -1,13 +1,16 @@
-import redisClient from '../../redis/client';
+import { getRedisClient } from '../../redis/client';
 
 const PREFIX_FOR_TEST = 'test-';
 
 describe('server/redis/client.js', () => {
-  beforeEach(() => {});
+  beforeAll((done) => {
+    // Wait connecting to redis
+    setTimeout(() => done(), 100);
+  });
   afterEach((done) => {
-    redisClient.keys(`${PREFIX_FOR_TEST}*`, async (err, keys) => {
+    getRedisClient().keys(`${PREFIX_FOR_TEST}*`, async (err, keys) => {
       for(let i = 0; i < keys.length; i++) {
-        await redisClient.delAsync(keys[i]);
+        await getRedisClient().delAsync(keys[i]);
       }
       done();
     });
@@ -15,17 +18,17 @@ describe('server/redis/client.js', () => {
 
   afterAll(() => {
     // Need to quit to finish test completely.
-    redisClient.quit();
+    getRedisClient().quit();
   });
 
   it('should exist.', () => {
-    expect(typeof redisClient).toEqual('object');
+    expect(typeof getRedisClient()).toEqual('object');
   });
 
   it('should have promisified function by bluebird', () => {
-    expect(typeof redisClient.getAsync).toEqual('function');
-    expect(typeof redisClient.setAsync).toEqual('function');
-    expect(typeof redisClient.delAsync).toEqual('function');
+    expect(typeof getRedisClient().getAsync).toEqual('function');
+    expect(typeof getRedisClient().setAsync).toEqual('function');
+    expect(typeof getRedisClient().delAsync).toEqual('function');
   });
 
   it('should set, get and delete data asynchronously', async (done) => {
@@ -33,13 +36,13 @@ describe('server/redis/client.js', () => {
     const expectedValue = `${PREFIX_FOR_TEST}value`;
 
     // set and get
-    await redisClient.setAsync(key, expectedValue);
-    let fetchedValue = await redisClient.getAsync(key);
+    await getRedisClient().setAsync(key, expectedValue);
+    let fetchedValue = await getRedisClient().getAsync(key);
     expect(fetchedValue).toEqual(expectedValue);
 
     // delete
-    await redisClient.delAsync(key);
-    fetchedValue = await redisClient.getAsync(key);
+    await getRedisClient().delAsync(key);
+    fetchedValue = await getRedisClient().getAsync(key);
     expect(fetchedValue).toEqual(null);
 
     done();

@@ -8,8 +8,26 @@ dotenv.config();
 bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);
 
-const client = redis.createClient({
-  url: process.env.REDIS_URL
-});
+let client = null;
+let isConnecting = false;
+// Singleton pattern.
+const getRedisClient = () => {
+  if (client && isConnecting) {
+    return client;
+  }
 
-export default client;
+  client = redis.createClient({
+    url: process.env.REDIS_URL
+  });
+  isConnecting = true;
+
+  client.on('end', function () {
+    client = null;
+    isConnecting = false;
+  });
+
+  return client;
+};
+
+
+export { getRedisClient };
