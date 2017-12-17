@@ -138,5 +138,4 @@ const classMethodsOfUser = {
   }
 };
 
-
 export default Object.assign(User, classMethodsOfUser);
