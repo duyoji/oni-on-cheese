@@ -82,5 +82,30 @@ describe('server/models/User.js', () => {
       expect(error.message).toEqual('not found');
       done();
     });
+
+    it('should update location of specific user.', async (done) => {
+      const newLocation = JSON.stringify({
+        latitude: 10000,
+        longitude: -10000,
+      });
+
+      const user = await User.updateLocationById(USER_ID_FOR_TEST, newLocation);
+      expect(user.property('id')).toEqual(USER_ID_FOR_TEST);
+      expect(user.property('name')).toEqual(INPUT_DATA.name);
+      expect(user.property('icon_url')).toEqual(INPUT_DATA.icon_url);
+      expect(user.property('location')).toEqual(JSON.parse(newLocation));
+
+      let error;
+      const invalidLocationData = 1;
+      try {
+        await User.updateLocationById(USER_ID_FOR_TEST, invalidLocationData);
+      } catch (err) {
+        error = err;
+      }
+      expect(JSON.parse(error.message).location[0]).toEqual('custom_location');
+      done();
+
+      done();
+    });
   });
 });

@@ -29,7 +29,27 @@ const User = Nohm.model('User', {
     location: {
       type: 'json',
       validations: [
-        ['notEmpty']
+        function (stringifiedLocations, options, callback) {
+          const parsedLocation = JSON.parse(stringifiedLocations);
+          if(typeof parsedLocation !== 'object') {
+            callback(false);
+            return;
+          }
+
+          const hasValidProps = parsedLocation.hasOwnProperty('latitude') && parsedLocation.hasOwnProperty('longitude') && Object.keys(parsedLocation).length === 2;
+          if(!hasValidProps) {
+            callback(false);
+            return;
+          }
+
+          const hasValidTypes = typeof parsedLocation.latitude === 'number' && typeof parsedLocation.longitude === 'number';
+          if(!hasValidTypes) {
+            callback(false);
+            return;
+          }
+
+          callback(true);
+        }
       ]
     }
   },
@@ -38,7 +58,7 @@ const User = Nohm.model('User', {
     // `this` inside this function doesn't refer instance.
     store: function (data) {
       return new Promise((resolve, reject) => {
-        this.p(data);
+        this.property(data);
         this.save((errorMessage) => {
           if (errorMessage) {
             /**
@@ -67,6 +87,9 @@ const User = Nohm.model('User', {
           }
         });
       });
+    },
+    updateLocation: function(location) {
+      return this.store({location});
     }
   }
 });
@@ -88,6 +111,24 @@ User.findById = async (id) => {
 
   try {
     await user.findById(id);
+  } catch (err) {
+    throw err;
+  }
+
+  return user;
+};
+
+/**
+ *
+ * @param {*} id
+ * @param {string} JSON.stringify({ latitude:..., longitude:...})
+ */
+User.updateLocationById = async (id, location) => {
+  const user = await Nohm.factory('User');
+
+  try {
+    await user.findById(id);
+    await user.updateLocation(location);
   } catch (err) {
     throw err;
   }
