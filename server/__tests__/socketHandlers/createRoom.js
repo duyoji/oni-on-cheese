@@ -76,7 +76,6 @@ describe('server/socketHandlers/createRoom.js', () => {
     };
 
     createRoom(socket, nameSpace);
-
     expect(receivedDataFromEmit).toEqual({
       result: {
         error: err
