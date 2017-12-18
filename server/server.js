@@ -3,8 +3,15 @@ import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import path from 'path';
 import apiRoomsRouter from './api/rooms/router';
+import passport from 'passport';
 
 const app = express();
+// initialize passport 
+app.use(passport.initialize());
+
+// Routing auth
+app.use('/api/oauth', auth);
+
 app.use('/api/rooms', [
   bodyParser.json(),
   bodyParser.urlencoded({extended: true}),
