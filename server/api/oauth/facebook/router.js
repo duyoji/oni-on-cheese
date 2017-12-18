@@ -27,4 +27,13 @@ router.get('/login',
   }),
 );
 
+router.get('facebook/callback',
+  passport.authenticate('facebook'),
+  (req, res) => {
+    console.log('Succssfully logged in:', req.user);
+    const redirect = req.session.oauth2return || '/';
+    delete req.session.oauth2return;
+    res.redirect(redirect);
+  },)
+
 export default router;
