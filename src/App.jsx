@@ -17,6 +17,7 @@ class App extends Component {
   }
 }
 
+// TODO: Replace TopPage Container
 const TopPage = () => (
   <Redirect to="/login"/>
   // <div>
@@ -26,6 +27,8 @@ const TopPage = () => (
   //   </Link>
   // </div>
 );
+
+// TODO: Login Container
 const LoginPage = () => (
   <div>
     <p>Login Page</p>
@@ -34,6 +37,8 @@ const LoginPage = () => (
     </Link>
   </div>
 );
+
+// TODO: RoomListPage Container
 const RoomsPage = () => (
   <div>
     <p>Rooms Page</p>
@@ -42,6 +47,8 @@ const RoomsPage = () => (
     </Link>
   </div>
 );
+
+// TODO: MapPage Container
 const MapPage = () => (
   <div>
     <p>Map Page</p>
