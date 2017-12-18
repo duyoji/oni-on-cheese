@@ -31,4 +31,35 @@ describe('server/socketHandlers/closeGame.js', () => {
     expect(receivedSocketId).toEqual(socket.id);
     expect(receivedClose).toEqual(true);
   });
+
+  it('should emit data when error happens.', () => {
+    let receivedEventTypeFromOn = '';
+    const callbackForOn = (eventType, callback) => {
+      receivedEventTypeFromOn = eventType;
+      callback();
+    };
+
+    let receivedEventTypeFromEmit = '';
+    let receivedDataFromEmit = null;
+    const callbackForEmit = (eventType, data) => {
+      receivedEventTypeFromEmit = eventType;
+      receivedDataFromEmit = data;
+    };
+
+    const socket = createDummySocket(callbackForOn, callbackForEmit);
+    const nameSpace = createDummyNameSpace();
+    const err = new Error('DUMMY_ERROR');
+    nameSpace.adapter['remoteDisconnect'] = (socketId, isClose, callback) => {
+      callback(err);
+    };
+
+    closeGame(socket, nameSpace);
+    expect(receivedEventTypeFromEmit).toEqual('resultCloseGame');
+    expect(receivedDataFromEmit).toEqual({
+      result: {
+        error: err
+      }
+    });
+    expect(receivedDataFromEmit.result.error.message).toEqual(err.message);
+  });
 });

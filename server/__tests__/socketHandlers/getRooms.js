@@ -75,5 +75,6 @@ describe('server/socketHandlers/getRooms.js', () => {
         error: err
       }
     });
+    expect(receivedDataFromEmit.result.error.message).toEqual(err.message);
   });
 });
