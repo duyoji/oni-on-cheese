@@ -32,6 +32,9 @@
     "react-redux": "^5.0.6",
     "react-scripts": "^1.0.17",
     "redis": "^2.8.0",
+    "socket.io": "^2.0.4",
+    "socket.io-redis": "^5.2.0",
+    "sticky-session": "^1.1.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"
   },
@@ -50,5 +53,11 @@
     "eslint": "^4.13.1",
     "eslint-plugin-react": "^7.5.1",
     "nodemon": "^1.12.5"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "<rootDir>/server/__tests__/helpers/",
+      "<rootDir>/node_modules/"
+    ]
   }
 }
