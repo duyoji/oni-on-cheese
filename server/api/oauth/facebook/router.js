@@ -7,7 +7,7 @@ const FacebookStrategy = FacebookPassport.Strategy;
 passport.use(new FacebookStrategy({
     'clientID': '1723859427634595', // App ID
     'clientSecret': process.env.clientSecret, // App Secret
-    'callbackURL': 'http://localhost:9000/auth/facebook/callback',
+    'callbackURL': 'http://localhost:3000/auth/facebook/callback',
     'profileURL': 'https://graph.facebook.com/v2.5/me?fields=first_name,last_name,email',
     'profileFields': ['id', 'email', 'name'] // For requesting permissions from Facebook API
   },
@@ -21,19 +21,16 @@ passport.use(new FacebookStrategy({
   })
 ));
 
-router.get('/login',
+router.get('/auth/facebook',
   passport.authenticate('facebook', {
     scope: ['email', 'profile']
   }),
 );
 
-router.get('facebook/callback',
-  passport.authenticate('facebook'),
-  (req, res) => {
-    console.log('Succssfully logged in:', req.user);
-    const redirect = req.session.oauth2return || '/';
-    delete req.session.oauth2return;
-    res.redirect(redirect);
-  },)
+app.get('/auth/facebook/callback', 
+passport.authenticate('facebook', {
+  successRedirect: '/',
+  failureRedirect: '/login'
+}));
 
 export default router;
