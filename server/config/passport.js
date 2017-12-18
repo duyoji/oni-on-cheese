@@ -1,8 +1,3 @@
-const FacebookStrategy = require('passport-facebook').Strategy;
-
-//load up the user model
-// const User = require();
-
 //load the auth variables
 const configAuth = require('./auth');
 
@@ -29,7 +24,16 @@ module.exports = (passport) => {
 
 passport.use(new FacebookStrategy({
 
-  //pull in app id and secret from auth.js file
-  clientID: configAuth,
-  clientSecrete* 
-})
+    //pull in app id and secret from auth.js file
+    clientID: configAuth.facebookAuth.clientID,
+    clientSecret: configAuth.facebookAuth.clientSecret,
+    callbackURL: configAuth.facebookAuth.callbackURL
+  },
+
+//facebook will send back the token and profile
+  (accessToke, refreshToken, profile, done) => {
+    process.nextTick(() => {
+      return done(null, user);
+    });
+  }
+));
