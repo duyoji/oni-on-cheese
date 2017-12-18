@@ -7,13 +7,13 @@ import {
 
 commonTestForSocketHandler( updateLocation );
 describe('server/socketHandlers/updateLocation.js', () => {
-  it('calls socket.on, namespace.adapter.method and socket.emit.', () => {
-    const DUMMY_ROOM_ID = 'DUMMY_ROOM_ID';
-    const DUMMY_LOCATION = {
-      latitude: -9999,
-      longitude: 9999
-    };
+  const DUMMY_ROOM_ID = 'DUMMY_ROOM_ID';
+  const DUMMY_LOCATION = {
+    latitude: -9999,
+    longitude: 9999
+  };
 
+  it('calls socket.on, namespace.adapter.method and socket.emit.', () => {
     let receivedEventTypeFromOn = '';
     const callbackForOn = (eventType, callback) => {
       receivedEventTypeFromOn = eventType;
@@ -38,6 +38,72 @@ describe('server/socketHandlers/updateLocation.js', () => {
 
     expect(receivedEventTypeFromOn).toEqual('updateLocation');
     expect(receivedEventTypeFromEmit).toEqual('resultUpdateLocation');
-    expect(receivedDataFromEmit).toEqual('TODO: notify locations of all users to all.');
+    expect(receivedDataFromEmit).toEqual({
+      result: {
+        data: 'TODO: notify locations of all users to all.'
+      }
+    });
+  });
+
+  it('should includes error in emitted data when `roomId` is not passed.', () => {
+    let receivedEventTypeFromOn = '';
+    const callbackForOn = (eventType, callback) => {
+      receivedEventTypeFromOn = eventType;
+      callback({
+        location: DUMMY_LOCATION
+      });
+    };
+
+    let receivedDataToSocketIdFromEmit = null;
+    const callbackForEmitOfSocket = (eventType, data) => {
+      receivedDataToSocketIdFromEmit = data;
+    };
+
+    let receivedBroadcastedDataFromEmit = null;
+    const callbackForEmitOfNameSpace = (eventType, data) => {
+      receivedBroadcastedDataFromEmit = data;
+    };
+
+    const socket = createDummySocket(callbackForOn, callbackForEmitOfSocket);
+    const nameSpace = createDummyNameSpace(callbackForEmitOfNameSpace);
+
+    updateLocation(socket, nameSpace);
+    expect(receivedDataToSocketIdFromEmit).toEqual({
+      result: {
+        error: new Error('Need to put a roomId')
+      }
+    });
+    expect(receivedBroadcastedDataFromEmit).toEqual(null);
+  });
+
+  it('should includes error in emitted data when `location` is not passed.', () => {
+    let receivedEventTypeFromOn = '';
+    const callbackForOn = (eventType, callback) => {
+      receivedEventTypeFromOn = eventType;
+      callback({
+        roomId: DUMMY_ROOM_ID,
+      });
+    };
+
+    let receivedDataToSocketIdFromEmit = null;
+    const callbackForEmitOfSocket = (eventType, data) => {
+      receivedDataToSocketIdFromEmit = data;
+    };
+
+    let receivedBroadcastedDataFromEmit = null;
+    const callbackForEmitOfNameSpace = (eventType, data) => {
+      receivedBroadcastedDataFromEmit = data;
+    };
+
+    const socket = createDummySocket(callbackForOn, callbackForEmitOfSocket);
+    const nameSpace = createDummyNameSpace(callbackForEmitOfNameSpace);
+
+    updateLocation(socket, nameSpace);
+    expect(receivedDataToSocketIdFromEmit).toEqual({
+      result: {
+        error: new Error('Need to put a location that includes latitude and longitude properties.')
+      }
+    });
+    expect(receivedBroadcastedDataFromEmit).toEqual(null);
   });
 });
