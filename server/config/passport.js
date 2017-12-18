@@ -32,8 +32,11 @@ passport.use(new FacebookStrategy({
 
 //facebook will send back the token and profile
   (accessToke, refreshToken, profile, done) => {
-    process.nextTick(() => {
-      return done(null, user);
+    User.findOrCreate(..., function(err, user) {
+      if (err) {
+        return done(err);
+      }
+      done(null, user);
     });
   }
 ));
