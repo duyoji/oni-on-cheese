@@ -1,4 +1,5 @@
 import { formatOutput } from '../formatters/socketHandlerFormatter';
+import User from '../models/User';
 
 const EVENT_TYPES = {
   ON: 'updateLocation',
@@ -7,7 +8,7 @@ const EVENT_TYPES = {
 
 // See: ./index.js
 const updateLocation = (socket, socketNamespace) => {
-  socket.on('updateLocation', ({location, roomId}) => {
+  socket.on('updateLocation', ({location, roomId, name = socket.id, iconUrl = ''}) => {
     // Only when There is no error, broadcast data to all members in same room including sender.
     // If something error happen, send a discription of the error to sender.
     if(!roomId) {
@@ -21,8 +22,16 @@ const updateLocation = (socket, socketNamespace) => {
       return;
     }
 
-    // TODO update user's location in redis.
-    socketNamespace.in(roomId).emit('resultUpdateLocation', formatOutput({data: 'TODO: notify locations of all users to all.'}));
+    User.create({
+      id: socket.id,
+      name,
+      iconUrl,
+      location: JSON.stringify(location)
+    }).then(user => {
+      socketNamespace.in(roomId).emit(EVENT_TYPES.EMIT, formatOutput({data: user.serialize()}));
+    }).catch(error => {
+      socketNamespace.emit(EVENT_TYPES.EMIT, formatOutput({error}));
+    });
   });
 };
 
