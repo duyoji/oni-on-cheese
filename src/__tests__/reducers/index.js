@@ -6,7 +6,7 @@ describe('src/reducers/index.js', () => {
   });
   it('returns object when called with action.', () => {
     const result = reducer(
-      createDummyAction(),
+      createDummyState(),
       createDummyAction()
     );
     expect(typeof result).toEqual('object');
