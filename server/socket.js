@@ -1,13 +1,12 @@
 import socketIO from'socket.io';
 import sticky from 'sticky-session';
 import http from 'http';
-import app from './server';
 import redisAdapter from 'socket.io-redis';
 import dotenv from 'dotenv';
 import { setSocketEventHandler } from './socketHandlers/index';
 
 // Read .env file and set value in process.env
-dotenv.config()
+dotenv.config();
 
 const listen = (expressApp, port) => {
   const io = socketIO();

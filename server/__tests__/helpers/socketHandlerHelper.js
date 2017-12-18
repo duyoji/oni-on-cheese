@@ -1,6 +1,6 @@
 // `handler` should be in `server/socket/Handler`
 const commonTestForSocketHandler = (handler) => {
-  describe(`Common test of socketHandlers`, () => {
+  describe('Common test of socketHandlers', () => {
     it('should be a function.', () => {
       expect(typeof handler).toEqual('function');
     });
@@ -27,7 +27,7 @@ const createDummySocket = (callbackForOn, callbackForEmit) => {
   };
   attachBridgeMethodToEmit(socket, socket.emit);
 
-  return socket
+  return socket;
 };
 
 const createDummyNameSpace = (emitMethod = () => {} ) => {
@@ -36,14 +36,14 @@ const createDummyNameSpace = (emitMethod = () => {} ) => {
   };
   attachBridgeMethodToEmit(nameSpace, emitMethod);
 
-  return nameSpace
+  return nameSpace;
 };
 
 // Helper's helper function
 const attachBridgeMethodToEmit = (socketInterface, emitMethod) => {
   const methodNamesOfBridgeToEmit = ['to', 'in'];
   methodNamesOfBridgeToEmit.forEach(methodName => {
-    socketInterface[methodName] = (roomId) => {
+    socketInterface[methodName] = (roomId) => { // eslint-disable-line no-unused-vars
       return {
         emit: emitMethod
       };

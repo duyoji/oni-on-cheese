@@ -23,6 +23,7 @@ describe('server/socketHandlers/closeGame.js', () => {
     nameSpace.adapter['remoteDisconnect'] = (socketId, isClose, callback) => {
       receivedSocketId = socketId;
       receivedClose = isClose;
+      callback();
     };
 
     closeGame(socket, nameSpace);

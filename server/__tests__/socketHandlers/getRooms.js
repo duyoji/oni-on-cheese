@@ -28,7 +28,6 @@ describe('server/socketHandlers/getRooms.js', () => {
 
     const err = null;
     const expectedEmitData = ['room1', 'room2'];
-    let calledCallbackOfNameSpace = false;
     const nameSpace = createDummyNameSpace();
     nameSpace.adapter['allRooms'] = (fn) => {
       fn(err, expectedEmitData);
