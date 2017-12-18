@@ -8,7 +8,7 @@ const EVENT_TYPES = {
 
 // See: ./index.js
 const updateLocation = (socket, socketNamespace) => {
-  socket.on('updateLocation', ({location, roomId, name = socket.id, iconUrl = ''}) => {
+  socket.on('updateLocation', ({location, roomId, id = socket.id, name = socket.id, iconUrl = ''}) => {
     // Only when There is no error, broadcast data to all members in same room including sender.
     // If something error happen, send a discription of the error to sender.
     if(!roomId) {
@@ -22,16 +22,26 @@ const updateLocation = (socket, socketNamespace) => {
       return;
     }
 
-    User.create({
-      id: socket.id,
-      name,
-      iconUrl,
-      location: JSON.stringify(location)
-    }).then(user => {
-      socketNamespace.in(roomId).emit(EVENT_TYPES.EMIT, formatOutput({data: user.serialize()}));
-    }).catch(error => {
-      socketNamespace.emit(EVENT_TYPES.EMIT, formatOutput({error}));
-    });
+    User
+      .findById(id)
+      .then(user => {
+        if(user) {
+          return user.updateLocation(location).then(() => user);
+        } else {
+          return User.create({
+            id,
+            name,
+            iconUrl,
+            location: JSON.stringify(location)
+          });
+        }
+      })
+      .then(user => {
+        socketNamespace.in(roomId).emit(EVENT_TYPES.EMIT, formatOutput({data: user.serialize()}));
+      })
+      .catch(error => {
+        socket.emit(EVENT_TYPES.EMIT, formatOutput({error}));
+      });
   });
 };
 

@@ -116,12 +116,17 @@ const classMethodsOfUser = {
   },
 
   findById: async (id) => {
-    const user = await Nohm.factory('User');
+    let user = await Nohm.factory('User');
 
     try {
       await user.findById(id);
     } catch (err) {
-      throw err;
+      // When user is not found, just return null to handle easily.
+      // If error is not `not found`, which means unexpected error.
+      if(err.message !== 'not found') {
+        throw err;
+      }
+      user = null;
     }
 
     return user;

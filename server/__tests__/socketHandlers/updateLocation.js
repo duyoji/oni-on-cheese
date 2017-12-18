@@ -39,10 +39,9 @@ describe('server/socketHandlers/updateLocation.js', () => {
     });
   });
 
-  it('calls socket.on, namespace.adapter.method and socket.emit.', (done) => {
-    let receivedEventTypeFromOn = '';
+  it('creates new user data in redis when redis does not have the user data', (done) => {
     const callbackForOn = (eventType, callback) => {
-      receivedEventTypeFromOn = eventType;
+      expect(eventType).toEqual('updateLocation');
       callback({
         roomId: DUMMY_ROOM_ID,
         location: DUMMY_LOCATION,
@@ -51,24 +50,50 @@ describe('server/socketHandlers/updateLocation.js', () => {
       });
     };
 
-    let receivedEventTypeFromEmit = '';
-    let receivedDataFromEmit = null;
-
     // `updateLocation` has async code.
     // So `expect` put into async function.
     const callbackForEmit = (eventType, data) => {
-      receivedEventTypeFromEmit = eventType;
-      receivedDataFromEmit = data;
-
-      expect(receivedEventTypeFromOn).toEqual('updateLocation');
-      expect(receivedEventTypeFromEmit).toEqual('resultUpdateLocation');
-      expect(receivedDataFromEmit).toEqual({
+      expect(eventType).toEqual('resultUpdateLocation');
+      expect(data).toEqual({
         result: {
           data: {
             id: socket.id,
             name: DUMMY_NAME,
             iconUrl: DUMMY_ICON_URL,
             location: DUMMY_LOCATION
+          }
+        }
+      });
+      done();
+    };
+
+    const socket = createDummySocket(callbackForOn);
+    const nameSpace = createDummyNameSpace(callbackForEmit);
+    updateLocation(socket, nameSpace);
+  });
+
+  it('updates a user data in redis when redis has the user data', (done) => {
+    const newLocation = {
+      latitude: -1,
+      longitude: 1
+    };
+    const callbackForOn = (eventType, callback) => {
+      callback({
+        roomId: DUMMY_ROOM_ID,
+        location: newLocation,
+      });
+    };
+
+    // `updateLocation` has async code.
+    // So `expect` put into async function.
+    const callbackForEmit = (eventType, data) => {
+      expect(data).toEqual({
+        result: {
+          data: {
+            id: socket.id,
+            name: DUMMY_NAME,
+            iconUrl: DUMMY_ICON_URL,
+            location: newLocation
           }
         }
       });
