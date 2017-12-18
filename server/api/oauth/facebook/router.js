@@ -2,6 +2,8 @@ import { Router } from 'express';
 import passport from 'passport';
 import FacebookPassport from 'passport-facebook';
 
+const router = Router();
+
 const FacebookStrategy = FacebookPassport.Strategy;
 
 passport.use(new FacebookStrategy({
@@ -19,15 +21,15 @@ passport.use(new FacebookStrategy({
     }
     done(null, user);
   })
-));
+);
 
-router.get('/auth/facebook',
+router.get('/',
   passport.authenticate('facebook', {
     scope: ['email', 'profile']
   }),
 );
 
-app.get('/auth/facebook/callback', 
+router.get('/callback', 
 passport.authenticate('facebook', {
   successRedirect: '/',
   failureRedirect: '/login'
