@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom';
 import { Button } from 'reactstrap';
 
 class App extends Component {
@@ -18,12 +18,13 @@ class App extends Component {
 }
 
 const TopPage = () => (
-  <div>
-    <p>Top Page</p>
-    <Link to='/login'>
-      <Button color="primary" size="lg" block>move to login page</Button>
-    </Link>
-  </div>
+  <Redirect to="/login"/>
+  // <div>
+  //   <p>Top Page</p>
+  //   <Link to='/login'>
+  //     <Button color="primary" size="lg" block>move to login page</Button>
+  //   </Link>
+  // </div>
 );
 const LoginPage = () => (
   <div>
