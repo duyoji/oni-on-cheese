@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom';
+import { Link, Route, Redirect } from 'react-router-dom';
 import { Button } from 'reactstrap';
 
 class App extends Component {
   render() {
     return (
-      <Router>
-        <div className="App">
-          <Route exact={true} path="/" component={TopPage} />
-          <Route exact={true} path="/login" component={LoginPage} />
-          <Route exact={true} path="/rooms" component={RoomsPage} />
-          <Route exact={true} path="/map" component={MapPage} />
-        </div>
-      </Router>
+      <div className="App">
+        <Route exact={true} path="/" component={TopPage} />
+        <Route exact={true} path="/login" component={LoginPage} />
+        <Route exact={true} path="/rooms" component={RoomsPage} />
+        <Route exact={true} path="/map" component={MapPage} />
+      </div>
     );
   }
 }
@@ -20,17 +18,11 @@ class App extends Component {
 // TODO: Replace TopPage Container
 const TopPage = () => (
   <Redirect to="/login"/>
-  // <div>
-  //   <p>Top Page</p>
-  //   <Link to='/login'>
-  //     <Button color="primary" size="lg" block>move to login page</Button>
-  //   </Link>
-  // </div>
 );
 
 // TODO: Login Container
 const LoginPage = () => (
-  <div>
+  <div className="loginPage">
     <p>Login Page</p>
     <Link to='/rooms'>
       <Button color="secondary" size="lg" block>move to rooms page</Button>
@@ -40,7 +32,7 @@ const LoginPage = () => (
 
 // TODO: RoomListPage Container
 const RoomsPage = () => (
-  <div>
+  <div className="roomsPage">
     <p>Rooms Page</p>
     <Link to='/map'>
       <Button color="success" size="lg" block>move to map page</Button>
@@ -50,7 +42,7 @@ const RoomsPage = () => (
 
 // TODO: MapPage Container
 const MapPage = () => (
-  <div>
+  <div className="mapPage">
     <p>Map Page</p>
     <Link to='/'>
       <Button color="warning" size="lg" block>move to top page</Button>
