@@ -36,6 +36,44 @@ describe('server/socketHandlers/getRooms.js', () => {
     getRooms(socket, nameSpace);
     expect(receivedEventTypeFromOn).toEqual('getRooms');
     expect(receivedEventTypeFromEmit).toEqual('resultGetRooms');
-    expect(receivedDataFromEmit).toEqual(expectedEmitData);
+    expect(receivedDataFromEmit).toEqual({
+      result: {
+        data: expectedEmitData
+      }
+    });
+  });
+
+  it('should include error if there is error', () => {
+    let receivedEventTypeFromOn = '';
+    const callbackForOn = (eventType, callback) => {
+      receivedEventTypeFromOn = eventType;
+      callback();
+    };
+
+    let receivedEventTypeFromEmit = '';
+    let receivedDataFromEmit = null;
+    const callbackForEmit = (eventType, data) => {
+      receivedEventTypeFromEmit = eventType;
+      receivedDataFromEmit = data;
+    };
+
+    const socket = createDummySocket(
+      callbackForOn,
+      callbackForEmit // called in namespace.adapter method.
+    );
+
+    const err = new Error('DUMMY_ERROR');
+    const expectedEmitData = undefined;
+    const nameSpace = createDummyNameSpace();
+    nameSpace.adapter['allRooms'] = (fn) => {
+      fn(err, expectedEmitData);
+    };
+
+    getRooms(socket, nameSpace);
+    expect(receivedDataFromEmit).toEqual({
+      result: {
+        error: err
+      }
+    });
   });
 });
