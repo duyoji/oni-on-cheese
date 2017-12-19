@@ -21,7 +21,7 @@ const User = Nohm.model('User', {
         ['notEmpty']
       ]
     },
-    icon_url: {
+    iconUrl: {
       defaultValue: '',
       type: 'string',
     },
@@ -66,7 +66,7 @@ const User = Nohm.model('User', {
              * {
              *   id: [ 'notUnique' ],
              *   name: [],
-             *   icon_url: [],
+             *   iconUrl: [],
              *   location: []
              * }
              */
@@ -90,6 +90,14 @@ const User = Nohm.model('User', {
     },
     updateLocation: function(location) {
       return this.store({location});
+    },
+    serialize: function() {
+      return {
+        id: this.property('id'),
+        name: this.property('name'),
+        iconUrl: this.property('iconUrl'),
+        location: this.property('location'),
+      };
     }
   }
 });
@@ -108,12 +116,17 @@ const classMethodsOfUser = {
   },
 
   findById: async (id) => {
-    const user = await Nohm.factory('User');
+    let user = await Nohm.factory('User');
 
     try {
       await user.findById(id);
     } catch (err) {
-      throw err;
+      // When user is not found, just return null to handle easily.
+      // If error is not `not found`, which means unexpected error.
+      if(err.message !== 'not found') {
+        throw err;
+      }
+      user = null;
     }
 
     return user;
