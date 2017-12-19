@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Link, Route, Redirect } from 'react-router-dom';
 import { Button } from 'reactstrap';
+import Top from './Top';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Route exact={true} path="/" component={TopPage} />
-        <Route exact={true} path="/login" component={LoginPage} />
+        <Route exact={true} path="/" component={Top} />
+        {/* <Route exact={true} path="/login" component={LoginPage} /> */}
         <Route exact={true} path="/rooms" component={RoomsPage} />
         <Route exact={true} path="/map" component={MapPage} />
       </div>
