@@ -6,7 +6,6 @@ import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Provider } from 'react-redux'; // eslint-disable-line no-unused-vars
 import { createStore } from 'redux';
-import reducer from '../../reducers/index';
 
 configure({ adapter: new Adapter() });
 
@@ -20,7 +19,8 @@ describe('src/components/App.jsx', () => {
 });
 
 const createWrapper = (path) => {
-  const store = createStore(reducer);
+  const mockReducer = () => {};
+  const store = createStore(mockReducer);
 
   return mount(
     <Provider store={store}>
