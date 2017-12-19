@@ -1,13 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { MemoryRouter, Link } from 'react-router-dom';
-import App from '../../components/App';
-import { mount, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import React from 'react'; // eslint-disable-line no-unused-vars
+import { MemoryRouter } from 'react-router-dom'; // eslint-disable-line no-unused-vars
+import App from '../../components/App'; // eslint-disable-line no-unused-vars
 import { Provider } from 'react-redux'; // eslint-disable-line no-unused-vars
 import { createStore } from 'redux';
-
-configure({ adapter: new Adapter() });
+import { mount } from '../helpers/configuredEnzymeWithAdapter';
 
 describe('src/components/App.jsx', () => {
   describe('When access to `/game-list`', () => {
