@@ -12,23 +12,18 @@ let client = null;
 let isConnecting = false;
 // Singleton pattern.
 const getRedisClient = () => {
-  // if (client && isConnecting) {
-  if (client) {
+  if (client && isConnecting) {
     return client;
   }
 
   client = redis.createClient({
     url: process.env.REDIS_URL
   });
-  // isConnecting = true;
+  isConnecting = true;
 
   client.on('end', function () {
     client = null;
-    // isConnecting = false;
-  });
-
-  client.on("error", function (err) {
-    console.log("Redis error encountered@@@@@@", err);
+    isConnecting = false;
   });
 
   return client;
