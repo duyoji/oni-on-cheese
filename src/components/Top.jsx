@@ -9,6 +9,7 @@ class Top extends Component {
   }
 
   onClickNewGame(){
+    // console.log(this.props.createGame
     createGame();
   }
 

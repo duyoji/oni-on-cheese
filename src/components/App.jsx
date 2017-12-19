@@ -9,9 +9,9 @@ class App extends Component {
   }
 
   get currentView(){
-    if (this.props.currentView === 'Top'){
+    // if (this.props.currentView === 'Top'){
       return <Route exact={true} path="/" component={Top} />
-    }
+    // }
   }
 
   render() {

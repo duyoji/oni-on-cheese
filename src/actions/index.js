@@ -1,7 +1,7 @@
-import { createRoom } from '../utils/index';
+import { createRoom } from '../socketHandlers/createRoom';
 
 export function createGame () {
-  createRoom();
+  createRoom;
   return {
     type: 'CREATE_GAME'
   }
