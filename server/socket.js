@@ -9,18 +9,24 @@ import { setSocketEventHandler } from './socketHandlers/index';
 dotenv.config();
 
 const listen = (expressApp, port) => {
-  const io = socketIO();
+  // const io = socketIO();
   const server = http.createServer(expressApp);
+  const io = socketIO(server);
+  // console.log(io);
 
   io.adapter(redisAdapter(process.env.REDIS_URL));
-  io.attach(server);
-  const isWorker = sticky.listen(server, port);
+  // io.attach(server);
 
-  if (isWorker) {
-    const game = io.of('/game').on('connection', (socket) => {
-      setSocketEventHandler(socket, game);
-    });
-  }
+  // const isWorker = sticky.listen(server, port);
+
+  // if (isWorker) {
+  //   const game = io.of('/game').on('connection', (socket) => {
+  //     setSocketEventHandler(socket, game);
+  //   });
+  // }
+  const game = io.of('/game').on('connection', (socket) => {
+    setSocketEventHandler(socket, game);
+  });
 };
 
 export { listen };
