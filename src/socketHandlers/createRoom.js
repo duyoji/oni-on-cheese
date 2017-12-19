@@ -1,7 +1,6 @@
-import io from 'socket.io-client';
-const socket = io('localhost:9000/game');
+import socket from './index';
 
-export function createRoom() {
+const createRoom = () => {
   socket.emit('createRoom');
   socket.on('resultCreateRoom', (data) => {
     console.log('io: createRoom in client', data);
