@@ -18,9 +18,9 @@ const listen = (expressApp, port) => {
   const isWorker = sticky.listen(server, port);
 
   if (isWorker) {
-    const game = io.of('/game').on('connection', (socket) => {
-      setSocketEventHandler(socket, game);
-    });
+    // const game = io.of('/game').on('connection', (socket) => {
+    //   setSocketEventHandler(socket, game);
+    // });
   }
 };
 
