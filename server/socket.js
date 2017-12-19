@@ -1,5 +1,4 @@
 import socketIO from'socket.io';
-import sticky from 'sticky-session';
 import http from 'http';
 import redisAdapter from 'socket.io-redis';
 import dotenv from 'dotenv';
