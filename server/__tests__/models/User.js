@@ -72,13 +72,14 @@ describe('server/models/User.js', () => {
         expect(user.property('iconUrl')).toEqual(INPUT_DATA.iconUrl);
         expect(user.property('location')).toEqual(JSON.parse(INPUT_DATA.location));
 
-        let error;
+        let error = null;
         try {
           await User.findById('UNREGISTERED_USER');
         } catch (err) {
           error = err;
         }
-        expect(error.message).toEqual('not found');
+        // When error.message is `not found`, Just return null.
+        expect(error).toEqual(null);
         done();
       });
     });
