@@ -12,8 +12,6 @@ const listen = (expressApp, port) => {
   const io = socketIO();
   const server = http.createServer(expressApp);
 
-  console.log('socket server opens port:', port);
-
   io.adapter(redisAdapter(process.env.REDIS_URL));
   io.attach(server);
   const isWorker = sticky.listen(server, port);
