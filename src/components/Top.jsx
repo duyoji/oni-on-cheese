@@ -5,12 +5,11 @@ import { createGame } from '../actions/index';
 class Top extends Component {
   constructor(props){
     super(props);
-    this.onClickNewGame = this.onClickNewGame.bind(this);
   }
 
   onClickNewGame(){
-    // console.log(this.props.createGame
-    createGame();
+    console.log(this.props)
+    this.props.createGame();
   }
 
   render() {
