@@ -3,4 +3,5 @@ import {listen} from './socket';
 
 const PORT = process.env.PORT || 9000;
 
-listen(app, PORT);
+app.listen(PORT);
+// listen(app, PORT);
