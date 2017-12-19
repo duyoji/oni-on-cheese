@@ -8,14 +8,11 @@ import { setSocketEventHandler } from './socketHandlers/index';
 // Read .env file and set value in process.env
 dotenv.config();
 
-const io = socketIO();
-// io.adapter(redisAdapter(process.env.REDIS_URL));
-
 const listen = (expressApp, port) => {
-  // const io = socketIO();
+  console.log('@@@@@@@@@@@@', port);
+  const io = socketIO();
   const server = http.createServer(expressApp);
 
-  // io.adapter(redisAdapter(process.env.REDIS_URL));
   io.adapter(redisAdapter(process.env.REDIS_URL));
   io.attach(server);
   const isWorker = sticky.listen(server, port);
