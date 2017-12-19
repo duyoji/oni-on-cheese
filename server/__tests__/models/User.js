@@ -8,6 +8,8 @@ import { Nohm } from 'nohm';
 const PREFIX_FOR_TEST = 'server/__tests__/models/User';
 Nohm.setPrefix(PREFIX_FOR_TEST);
 
+const USER_ID_FOR_TEST = '99999';
+
 describe('server/models/User.js', () => {
   beforeAll((done) => {
     // Wait connecting to redis
@@ -30,11 +32,10 @@ describe('server/models/User.js', () => {
   });
 
   describe('Class methods', () => {
-    const USER_ID_FOR_TEST = '99999';
     const INPUT_DATA = {
       id: USER_ID_FOR_TEST,
       name: 'dummy name',
-      icon_url: '',
+      iconUrl: '',
       location: JSON.stringify({
         latitude: 9999,
         longitude: -9999,
@@ -49,7 +50,7 @@ describe('server/models/User.js', () => {
         const user = await createUser();
         expect(user.property('id')).toEqual(USER_ID_FOR_TEST);
         expect(user.property('name')).toEqual(INPUT_DATA.name);
-        expect(user.property('icon_url')).toEqual(INPUT_DATA.icon_url);
+        expect(user.property('iconUrl')).toEqual(INPUT_DATA.iconUrl);
         expect(user.property('location')).toEqual(JSON.parse(INPUT_DATA.location));
 
         let error;
@@ -68,16 +69,17 @@ describe('server/models/User.js', () => {
         const user = await User.findById(USER_ID_FOR_TEST);
         expect(user.property('id')).toEqual(USER_ID_FOR_TEST);
         expect(user.property('name')).toEqual(INPUT_DATA.name);
-        expect(user.property('icon_url')).toEqual(INPUT_DATA.icon_url);
+        expect(user.property('iconUrl')).toEqual(INPUT_DATA.iconUrl);
         expect(user.property('location')).toEqual(JSON.parse(INPUT_DATA.location));
 
-        let error;
+        let error = null;
         try {
           await User.findById('UNREGISTERED_USER');
         } catch (err) {
           error = err;
         }
-        expect(error.message).toEqual('not found');
+        // When error.message is `not found`, Just return null.
+        expect(error).toEqual(null);
         done();
       });
     });
@@ -92,7 +94,7 @@ describe('server/models/User.js', () => {
         const user = await User.updateLocationById(USER_ID_FOR_TEST, newLocation);
         expect(user.property('id')).toEqual(USER_ID_FOR_TEST);
         expect(user.property('name')).toEqual(INPUT_DATA.name);
-        expect(user.property('icon_url')).toEqual(INPUT_DATA.icon_url);
+        expect(user.property('iconUrl')).toEqual(INPUT_DATA.iconUrl);
         expect(user.property('location')).toEqual(JSON.parse(newLocation));
 
         let error;
@@ -104,6 +106,22 @@ describe('server/models/User.js', () => {
         }
         expect(JSON.parse(error.message).location[0]).toEqual('custom_location');
         done();
+
+        done();
+      });
+    });
+  });
+
+  describe('Instance methods', () => {
+    describe('The `serialize` method', () => {
+      it('should return stored data from Redis. ', async (done) => {
+        const user = await User.findById(USER_ID_FOR_TEST);
+        expect(user.serialize()).toEqual({
+          id: user.property('id'),
+          name: user.property('name'),
+          iconUrl: user.property('iconUrl'),
+          location: user.property('location'),
+        });
 
         done();
       });

@@ -44,10 +44,42 @@ describe('server/socketHandlers/createRoom.js', () => {
     // socket#[on|emit] parts
     expect(receivedEventTypeFromOn).toEqual('createRoom');
     expect(receivedEventTypeFromEmit).toEqual('resultCreateRoom');
-    expect(receivedDataFromEmit).toEqual('success');
+    expect(receivedDataFromEmit).toEqual({
+      result: {
+        data: 'success'
+      }
+    });
 
     // namespace.adapter#method part
     expect(receivedSocketId).toEqual(socket.id);
     expect(receivedRoomId).toEqual(socket.id);
+  });
+
+  it('should include error when something error happen.', () => {
+    const callbackForOn = (eventType, callback) => {
+      callback();
+    };
+    let receivedDataFromEmit = null;
+    const callbackForEmit = (eventType, data) => {
+      receivedDataFromEmit = data;
+    };
+
+    const socket = createDummySocket(
+      callbackForOn,
+      callbackForEmit // called in namespace.adapter method.
+    );
+
+    const err = new Error('DUMMY_ERROR');
+    const nameSpace = createDummyNameSpace();
+    nameSpace.adapter['remoteJoin'] = (socketId, roomId, callback) => {
+      callback(err);
+    };
+
+    createRoom(socket, nameSpace);
+    expect(receivedDataFromEmit).toEqual({
+      result: {
+        error: err
+      }
+    });
   });
 });
