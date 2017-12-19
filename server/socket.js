@@ -9,7 +9,7 @@ import { setSocketEventHandler } from './socketHandlers/index';
 dotenv.config();
 
 const listen = (expressApp, port) => {
-  // console.log('@@@@@@@@@@@@', port);
+  console.log('@@@@@@@@@@@@', port);
   // const io = socketIO();
   const server = http.createServer(expressApp);
 
