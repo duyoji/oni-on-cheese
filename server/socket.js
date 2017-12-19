@@ -27,6 +27,8 @@ const listen = (expressApp, port) => {
   const game = io.of('/game').on('connection', (socket) => {
     setSocketEventHandler(socket, game);
   });
+
+  server.listen(port);
 };
 
 export { listen };
