@@ -29,6 +29,7 @@
     "jest": "^21.2.1",
     "morgan": "^1.9.0",
     "nohm": "^0.9.8",
+    "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
@@ -51,7 +52,7 @@
     "hack": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "jest": "jest",
+    "jest": "jest server",
     "eject": "react-scripts eject",
     "eslint": "./node_modules/.bin/eslint src server",
     "postinstall": "yarn jest && yarn build"

@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-const NAME_SPACE = '/game';
+const NAME_SPACE = 'game';
 
 let socket;
 
@@ -9,7 +9,7 @@ if(window.location.host === 'localhost:3000') {
   socket = io(`localhost:9000/${NAME_SPACE}`);
 } else {
   // Heroku
-  socket = io(NAME_SPACE);
+  socket = io(`${window.location.host}/${NAME_SPACE}`);
 }
 
 export default socket;
