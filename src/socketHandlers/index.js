@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-const NAME_SPACE = '/game';
+const NAME_SPACE = 'game';
 
 let socket;
 
