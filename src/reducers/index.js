@@ -7,6 +7,10 @@ const getDefaultState = () => {
 
 const reducer = (state = getDefaultState(), action) => {
   switch (action.type) {
+    case 'CREATE_GAME':
+      return Object.assign({}, state, {
+        roomId: action.roomId
+      });
     case 'JOIN_ROOM':
       return Object.assign({}, state, {
         roomId: action.roomId

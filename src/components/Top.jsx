@@ -15,7 +15,7 @@ class Top extends Component {
   render() {
     if(this.props.roomId){
       return (
-        <Redirect to='/maps' />
+        <Redirect to='/map' />
       );
     } else {
       return (
