@@ -14,7 +14,12 @@ const SOCKET_EVENT_TYPES = {
 const getRoomsPromise = (roomId) => {
   return new Promise((resolve, reject) => {
     socket.on(SOCKET_EVENT_TYPES.ON, (data) => {
-      resolve(data);
+      if(data.result.error) {
+        resolve(data.result.error);
+      } else {
+        const roomIds = data.result.data;
+        resolve(roomIds);
+      }
     });
     socket.emit(SOCKET_EVENT_TYPES.EMIT, {roomId});
   });
