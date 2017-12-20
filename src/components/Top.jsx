@@ -3,10 +3,6 @@ import { Button } from 'reactstrap';
 import { Link, withRouter, Redirect} from 'react-router-dom';
 
 class Top extends Component {
-  constructor(props){
-    super(props);
-  }
-
   onClickNewGame(){
     this.props.createGame();
     this.props.history.push('/');

@@ -4,10 +4,6 @@ import { Button } from 'reactstrap';
 import Top from '../containers/Top';
 
 class App extends Component {
-  constructor(props){
-    super(props);
-  }
-
   render() {
     return (
       <div className="App">
