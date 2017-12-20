@@ -1,6 +1,7 @@
 const getDefaultState = () => {
   return {
-    roomId: null
+    roomId: null,
+    roomIds: []
   }
 };
 
@@ -10,10 +11,14 @@ const reducer = (state = getDefaultState(), action) => {
       return Object.assign({}, state, {
         roomId: action.roomId
       });
+    case 'GET_ROOMS':
+      return Object.assign({}, state, {
+        roomIds: action.roomIds
+      });
     default:
       return state;
   }
 };
 
 export default reducer;
-export { getDefaultState};
+export { getDefaultState };
