@@ -2,13 +2,13 @@ import { connect } from 'react-redux';
 import Top from '../components/Top';
 import { createGame } from '../actions';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    currentView: state.currentView
+    roomId: state.roomId 
   }
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     createGame: () => {
       dispatch(createGame());

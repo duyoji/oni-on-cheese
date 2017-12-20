@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
-import { createGame } from '../actions/index';
+import { withRouter } from 'react-router';
 
 class Top extends Component {
   constructor(props){
@@ -8,8 +8,8 @@ class Top extends Component {
   }
 
   onClickNewGame(){
-    console.log(this.props)
     this.props.createGame();
+    this.props.history.push('/');
   }
 
   render() {

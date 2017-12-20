@@ -1,12 +1,12 @@
 const defaultState = {
-  currentView: 'Top'
+  roomId: 'Top'
 };
 
 const reducer = (state = defaultState, action) => {
   switch (action.type) {
     case 'CREATE_GAME': {
       return Object.assign({}, state, {
-        currentView: 'GameList'
+        roomId: action.roomId
       });
     };
     default:
