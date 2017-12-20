@@ -28,7 +28,16 @@ class Top extends Component {
           >
           New Game
           </Button>
+          <Button
+            color="secondary"
+            size="lg"
+            block
+            onClick={()=>{this.onClickNewGame()}}
+          >
+          Join Game
+          </Button>
         </div>
+        
       );
     }
   }
