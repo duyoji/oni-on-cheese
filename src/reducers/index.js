@@ -1,6 +1,10 @@
-const defaultState = {};
+const getDefaultState = () => {
+  return {
+    roomId: null
+  }
+};
 
-const reducer = (state = defaultState, action) => {
+const reducer = (state = getDefaultState(), action) => {
   switch (action.type) {
     default:
       return state;
@@ -8,3 +12,4 @@ const reducer = (state = defaultState, action) => {
 };
 
 export default reducer;
+export { getDefaultState };

@@ -1,22 +1,26 @@
-import reducer from '../../reducers/index';
-
+import reducer, { getDefaultState } from '../../reducers/index';
 describe('src/reducers/index.js', () => {
-  it('should be a function', () => {
-    expect(typeof reducer).toEqual('function');
+  describe('The getDefaultState function', () => {
+    it('should includes expected prop', () => {
+      const expectedProps = ['roomId'];
+      const state = getDefaultState();
+      expectedProps.forEach(prop => {
+        expect( state.hasOwnProperty(prop) ).toEqual(true);
+      });
+    });
   });
-  it('returns object when called with action.', () => {
-    const result = reducer(
-      createDummyState(),
-      createDummyAction()
-    );
-    expect(typeof result).toEqual('object');
+
+  describe('The reducer function', () => {
+    it('returns object when called with action.', () => {
+      const result = reducer(
+        getDefaultState(),
+        createDummyAction()
+      );
+      expect(result).toEqual(getDefaultState());
+    });
   });
 });
 
-const createDummyState = (data = {}) => {
-  return data;
-};
-
-const createDummyAction = (type = 'DUMMY_TYPE') => {
+const createDummyAction = (type = 'default') => {
   return {type};
 };
