@@ -1,5 +1,10 @@
 import socket from '../../socketHandlers/index';
 
+const SOCKET_EVENT_TYPES = {
+  EMIT: 'joinRoom',
+  ON: 'resultJoinRoom'
+};
+
 // The reason I created this function is for Test.
 // Mocking this function, I can write a test for joinRoom.
 // Notes:

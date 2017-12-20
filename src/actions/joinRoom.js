@@ -1,10 +1,5 @@
 import { joinRoomPromise } from './helpers/joinRoomHelper';
 
-const SOCKET_EVENT_TYPES = {
-  EMIT: 'joinRoom',
-  ON: 'resultJoinRoom'
-};
-
 const joinRoom = (roomId) => {
   joinRoomPromise(roomId);
   return async function (dispatch) {
