@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 
 class GameListPage extends Component {
@@ -8,6 +9,10 @@ class GameListPage extends Component {
   }
 
   render() {
+    if (this.props.selectedRoomId) {
+      return <Redirect to='/map' />;
+    }
+
     return (
       <div className="gameListPage">
         <h2>GameListPage</h2>
