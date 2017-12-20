@@ -1,5 +1,5 @@
 const defaultState = {
-  roomId: 'Top'
+  roomId: null
 };
 
 const reducer = (state = defaultState, action) => {
