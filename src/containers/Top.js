@@ -5,7 +5,7 @@ import { createGame } from '../actions';
 const mapStateToProps = (state) => {
   return {
     roomId: state.roomId 
-  }
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch) => {
     createGame: () => {
       dispatch(createGame());
     }
-  }
+  };
 };
 
 export default connect(

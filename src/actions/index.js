@@ -5,10 +5,10 @@ const createGame = () => {
   return (dispatch) => {
     createRoom(() => {
       const roomId = socket.id;
-      return dispatch(createGameSuccess(roomId))
+      return dispatch(createGameSuccess(roomId));
     });
   };
-}
+};
 
 function createGameSuccess (roomId) {
   return {

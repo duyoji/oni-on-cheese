@@ -1,8 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { MemoryRouter, Link } from 'react-router-dom';
+import React from 'react'; // eslint-disable-line no-unused-vars
+import ReactDOM from 'react-dom'; // eslint-disable-line no-unused-vars
+import { MemoryRouter, Link } from 'react-router-dom'; // eslint-disable-line no-unused-vars
 import { Button } from 'reactstrap';
-import App from '../../components/App';
+import App from '../../components/App'; // eslint-disable-line no-unused-vars
 import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Provider } from 'react-redux'; // eslint-disable-line no-unused-vars
@@ -22,9 +22,9 @@ describe('src/components/App.jsx', () => {
   describe('When access to `/`', () => {
     it('redirect to login page.', () => {
       const wrapper = createWrapper('/');
-      expect(wrapper.find(".topPage").length).toBe(1);
-      expect(wrapper.find(".roomsPage").length).toBe(0);
-      expect(wrapper.find(".mapPage").length).toBe(0);
+      expect(wrapper.find('.topPage').length).toBe(1);
+      expect(wrapper.find('.roomsPage').length).toBe(0);
+      expect(wrapper.find('.mapPage').length).toBe(0);
       expect(wrapper.find(Link).exists()).toEqual(true);
       expect(wrapper.find(Button).exists()).toEqual(true);
     });
