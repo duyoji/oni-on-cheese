@@ -1,10 +1,13 @@
 import { joinRoomPromise } from './helpers/joinRoomHelper';
 
 const joinRoom = (roomId) => {
-  joinRoomPromise(roomId);
   return async function (dispatch) {
-    const result = await joinRoomPromise(roomId);
-    dispatch(joinRoomSuccess(roomId));
+    try {
+      const result = await joinRoomPromise(roomId);
+      dispatch(joinRoomSuccess(roomId));
+    } catch (error) {
+      console.error(error);
+    }
   }
 };
 

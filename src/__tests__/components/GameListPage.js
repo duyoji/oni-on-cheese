@@ -1,18 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import GameListPage from '../../components/GameListPage';
-import { shallow, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { ListGroup, ListGroupItem } from 'reactstrap';
+import { Redirect } from 'react-router-dom';
+import { shallow } from '../helpers/configuredEnzymeWithAdapter';
 
-configure({ adapter: new Adapter() });
+const mockGetRooms = () => {};
+const mockJoinRoom = () => {};
+const ROOM_IDS = ['room1', 'room2', 'room3'];
 
 describe('src/components/GameListPage.jsx', () => {
-  let wrapper;
-  beforeEach(() => {
-    wrapper = shallow( <GameListPage /> );
+  describe('Before selecting a roomId.', () => {
+    it('shows room list.', () => {
+      const wrapper = shallow( <GameListPage
+        getRooms={mockGetRooms}
+        joinRoom={mockJoinRoom}
+        roomIds={ROOM_IDS}
+      /> );
+
+      expect(wrapper.find(ListGroup).length).toEqual(1);
+      expect(wrapper.find(ListGroupItem).length).toEqual(3);
+    });
   });
 
-  it('redirect to login page.', () => {
-    expect(wrapper.find(".gameListPage").length).toBe(1);
+  describe('After selecting a roomId.', () => {
+    it('redirect to.', () => {
+      const wrapper = shallow( <GameListPage
+        getRooms={mockGetRooms}
+        joinRoom={mockJoinRoom}
+        roomIds={ROOM_IDS}
+        selectedRoomId={ROOM_IDS[0]}
+      /> );
+
+      expect(wrapper.find(Redirect).length).toEqual(1);
+    });
   });
 });
