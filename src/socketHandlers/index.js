@@ -12,12 +12,4 @@ if(window.location.host === 'localhost:3000') {
   socket = io(NAME_SPACE);
 }
 
-socket.on('connection', function(){
-  console.log('user connection@@@@@@@@', socket.id);
-});
-socket.on('disconnect', function(){
-  console.log('user disconnected@@@@@@@@', socket.id);
-});
-
-
 export default socket;
