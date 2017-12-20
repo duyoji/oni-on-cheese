@@ -19,7 +19,7 @@ class Top extends Component {
       );
     } else {
       return (
-        <div>
+        <div className='topPage'>
           <Button
             color="primary"
             size="lg"

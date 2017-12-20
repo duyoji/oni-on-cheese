@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { Link, Route, Redirect } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import Top from '../containers/Top';
+import GameListPage from '../containers/GameListPage';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Route className='topPage' exact={true} path="/" component={Top} />
-        <Route exact={true} path="/maps" component={MapPage} />
-        <Route exact={true} path="/games" component={GameList} />
+        <Route exact={true} path="/" component={Top} />
+        <Route exact={true} path="/game-list" component={GameListPage} />
+        <Route exact={true} path="/map" component={MapPage} />
       </div>
     );
   }

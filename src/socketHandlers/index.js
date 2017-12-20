@@ -1,9 +1,15 @@
 import io from 'socket.io-client';
-let socket = io('https://oni-on-cheese.herokuapp.com/')
+const NAME_SPACE = 'game';
 
-if(socket.disconnected){
-  socket.disconnect();
-  socket = io('http://localhost:9000/game');
+let socket;
+
+// Set proper url according to running machine
+if(window.location.host === 'localhost:3000') {
+  // Local PC
+  socket = io(`localhost:9000/${NAME_SPACE}`);
+} else {
+  // Heroku
+  socket = io(`${window.location.host}/${NAME_SPACE}`);
 }
 
 export default socket;

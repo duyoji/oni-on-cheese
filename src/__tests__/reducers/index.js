@@ -1,22 +1,44 @@
-import reducer from '../../reducers/index';
-
+import reducer, { getDefaultState } from '../../reducers/index';
 describe('src/reducers/index.js', () => {
-  it('should be a function', () => {
-    expect(typeof reducer).toEqual('function');
+  describe('The getDefaultState function', () => {
+    it('should includes expected prop', () => {
+      const expectedProps = ['roomId', 'roomIds'];
+      const state = getDefaultState();
+      expectedProps.forEach(prop => {
+        expect( state.hasOwnProperty(prop) ).toEqual(true);
+      });
+    });
   });
-  it('returns object when called with action.', () => {
-    const result = reducer(
-      createDummyState(),
-      createDummyAction()
-    );
-    expect(typeof result).toEqual('object');
+
+  describe('The reducer function', () => {
+    it('returns object when called with action.', () => {
+      const state = reducer(
+        getDefaultState(),
+        createDummyAction()
+      );
+      expect(state).toEqual(getDefaultState());
+    });
+
+    it('updates roomId when action type is `JOIN_ROOM`.', () => {
+      const roomId = 'asdfqwerqwerq09u0912f';
+      const state = reducer(
+        getDefaultState(),
+        createDummyAction('JOIN_ROOM', {roomId})
+      );
+      expect(state.roomId).toEqual(roomId);
+    });
+
+    it('updates roomIds when action type is `GET_ROOMS`.', () => {
+      const roomIds = ['id1', 'id2', 'id3'];
+      const state = reducer(
+        getDefaultState(),
+        createDummyAction('GET_ROOMS', {roomIds})
+      );
+      expect(state.roomIds).toEqual(roomIds);
+    });
   });
 });
 
-const createDummyState = (data = {}) => {
-  return data;
-};
-
-const createDummyAction = (type = 'DUMMY_TYPE') => {
-  return {type};
+const createDummyAction = (type = 'default', obj) => {
+  return Object.assign({type}, obj);
 };
