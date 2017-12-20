@@ -12,15 +12,24 @@ describe('src/reducers/index.js', () => {
 
   describe('The reducer function', () => {
     it('returns object when called with action.', () => {
-      const result = reducer(
+      const state = reducer(
         getDefaultState(),
         createDummyAction()
       );
-      expect(result).toEqual(getDefaultState());
+      expect(state).toEqual(getDefaultState());
+    });
+
+    it('updates roomId when action type is `JOIN_ROOM`.', () => {
+      const roomId = 'asdfqwerqwerq09u0912f';
+      const state = reducer(
+        getDefaultState(),
+        createDummyAction('JOIN_ROOM', {roomId})
+      );
+      expect(state.roomId).toEqual(roomId);
     });
   });
 });
 
-const createDummyAction = (type = 'default') => {
-  return {type};
+const createDummyAction = (type = 'default', obj) => {
+  return Object.assign({type}, obj);
 };
