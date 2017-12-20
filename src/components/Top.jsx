@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
-import { withRouter, Redirect} from 'react-router-dom';
+import { Link, withRouter, Redirect} from 'react-router-dom';
 
 class Top extends Component {
   constructor(props){
@@ -10,6 +10,10 @@ class Top extends Component {
   onClickNewGame(){
     this.props.createGame();
     this.props.history.push('/');
+  }
+
+  onClickJoinGame(){
+    this.props.history.push('/');    
   }
 
   render() {
@@ -28,14 +32,16 @@ class Top extends Component {
           >
           New Game
           </Button>
-          <Button
-            color="secondary"
-            size="lg"
-            block
-            onClick={()=>{this.onClickNewGame()}}
-          >
-          Join Game
-          </Button>
+          <Link to='/games'>
+            <Button
+              color="secondary"
+              size="lg"
+              block
+              onClick={()=>{this.onClickJoinGame()}}
+            >
+            Join Game
+            </Button>
+          </Link>
         </div>
         
       );
