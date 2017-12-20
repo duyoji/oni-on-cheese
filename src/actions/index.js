@@ -1,6 +1,5 @@
 import createRoom from '../socketHandlers/createRoom';
-import io from 'socket.io-client';
-const socket = io('localhost:9000/game');
+import socket from '../socketHandlers/index';
 
 const createGame = () => {
   return (dispatch) => {
