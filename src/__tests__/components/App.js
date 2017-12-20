@@ -21,39 +21,6 @@ describe('src/components/App.jsx', () => {
       expect(wrapper.find(Button).exists()).toEqual(true);
     });
   });
-
-  xdescribe('When access to `/login`', () => {
-    it('render login page.', () => {
-      const wrapper = createWrapper('/login');
-      expect(wrapper.find(".loginPage").length).toBe(1);
-      expect(wrapper.find(".roomsPage").length).toBe(0);
-      expect(wrapper.find(".mapPage").length).toBe(0);
-      expect(wrapper.find(Link).exists()).toEqual(true);
-      expect(wrapper.find(Button).exists()).toEqual(true);
-    });
-  });
-
-  xdescribe('When access to `/rooms`', () => {
-    it('render login page.', () => {
-      const wrapper = createWrapper('/rooms');
-      expect(wrapper.find(".loginPage").length).toBe(0);
-      expect(wrapper.find(".roomsPage").length).toBe(1);
-      expect(wrapper.find(".mapPage").length).toBe(0);
-      expect(wrapper.find(Link).exists()).toEqual(true);
-      expect(wrapper.find(Button).exists()).toEqual(true);
-    });
-  });
-
-  xdescribe('When access to `/map`', () => {
-    it('render login page.', () => {
-      const wrapper = createWrapper('/map');
-      expect(wrapper.find(".loginPage").length).toBe(0);
-      expect(wrapper.find(".roomsPage").length).toBe(0);
-      expect(wrapper.find(".mapPage").length).toBe(1);
-      expect(wrapper.find(Link).exists()).toEqual(true);
-      expect(wrapper.find(Button).exists()).toEqual(true);
-    });
-  });
 });
 
 const createWrapper = (path) => {
