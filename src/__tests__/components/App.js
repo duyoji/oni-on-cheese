@@ -7,10 +7,18 @@ import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Provider } from 'react-redux'; // eslint-disable-line no-unused-vars
 import { createStore } from 'redux';
+import socket from '../../socketHandlers/index';
+
+
 
 configure({ adapter: new Adapter() });
 
 describe('src/components/App.jsx', () => {
+  afterAll(() => {
+    setTimeout(() => {
+      socket.disconnect();
+    }, 1000);
+  });
   describe('When access to `/`', () => {
     it('redirect to login page.', () => {
       const wrapper = createWrapper('/');
