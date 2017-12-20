@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { joinRoom } from '../../actions/joinRoom';
-import * as helper from '../../actions/joinRoom/joinRoomHelper';
+import * as helper from '../../actions/helpers/joinRoomHelper';
 import { getDefaultState } from '../../reducers/index';
 import socket from '../../socketHandlers/index';
 
