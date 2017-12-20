@@ -9,11 +9,8 @@ import App from './containers/App'; // eslint-disable-line no-unused-vars
 import registerServiceWorker from './registerServiceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
 
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-// const store = createStore(reducer, /* preloadedState, */ composeEnhancers(applyMiddleware(thunk)));
-
-const createStoreWithMiddleware = compose(applyMiddleware(thunk))(createStore);
-const store = createStoreWithMiddleware(reducer);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducer, /* preloadedState, */ composeEnhancers(applyMiddleware(thunk)));
 
 // In order to make Router test easy,
 // Separating <Router /> and <Route />.
