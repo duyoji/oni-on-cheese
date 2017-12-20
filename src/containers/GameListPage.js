@@ -4,7 +4,6 @@ import { getRooms } from '../actions/getRooms';
 import { joinRoom } from '../actions/joinRoom';
 
 const mapStateToProps = state => {
-  console.log('state', state);
   return {
     roomIds: state.roomIds,
     selectedRoomId: state.roomId
