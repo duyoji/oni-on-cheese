@@ -14,10 +14,10 @@ import socket from '../../socketHandlers/index';
 configure({ adapter: new Adapter() });
 
 describe('src/components/App.jsx', () => {
-  afterAll(() => {
+  afterAll(async () => {
     setTimeout(() => {
       socket.disconnect();
-    }, 1000);
+    }, 10000);
   });
   describe('When access to `/`', () => {
     it('redirect to login page.', () => {
