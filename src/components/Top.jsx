@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
-import { withRouter } from 'react-router';
+import { withRouter, Redirect} from 'react-router-dom';
 
 class Top extends Component {
   constructor(props){
@@ -13,19 +13,25 @@ class Top extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <Button
-          color="primary"
-          size="lg"
-          block
-          onClick={()=>{this.onClickNewGame()}}
-        >
-        New Game
-        </Button>
-      </div>
-    );
+    if(this.props.roomId){
+      return (
+        <Redirect to ='/games' />
+      );
+    } else {
+      return (
+        <div>
+          <Button
+            color="primary"
+            size="lg"
+            block
+            onClick={()=>{this.onClickNewGame()}}
+          >
+          New Game
+          </Button>
+        </div>
+      );
+    }
   }
 }
 
-export default Top;
+export default withRouter(Top);
