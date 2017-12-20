@@ -17,7 +17,7 @@ describe('src/components/App.jsx', () => {
   afterAll(() => {
     setTimeout(() => {
       socket.disconnect();
-    }, 1000);
+    }, 5000);
   });
   describe('When access to `/`', () => {
     it('redirect to login page.', () => {
