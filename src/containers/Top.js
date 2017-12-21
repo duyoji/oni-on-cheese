@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Top from '../components/Top';
+import TopPage from '../components/TopPage';
 import { createGame } from '../actions/createGame';
 
 const mapStateToProps = (state) => {
@@ -19,4 +19,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Top);
+)(TopPage);

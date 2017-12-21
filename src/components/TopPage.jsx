@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 import { Link, withRouter, Redirect} from 'react-router-dom';
 
-class Top extends Component {
+class TopPage extends Component {
   onClickNewGame(){
     this.props.createGame();
   }
@@ -23,7 +23,7 @@ class Top extends Component {
           >
           New Game
           </Button>
-          <Link to='/games'>
+          <Link to='/game-list'>
             <Button
               color="secondary"
               size="lg"
@@ -39,4 +39,4 @@ class Top extends Component {
   }
 }
 
-export default withRouter(Top);
+export default withRouter(TopPage);
