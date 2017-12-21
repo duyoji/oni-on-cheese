@@ -5,11 +5,6 @@ import { Link, withRouter, Redirect} from 'react-router-dom';
 class Top extends Component {
   onClickNewGame(){
     this.props.createGame();
-    this.props.history.push('/');
-  }
-
-  onClickJoinGame(){
-    this.props.history.push('/');    
   }
 
   render() {
@@ -33,7 +28,6 @@ class Top extends Component {
               color="secondary"
               size="lg"
               block
-              onClick={()=>{this.onClickJoinGame()}}
             >
             Join Game
             </Button>
