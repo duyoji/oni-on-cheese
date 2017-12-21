@@ -5,7 +5,7 @@ const createGame = () => {
   return (dispatch) => {
     createRoom(() => {
       const roomId = socket.id;
-      return dispatch(createGameSuccess(roomId));
+      dispatch(createGameSuccess(roomId));
     });
   };
 };
