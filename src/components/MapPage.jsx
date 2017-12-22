@@ -1,6 +1,8 @@
 import React, { Component } from 'react';  // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps'; // eslint-disable-line no-unused-vars
+import { getCurrentPosition } from '../utils/location';
+import { emit, addHandlerListener } from '../socketHandlers/updateLocation';
 
 const GameMap = withGoogleMap(props => ( // eslint-disable-line no-unused-vars
   <GoogleMap
@@ -11,23 +13,38 @@ const GameMap = withGoogleMap(props => ( // eslint-disable-line no-unused-vars
   >
     {props.users.map(user => (
       <Marker
+        key={user.id}
         position={convertLocationPropForMarker(user.location)}
       />
     ))}
   </GoogleMap>
 ));
 
-const convertLocationPropForMarker = ({latitude, longitude}) => {
-  return {lat: latitude, lng: longitude};
-};
-
-
 class MapPage extends Component {
-  componentDidMount() {}
+  componentDidMount() {
+    addHandlerListener( user => {
+      this.props.updateCurrentLocation(user);
+    });
+
+    const success = ({latitude, longitude}) => {
+      const location = {latitude, longitude};
+      const roomId = this.props.roomId
+      emit({ location, roomId });
+    };
+    const error = (error) => console.error(error);
+
+    // Initialize currentPostion.
+    getCurrentPosition({success, error});
+
+    // Update currentPosttion.
+    window.setInterval(() => {
+      getCurrentPosition({success, error});
+    }, 10000);
+  }
 
   render() {
     return(
-      <div>
+      <div className="mapPage">
         <h2>MapPage</h2>
         <GameMap
           className="gameMap"
@@ -38,7 +55,7 @@ class MapPage extends Component {
           mapElement={
             <div style={{ height: '100%' }} />
           }
-          onMapLoad={()=>{console.log('Map loaded');}}
+          onMapLoad={()=>{}}
           onMapClick={()=>{}}
           users={this.props.users}
         />
@@ -47,8 +64,14 @@ class MapPage extends Component {
   }
 }
 
+const convertLocationPropForMarker = ({latitude, longitude}) => {
+  return {lat: latitude, lng: longitude};
+};
+
 MapPage.propTypes = {
-  users: PropTypes.array.isRequired
+  users: PropTypes.array.isRequired,
+  roomId: PropTypes.string.isRequired,
+  updateCurrentLocation: PropTypes.func.isRequired
 };
 
 export default MapPage;

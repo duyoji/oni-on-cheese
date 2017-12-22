@@ -12,7 +12,7 @@ const SOCKET_EVENT_TYPES = {
  * optional: name: string
  * optional: iconUrl: string
  */
-const emit = ({location, roomId, id = socket.id, name = '', iconUrl = ''}) => {
+const emit = ({location, roomId, id = socket.id, name = socket.id, iconUrl = ''}) => {
   socket.emit(SOCKET_EVENT_TYPES.EMIT, {
     id,
     name,
