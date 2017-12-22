@@ -5,7 +5,7 @@ const SOCKET_EVENT_TYPES = {
   ON: 'resultGetPlayers'
 }
 
-const getPlayersPromise = (roomIds) => {
+const getPlayersPromise = (roomId) => {
   return new Promise((resolve, reject) => {
     socket.on(SOCKET_EVENT_TYPES.ON, (data) => {
       if(data.result.error) {
@@ -15,7 +15,7 @@ const getPlayersPromise = (roomIds) => {
         resolve(playerIds);
       }
     });
-    socket.emit(SOCKET_EVENT_TYPES.EMIT, roomIds);
+    socket.emit(SOCKET_EVENT_TYPES.EMIT, roomId);
   });
 };
 
