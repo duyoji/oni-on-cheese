@@ -16,9 +16,9 @@ describe('src/actions/getPlayers.js', () => {
 
   it('should dispatch action after receiving socket event', () => {
     const store = mockStore(getDefaultState());
-    const numberOfPlayers = [2, 50, 100];
+    const playerIds = [2, 50, 100];
     sinon.stub(helper, 'getPlayersPromise').callsFake(() => {
-      return Promise.resolve(numberOfPlayers);
+      return Promise.resolve(playerIds);
     });
 
     return store.dispatch(getPlayers())
@@ -26,7 +26,7 @@ describe('src/actions/getPlayers.js', () => {
         const expectedActions = store.getActions();
         expect(expectedActions[0]).toEqual({
           type: 'GET_PLAYERS',
-          numberOfPlayers
+          playerIds
         });
 
         helper.getPlayersPromise.restore();

@@ -11,7 +11,8 @@ const getPlayers = (roomId) => {
   };
 };
 
-const getPlayersSuccess = (playerIds) => {{
+const getPlayersSuccess = (playerIds) => {
+  return {
     type: 'GET_PLAYERS',
     playerIds
   }
