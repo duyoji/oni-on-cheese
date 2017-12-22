@@ -28,7 +28,7 @@ describe('server/socketHanlders/getPlayers.js', () => {
       callbackForEmit
     );
     const nameSpace = createDummyNameSpace();
-    nameSpace.adapter['clients'] = (fn) => {
+    nameSpace.adapter['clients'] = (roomId, fn) => {
       fn(err, expectedEmitData);
     };
     
@@ -61,7 +61,7 @@ describe('server/socketHanlders/getPlayers.js', () => {
       callbackForEmit
     );
     const nameSpace = createDummyNameSpace();
-    nameSpace.adapter['clients'] = (fn) => {
+    nameSpace.adapter['clients'] = (roomIds, fn) => {
       fn(err, expectedEmitData);
     };
     
