@@ -1,3 +1,3 @@
-const getPlayers = () => {};
+const getPlayers = (socket, socketNameSpace) => {};
 
 export { getPlayers };
