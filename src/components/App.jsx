@@ -3,6 +3,7 @@ import { Link, Route, Redirect } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import TopPage from '../containers/Top';
 import GameListPage from '../containers/GameListPage';
+import MapPage from '../containers/MapPage';
 
 class App extends Component {
   render() {
@@ -15,16 +16,5 @@ class App extends Component {
     );
   }
 }
-
-// These are temporary component for map page
-// I will delete them after merging Map
-const MapPage = () => (
-  <div className="mapPage">
-    <p>Map Page</p>
-    <Link to='/'>
-      <Button color="warning" size="lg" block>move to top page</Button>
-    </Link>
-  </div>
-);
 
 export default App;

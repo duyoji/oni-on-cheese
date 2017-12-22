@@ -30,6 +30,13 @@ describe('src/components/App.jsx', () => {
       expect(wrapper.find('.gameListPage').length).toBe(1);
     });
   });
+
+  describe('When access to `/map`', () => {
+    it('shows MapPage', () => {
+      const wrapper = createWrapper('/map');
+      expect(wrapper.find('.mapPage').length).toBe(1);
+    });
+  });
 });
 
 const createWrapper = (path) => {
