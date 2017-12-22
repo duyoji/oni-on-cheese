@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Route, Redirect } from 'react-router-dom';
-import { Button } from 'reactstrap';
+import { Route } from 'react-router-dom';
 import TopPage from '../containers/Top';
 import GameListPage from '../containers/GameListPage';
 import MapPage from '../containers/MapPage';

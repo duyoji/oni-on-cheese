@@ -3,7 +3,7 @@ import { joinRoomPromise } from './helpers/joinRoomHelper';
 const joinRoom = (roomId) => {
   return async function (dispatch) {
     try {
-      const result = await joinRoomPromise(roomId);
+      await joinRoomPromise(roomId);
       dispatch(joinRoomSuccess(roomId));
     } catch (error) {
       console.error(error);
