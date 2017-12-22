@@ -1,5 +1,5 @@
-const getPlayersHelper = (roomId) => {
+const getPlayersPromise = (roomId) => {
   return;
 }
 
-export { getPlayersHelper };
+export { getPlayersPromise };
