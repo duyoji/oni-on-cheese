@@ -28,7 +28,7 @@ describe('server/socketHanlders/getPlayers.js', () => {
     );
     const nameSpace = createDummyNameSpace();
     nameSpace.adapter['clients'] = (fn) => {
-      fn(err, expectedEmitData);
+      fn(null, expectedEmitData);
     };
     
     getPlayers(socket, nameSpace);
