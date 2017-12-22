@@ -50,7 +50,16 @@ class MapPage extends Component {
 
     return(
       <div className="mapPage">
-        <h2>MapPage</h2>
+        <div>MapPage</div>
+        <div>Receive Counter: {this.props.receiveCounter}</div>
+        <div>
+          <div>User List</div>
+          <ul>
+            {this.props.users.map(user => (
+              <li key={user.id}>{user.name} : {JSON.stringify(user.location)}</li>
+            ))}
+          </ul>
+        </div>
         <GameMap
           className="gameMap"
           loadingElement={<div style={{ height: `100%` }} />}
@@ -64,15 +73,6 @@ class MapPage extends Component {
           onMapClick={()=>{}}
           users={this.props.users}
         />
-        <div>
-          <h3>User List</h3>
-          {this.props.users.map(user => (
-            <div key={user.id}>{user.id} : {JSON.stringify(user.location)}</div>
-          ))}
-        </div>
-        <div>
-          <h3>Receive Counter: {this.props.receiveCounter}</h3>
-        </div>
       </div>
     );
   }
