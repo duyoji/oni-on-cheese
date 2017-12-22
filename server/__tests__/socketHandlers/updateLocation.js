@@ -72,39 +72,6 @@ describe('server/socketHandlers/updateLocation.js', () => {
     updateLocation(socket, nameSpace);
   });
 
-  it('updates a user data in redis when redis has the user data', (done) => {
-    const newLocation = {
-      latitude: -1,
-      longitude: 1
-    };
-    const callbackForOn = (eventType, callback) => {
-      callback({
-        roomId: DUMMY_ROOM_ID,
-        location: newLocation,
-      });
-    };
-
-    // `updateLocation` has async code.
-    // So `expect` put into async function.
-    const callbackForEmit = (eventType, data) => {
-      expect(data).toEqual({
-        result: {
-          data: {
-            id: socket.id,
-            name: DUMMY_NAME,
-            iconUrl: DUMMY_ICON_URL,
-            location: newLocation
-          }
-        }
-      });
-      done();
-    };
-
-    const socket = createDummySocket(callbackForOn);
-    const nameSpace = createDummyNameSpace(callbackForEmit);
-    updateLocation(socket, nameSpace);
-  });
-
   it('should includes error in emitted data when `roomId` is not passed.', () => {
     let receivedEventTypeFromOn = '';
     const callbackForOn = (eventType, callback) => {

@@ -23,4 +23,23 @@ const getCurrentPosition = (
   );
 };
 
-export { getCurrentPosition };
+const watchPosition = (
+  {
+    success = ({latitude, longitude}) => {},
+    error = (err) => {},
+    options = defaultOption
+  }
+) => {
+  navigator.geolocation.watchPosition(
+    (position) => {
+      success({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
+    },
+    error,
+    options
+  );
+};
+
+export { getCurrentPosition, watchPosition };
