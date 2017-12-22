@@ -5,6 +5,7 @@ import { shallow } from '../helpers/configuredEnzymeWithAdapter';
 import * as utilLocation from '../../utils/location';
 import sinon from 'sinon';
 import socket from '../../socketHandlers/index';
+import { Redirect } from 'react-router-dom';
 
 describe('src/components/MapPage.jsx', () => {
 
@@ -24,7 +25,7 @@ describe('src/components/MapPage.jsx', () => {
 
     const wrapper = shallow( <MapPage
       users={[]}
-      roomId=''
+      roomId='salkdfjas'
       updateCurrentLocation={() => {}}
     /> );
 
@@ -32,5 +33,23 @@ describe('src/components/MapPage.jsx', () => {
 
     utilLocation.getCurrentPosition.restore();
     window.setInterval.restore();
+  });
+
+  it('redirects TopPage if props.roomId is undefined.', () => {
+    sinon.stub(utilLocation, 'getCurrentPosition').callsFake(({success, error, options}) => {
+      expect(typeof success).toEqual('function');
+      expect(typeof error).toEqual('function');
+      expect(options).toEqual(undefined);
+    });
+    sinon.stub(window, 'setInterval').callsFake((cb) => {
+      cb();
+    });
+
+    const wrapper = shallow( <MapPage
+      users={[]}
+      updateCurrentLocation={() => {}}
+    /> );
+
+    expect(wrapper.find(Redirect).length).toEqual(1);
   });
 });

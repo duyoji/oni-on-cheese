@@ -4,6 +4,7 @@ import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps'; // eslint-
 import { getCurrentPosition } from '../utils/location';
 import { emit, addHandlerListener } from '../socketHandlers/updateLocation';
 import { createUserIcon } from '../utils/icon';
+import { Redirect } from 'react-router-dom';
 
 const GameMap = withGoogleMap(props => ( // eslint-disable-line no-unused-vars
   <GoogleMap
@@ -45,6 +46,10 @@ class MapPage extends Component {
   }
 
   render() {
+    if (!this.props.roomId) {
+      return <Redirect to='/' />;
+    }
+
     return(
       <div className="mapPage">
         <h2>MapPage</h2>
@@ -71,9 +76,9 @@ const convertLocationPropForMarker = ({latitude, longitude}) => {
 };
 
 MapPage.propTypes = {
+  updateCurrentLocation: PropTypes.func.isRequired,
   users: PropTypes.array.isRequired,
-  roomId: PropTypes.string.isRequired,
-  updateCurrentLocation: PropTypes.func.isRequired
+  roomId: PropTypes.string
 };
 
 export default MapPage;
