@@ -28,8 +28,10 @@ const reducer = (state = getDefaultState(), action) => {
       } else {
         Object.assign(targetUser, action.user);
       }
-
       return Object.assign({}, state, {users});
+    case 'LEAVE_ROOM':
+      const newUsers = state.users.filter(user => user.id !== action.userId);
+      return Object.assign({}, state, {users: newUsers});
     default:
       return state;
   }
