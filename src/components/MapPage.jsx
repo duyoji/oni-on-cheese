@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps'; // eslint-disable-line no-unused-vars
 import { getCurrentPosition } from '../utils/location';
 import { emit, addHandlerListener } from '../socketHandlers/updateLocation';
+import { createUserIcon } from '../utils/icon';
 
 const GameMap = withGoogleMap(props => ( // eslint-disable-line no-unused-vars
   <GoogleMap
@@ -14,6 +15,7 @@ const GameMap = withGoogleMap(props => ( // eslint-disable-line no-unused-vars
     {props.users.map(user => (
       <Marker
         key={user.id}
+        icon={createUserIcon()}
         position={convertLocationPropForMarker(user.location)}
       />
     ))}
