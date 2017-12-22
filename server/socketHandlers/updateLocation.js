@@ -23,18 +23,11 @@ const updateLocation = (socket, socketNamespace) => {
     }
 
     User
-      .findById(id)
-      .then(user => {
-        if(user) {
-          return user.updateLocation(location).then(() => user);
-        } else {
-          return User.create({
-            id,
-            name,
-            iconUrl,
-            location: JSON.stringify(location)
-          });
-        }
+      .build({
+        id,
+        name,
+        iconUrl,
+        location: JSON.stringify(location)
       })
       .then(user => {
         socketNamespace.in(roomId).emit(EVENT_TYPES.EMIT, formatOutput({data: user.serialize()}));
