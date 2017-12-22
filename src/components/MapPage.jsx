@@ -66,6 +66,12 @@ class MapPage extends Component {
           onMapClick={()=>{}}
           users={this.props.users}
         />
+        <div>
+          <h3>User List</h3>
+          {this.props.users.map(user => (
+            <div key={user.id}>{user.id} : {JSON.stringify(user.location)}</div>
+          ))}
+        </div>
       </div>
     );
   }
