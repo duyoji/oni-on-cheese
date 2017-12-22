@@ -1,3 +1,4 @@
-const getPlayersPromise = () => {};
+const getPlayersPromise = () => {
+};
 
 export { getPlayersPromise };
