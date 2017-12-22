@@ -1,7 +1,7 @@
 import React, { Component } from 'react';  // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps'; // eslint-disable-line no-unused-vars
-import { getCurrentPosition } from '../utils/location';
+import { getCurrentPosition, watchPosition } from '../utils/location';
 import { emit, addHandlerListener } from '../socketHandlers/updateLocation';
 import { createUserIcon } from '../utils/icon';
 import { Redirect } from 'react-router-dom';
@@ -40,9 +40,7 @@ class MapPage extends Component {
     getCurrentPosition({success, error});
 
     // Update currentPosttion.
-    window.setInterval(() => {
-      getCurrentPosition({success, error});
-    }, 10000);
+    watchPosition({success, error});
   }
 
   render() {

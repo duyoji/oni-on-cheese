@@ -19,8 +19,10 @@ describe('src/components/MapPage.jsx', () => {
       expect(typeof error).toEqual('function');
       expect(options).toEqual(undefined);
     });
-    sinon.stub(window, 'setInterval').callsFake((cb) => {
-      cb();
+    sinon.stub(utilLocation, 'watchPosition').callsFake(({success, error, options}) => {
+      expect(typeof success).toEqual('function');
+      expect(typeof error).toEqual('function');
+      expect(options).toEqual(undefined);
     });
 
     const wrapper = shallow( <MapPage
@@ -32,7 +34,7 @@ describe('src/components/MapPage.jsx', () => {
     expect(wrapper.find('.mapPage').length).toEqual(1);
 
     utilLocation.getCurrentPosition.restore();
-    window.setInterval.restore();
+    utilLocation.watchPosition.restore();
   });
 
   it('redirects TopPage if props.roomId is undefined.', () => {
@@ -41,9 +43,12 @@ describe('src/components/MapPage.jsx', () => {
       expect(typeof error).toEqual('function');
       expect(options).toEqual(undefined);
     });
-    sinon.stub(window, 'setInterval').callsFake((cb) => {
-      cb();
+    sinon.stub(utilLocation, 'watchPosition').callsFake(({success, error, options}) => {
+      expect(typeof success).toEqual('function');
+      expect(typeof error).toEqual('function');
+      expect(options).toEqual(undefined);
     });
+
 
     const wrapper = shallow( <MapPage
       users={[]}
@@ -51,5 +56,8 @@ describe('src/components/MapPage.jsx', () => {
     /> );
 
     expect(wrapper.find(Redirect).length).toEqual(1);
+
+    utilLocation.getCurrentPosition.restore();
+    utilLocation.watchPosition.restore();
   });
 });
