@@ -70,6 +70,9 @@ class MapPage extends Component {
             <div key={user.id}>{user.id} : {JSON.stringify(user.location)}</div>
           ))}
         </div>
+        <div>
+          <h3>Receive Counter: {this.props.receiveCounter}</h3>
+        </div>
       </div>
     );
   }
