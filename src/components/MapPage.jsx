@@ -57,7 +57,7 @@ class MapPage extends Component {
           className="gameMap"
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={
-            <div style={{ height: '500px' }} />
+            <div style={{ height: window.innerHeight }} />
           }
           mapElement={
             <div style={{ height: '100%' }} />
