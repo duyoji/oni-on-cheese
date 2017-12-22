@@ -12,13 +12,13 @@ describe('server/socketHanlders/getPlayers.js', () => {
     const callbackForOn = (eventType, callback) => {
       receivedEventTypeFromOn = eventType;
       callback();
-    }
+    };
 
     let receivedEventTypeFromEmit = '';
     const callbackForEmit = (eventType, data) => {
       receivedEventTypeFromEmit = envetType;
       receivedDataFromEmit = data;
-    }
+    };
 
     const socket = createDummySocket(
       callbackForOn,
@@ -27,6 +27,7 @@ describe('server/socketHanlders/getPlayers.js', () => {
     const nameSpace = createDummyNameSpace();
     
     getPlayers(socket, nameSpace);
-    expect(receivedEventTypeFromOn).toEqual('getPlayers')
+    expect(receivedEventTypeFromOn).toEqual('getPlayers');
+    expect(receivedEventTypeFromEmit).toEqual('resutGetPlayers');
   });
 });
