@@ -22,6 +22,10 @@ const reducer = (state = getDefaultState(), action) => {
       return Object.assign({}, state, {
         rooms
       });
+    case 'GET_PLAYERS':
+      return Object.assign({}, state, {
+        rooms: action.rooms
+      });
     default:
       return state;
   }
