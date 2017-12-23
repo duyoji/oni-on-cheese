@@ -12,7 +12,7 @@ const getPlayersPromise = (roomId) => {
         resolve(data.result.error);
       } else {
         const playerIds = data.result.data;
-        resolve(playerIds);
+        reject(playerIds);
       }
     });
     socket.emit(SOCKET_EVENT_TYPES.EMIT, roomId);
