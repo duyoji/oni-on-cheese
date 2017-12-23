@@ -16,8 +16,7 @@ const reducer = (state = getDefaultState(), action) => {
         roomId: action.roomId
       });
     case 'GET_ROOMS':
-      const roomIds = action.roomIds;
-      const rooms = roomIds.map((roomId) => {
+      const rooms = action.roomIds.map((roomId) => {
         return {roomId}
       });
       return Object.assign({}, state, {

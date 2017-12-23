@@ -17,13 +17,13 @@ class GameListPage extends Component {
       <div className="gameListPage">
         <h2>GameListPage</h2>
         <ListGroup>
-          {this.props.roomIds.map(roomId => {
+          {this.props.rooms.map(room => {
             return (
               <ListGroupItem
-                key={roomId}
+                key={room.roomId}
                 tag="button"
-                onClick={(event) => this.props.joinRoom(roomId)}
-                action>Room: {roomId}</ListGroupItem>
+                onClick={(event) => this.props.joinRoom(room.roomId)}
+                action>Room: {room.roomId}</ListGroupItem>
             );
           })}
         </ListGroup>
@@ -35,7 +35,7 @@ class GameListPage extends Component {
 GameListPage.propTypes = {
   getRooms: PropTypes.func.isRequired,
   joinRoom: PropTypes.func.isRequired,
-  roomIds: PropTypes.array.isRequired,
+  rooms: PropTypes.array.isRequired,
   selectedRoomId: PropTypes.string
 };
 

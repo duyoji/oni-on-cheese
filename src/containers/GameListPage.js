@@ -5,7 +5,7 @@ import { joinRoom } from '../actions/joinRoom';
 
 const mapStateToProps = state => {
   return {
-    roomIds: state.roomIds,
+    rooms: state.rooms,
     selectedRoomId: state.roomId
   }
 };

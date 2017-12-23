@@ -16,17 +16,21 @@ describe('src/actions/getPlayers.js', () => {
 
   it('should dispatch action after receiving socket event', () => {
     const store = mockStore(getDefaultState());
-    const playerIds = [2, 50, 100];
-    sinon.stub(helper, 'getPlayersPromise').callsFake(() => {
-      return Promise.resolve(playerIds);
+    const rooms = [
+      {roomId: 'id1', numberOfPlayers: 2},
+      {roomId: 'id2', numberOfPlayers: 50},
+      {roomId: 'id3', numberOfPlayers: 100}
+    ];
+    sinon.stub(helper, 'getPlayersPromise').callsFake((rooms) => {
+      return Promise.resolve(rooms);
     });
 
-    return store.dispatch(getPlayers())
-      .then((data) => {
+    return store.dispatch(getPlayers(rooms))
+      .then(() => {
         const expectedActions = store.getActions();
         expect(expectedActions[0]).toEqual({
           type: 'GET_PLAYERS',
-          playerIds
+          rooms
         });
 
         helper.getPlayersPromise.restore();
