@@ -21,18 +21,22 @@ describe('src/actions/getPlayers.js', () => {
       {roomId: 'id2', numberOfPlayers: 50},
       {roomId: 'id3', numberOfPlayers: 100}
     ];
+    
     sinon.stub(helper, 'getPlayersPromise').callsFake((rooms) => {
-      return Promise.resolve(rooms);
+      return [
+        Promise.resolve(rooms[0]),
+        Promise.resolve(rooms[1]),
+        Promise.resolve(rooms[2])
+      ];
     });
 
-    return store.dispatch(getPlayers(rooms))
-      .then(() => {
+    return store.dispatch( getPlayers(rooms) )
+      .then((rooms) => {
         const expectedActions = store.getActions();
         expect(expectedActions[0]).toEqual({
           type: 'GET_PLAYERS',
           rooms
         });
-
         helper.getPlayersPromise.restore();
       });
   });

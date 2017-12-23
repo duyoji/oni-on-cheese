@@ -1,7 +1,7 @@
 import { getPlayersPromise } from './helpers/getPlayersHelper'
 
 const getPlayers = (rooms) => {
-  return async function(dispatch){
+  return (dispatch) => {
     try {
       Promise.all(getPlayersPromise(rooms))
         .then((updatedRooms) => {
