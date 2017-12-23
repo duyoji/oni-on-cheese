@@ -1,7 +1,8 @@
 const getDefaultState = () => {
   return {
     roomId: null,
-    roomIds: []
+    roomIds: [],
+    users: []
   }
 };
 
@@ -19,6 +20,18 @@ const reducer = (state = getDefaultState(), action) => {
       return Object.assign({}, state, {
         roomIds: action.roomIds
       });
+    case 'UPDATE_LOCATION':
+      const users = [...state.users];
+      const targetUser = users.find(user => user.id === action.user.id);
+      if(!targetUser) {
+        users.push(action.user);
+      } else {
+        Object.assign(targetUser, action.user);
+      }
+      return Object.assign({}, state, {users});
+    case 'LEAVE_ROOM':
+      const newUsers = state.users.filter(user => user.id !== action.userId);
+      return Object.assign({}, state, {users: newUsers});
     default:
       return state;
   }

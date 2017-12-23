@@ -36,6 +36,82 @@ describe('src/reducers/index.js', () => {
       );
       expect(state.roomIds).toEqual(roomIds);
     });
+
+    describe('UPDATE_LOCATION', () => {
+      let state = getDefaultState();
+      state.users = [
+        { id: 1, location: { latitude: 1, longitude:2 } },
+        { id: 2, location: { latitude: 3, longitude:4 } },
+        { id: 3, location: { latitude: 5, longitude:6 } }
+      ];
+
+      it('updates targetUser when state.users already has the user.', () => {
+        const updatedUser = {
+          id: 2,
+          location: {
+            latitude: 9999,
+            longitude: -9999
+          }
+        };
+        state = reducer(
+          state,
+          createDummyAction('UPDATE_LOCATION', {user: updatedUser})
+        );
+        expect(state.users).toEqual([
+          { id: 1, location: { latitude: 1, longitude:2 } },
+          { id: 2, location: { latitude: 9999, longitude: -9999 } },
+          { id: 3, location: { latitude: 5, longitude:6 } }
+        ]);
+      });
+
+      it('append a new User when state.users doesn not have the user', () => {
+        const appendedUser = {
+          id: 100,
+          location: {
+            latitude: 123,
+            longitude: 321
+          }
+        };
+        state = reducer(
+          state,
+          createDummyAction('UPDATE_LOCATION', {user: appendedUser})
+        );
+
+        expect(state.users).toEqual([
+          { id: 1, location: { latitude: 1, longitude:2 } },
+          { id: 2, location: { latitude: 9999, longitude: -9999 } },
+          { id: 3, location: { latitude: 5, longitude:6 } },
+          appendedUser,
+        ]);
+      });
+    });
+
+
+    describe('LEAVE_ROOM', () => {
+      let state = getDefaultState();
+      state.users = [
+        { id: 1, location: { latitude: 1, longitude:2 } },
+        { id: 2, location: { latitude: 3, longitude:4 } },
+        { id: 3, location: { latitude: 5, longitude:6 } }
+      ];
+
+      it('delete target user from state.users with userId', () => {
+        const deleteUserId = state.users[1].id; // id=2
+        const nonExistUserId = 'NON_EXIST';
+        state = reducer(
+          state,
+          createDummyAction('LEAVE_ROOM', {userId: deleteUserId})
+        );
+        state = reducer(
+          state,
+          createDummyAction('LEAVE_ROOM', {userId: nonExistUserId})
+        );
+        expect(state.users).toEqual([
+          { id: 1, location: { latitude: 1, longitude:2 } },
+          { id: 3, location: { latitude: 5, longitude:6 } }
+        ]);
+      });
+    });
   });
 });
 
