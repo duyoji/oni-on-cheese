@@ -1,7 +1,7 @@
 const getDefaultState = () => {
   return {
     roomId: null,
-    roomIds: []
+    rooms: []
   }
 };
 
@@ -16,8 +16,12 @@ const reducer = (state = getDefaultState(), action) => {
         roomId: action.roomId
       });
     case 'GET_ROOMS':
+      const roomIds = action.roomIds;
+      const rooms = roomIds.map((roomId) => {
+        return {roomId}
+      });
       return Object.assign({}, state, {
-        roomIds: action.roomIds
+        rooms
       });
     default:
       return state;
