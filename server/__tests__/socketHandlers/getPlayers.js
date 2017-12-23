@@ -1,11 +1,11 @@
-import { getPlayers } from '../../socketHandlers/getPlayers';
+import { getPlayerIds } from '../../socketHandlers/getPlayers';
 import {
   commonTestForSocketHandler,
   createDummySocket,
   createDummyNameSpace
 } from '../helpers/socketHandlerHelper';
 
-commonTestForSocketHandler( getPlayers );
+commonTestForSocketHandler( getPlayerIds );
 describe('server/socketHanlders/getPlayers.js', () => {
   it('calls on, adapter method and emit', () => {    
     let receivedEventTypeFromOn = '';
@@ -32,7 +32,7 @@ describe('server/socketHanlders/getPlayers.js', () => {
       fn(err, expectedEmitData);
     };
     
-    getPlayers(socket, nameSpace);
+    getPlayerIds(socket, nameSpace);
     expect(receivedEventTypeFromOn).toEqual('getPlayers');
     expect(receivedEventTypeFromEmit).toEqual('resultGetPlayers');
     expect(receivedDataFromEmit).toEqual({result: {
@@ -65,7 +65,7 @@ describe('server/socketHanlders/getPlayers.js', () => {
       fn(err, expectedEmitData);
     };
     
-    getPlayers(socket, nameSpace);
+    getPlayerIds(socket, nameSpace);
     expect(receivedEventTypeFromOn).toEqual('getPlayers');
     expect(receivedEventTypeFromEmit).toEqual('resultGetPlayers');
     expect(receivedDataFromEmit).toEqual({result: {

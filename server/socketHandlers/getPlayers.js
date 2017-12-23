@@ -5,7 +5,7 @@ const EVENT_TYPES = {
   EMIT: 'resultGetPlayers'
 }
 
-const getPlayers = (socket, socketNameSpace) => {
+const getPlayerIds = (socket, socketNameSpace) => {
   socket.on(EVENT_TYPES.ON, (roomId) => {
     socketNameSpace.adapter.clients([roomId], (err, players) => {
       if(err){
@@ -19,4 +19,4 @@ const getPlayers = (socket, socketNameSpace) => {
 
 
 
-export { getPlayers };
+export { getPlayerIds };
