@@ -54,7 +54,7 @@ class MapPage extends Component {
 
     return(
       <div className="mapPage">
-        <div>MapPage</div>
+        <div>RoomID: {this.props.roomId}</div>
         <div>Receive Counter: {this.props.receiveCounter}</div>
         <div>
           <div>User List</div>
