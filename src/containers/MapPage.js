@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import MapPage  from '../components/MapPage';
 import { updateLocation } from '../actions/updateLocation';
+import { leaveRoom } from '../actions/leaveRoom';
 
 let receiveCounter = 0;
 const mapStateToProps = state => {
@@ -17,6 +18,9 @@ const mapDispatchToProps = dispatch => {
   return {
     updateCurrentLocation: (user) => {
       dispatch( updateLocation(user) );
+    },
+    leaveUserFromRoom: (userId) => {
+      dispatch( leaveRoom(userId) );
     }
   };
 };

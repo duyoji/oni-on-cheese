@@ -2,7 +2,8 @@ import React, { Component } from 'react';  // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps'; // eslint-disable-line no-unused-vars
 import { getCurrentPosition, watchPosition } from '../utils/location';
-import { emit, addHandlerListener } from '../socketHandlers/updateLocation';
+import { emit, addHandlerListener as addUpdateLocationHandler } from '../socketHandlers/updateLocation';
+import { addHandlerListener as addLeaveRoomHandler } from '../socketHandlers/leaveRoom';
 import { createUserIcon } from '../utils/icon';
 import { Redirect } from 'react-router-dom';
 
@@ -25,8 +26,11 @@ const GameMap = withGoogleMap(props => ( // eslint-disable-line no-unused-vars
 
 class MapPage extends Component {
   componentDidMount() {
-    addHandlerListener( user => {
+    addUpdateLocationHandler( user => {
       this.props.updateCurrentLocation(user);
+    });
+    addLeaveRoomHandler( userId => {
+      this.props.leaveUserFromRoom(userId);
     });
 
     const success = ({latitude, longitude}) => {
@@ -84,6 +88,7 @@ const convertLocationPropForMarker = ({latitude, longitude}) => {
 
 MapPage.propTypes = {
   updateCurrentLocation: PropTypes.func.isRequired,
+  leaveUserFromRoom: PropTypes.func.isRequired,
   users: PropTypes.array.isRequired,
   roomId: PropTypes.string
 };
