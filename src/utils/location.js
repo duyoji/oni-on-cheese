@@ -1,7 +1,7 @@
 const defaultOption = {
   enableHighAccuracy: true,  //
   maximumAge        : 30000, // cached last position for 30 seconds
-  timeout           : 10000  // 10 seconds
+  timeout           : 30000  // 30 seconds
 };
 
 const getCurrentPosition = (
