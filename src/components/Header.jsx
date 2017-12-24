@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Navbar, NavbarBrand } from 'reactstrap';
 
 const Header = (props) => (
