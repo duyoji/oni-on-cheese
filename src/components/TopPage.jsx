@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 import { Link, withRouter, Redirect} from 'react-router-dom';
+import '../styles/top-page.css';
 
 class TopPage extends Component {
   onClickNewGame(){
@@ -14,26 +15,30 @@ class TopPage extends Component {
       );
     } else {
       return (
-        <div className='topPage'>
-          <Button
-            color="primary"
-            size="lg"
-            block
-            onClick={()=>{this.onClickNewGame()}}
-          >
-          New Game
-          </Button>
-          <Link to='/game-list'>
+        <div className="topPage container">
+          <div className="buttonGroup">
             <Button
-              color="secondary"
+              className="topButton"
+              color="primary"
               size="lg"
               block
+              onClick={()=>{this.onClickNewGame()}}
             >
-            Join Game
+            New Game
             </Button>
-          </Link>
+            <Link to='/game-list'>
+              <Button
+                className="topButton"
+                color="secondary"
+                size="lg"
+                block
+              >
+              Join Game
+              </Button>
+            </Link>
+          </div>
         </div>
-        
+
       );
     }
   }
