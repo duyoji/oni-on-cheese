@@ -54,21 +54,11 @@ class MapPage extends Component {
 
     return(
       <div className="mapPage">
-        <div>RoomID: {this.props.roomId}</div>
-        <div>Receive Counter: {this.props.receiveCounter}</div>
-        <div>
-          <div>User List</div>
-          <ul>
-            {this.props.users.map(user => (
-              <li key={user.id}>{user.name} : {JSON.stringify(user.location)}</li>
-            ))}
-          </ul>
-        </div>
         <GameMap
           className="gameMap"
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={
-            <div style={{ height: window.innerHeight }} />
+            <div style={{ height: '300px' }} />
           }
           mapElement={
             <div style={{ height: '100%' }} />
@@ -77,6 +67,13 @@ class MapPage extends Component {
           onMapClick={()=>{}}
           users={this.props.users}
         />
+        <div>RoomID: {this.props.roomId}</div>
+        <div>User List</div>
+        <ul>
+          {this.props.users.map(user => (
+            <li key={user.id}>{user.name} : {JSON.stringify(user.location)}</li>
+          ))}
+        </ul>
       </div>
     );
   }
