@@ -1,33 +1,61 @@
-import React, { Component } from 'react';  // eslint-disable-line no-unused-vars
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps'; // eslint-disable-line no-unused-vars
+import { withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
 import { getCurrentPosition, watchPosition } from '../utils/location';
 import { emit, addHandlerListener as addUpdateLocationHandler } from '../socketHandlers/updateLocation';
 import { addHandlerListener as addLeaveRoomHandler } from '../socketHandlers/leaveRoom';
 import { createUserIcon } from '../utils/icon';
 import { Redirect } from 'react-router-dom';
 
-const GameMap = withGoogleMap(props => ( // eslint-disable-line no-unused-vars
-  <GoogleMap
-    ref={props.onMapLoad}
-    defaultZoom={10}
-    defaultCenter={{ lat: 35.669107, lng: 139.6009514 }}
-    onClick={props.onMapClick}
-  >
-    {props.users.map(user => {
-      const isMe = props.socketId === user.id;
-      return(
-        <Marker
-          key={user.id}
-          icon={createUserIcon(isMe)}
-          position={convertLocationPropForMarker(user.location)}
-        />
-      );
-    })}
-  </GoogleMap>
-));
+const GameMap = withGoogleMap(props => {
+  const renderSelectedMarkerInfo = (user) => {
+    return (
+      <InfoWindow onCloseClick={props.onCloseInfoWindow}>
+        <div>
+          {user.name}
+        </div>
+      </InfoWindow>
+    );
+  };
+
+  return (
+    <GoogleMap
+      ref={props.onMapLoad}
+      defaultZoom={10}
+      defaultCenter={{ lat: 35.669107, lng: 139.6009514 }}
+      onClick={(event) => {
+        event.stop();
+        props.onMapClick()
+      }}
+    >
+      {props.users.map(user => {
+        const isMe = props.socketId === user.id;
+        return(
+          <Marker
+            key={user.id}
+            icon={createUserIcon(isMe)}
+            position={convertLocationPropForMarker(user.location)}
+            onClick={(event) => {
+              event.stop();
+              props.onMarkerClick(user)
+            }}
+          >
+            {(props.selectedUser === user) ? renderSelectedMarkerInfo(user) : null}
+          </Marker>
+        );
+      })}
+    </GoogleMap>
+  )
+});
 
 class MapPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedUser: null
+    };
+  }
+
   componentDidMount() {
     addUpdateLocationHandler( user => {
       this.props.updateCurrentLocation(user);
@@ -68,16 +96,18 @@ class MapPage extends Component {
           }
           onMapLoad={()=>{}}
           onMapClick={()=>{}}
+          onMarkerClick={(user) => {
+            this.setState({selectedUser: user});
+          }}
+          onCloseInfoWindow={() => {
+            this.setState({selectedUser: null});
+          }}
           users={this.props.users}
           socketId={this.props.socketId}
+          selectedUser={this.state.selectedUser}
         />
         <div>RoomID: {this.props.roomId}</div>
-        <div>User List</div>
-        <ul>
-          {this.props.users.map(user => (
-            <li key={user.id}>{user.name} : {JSON.stringify(user.location)}</li>
-          ))}
-        </ul>
+        <div>The number of players: {this.props.users.length}</div>
       </div>
     );
   }
