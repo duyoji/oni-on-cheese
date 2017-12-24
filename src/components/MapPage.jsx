@@ -10,8 +10,8 @@ import { Redirect } from 'react-router-dom';
 const GameMap = withGoogleMap(props => ( // eslint-disable-line no-unused-vars
   <GoogleMap
     ref={props.onMapLoad}
-    defaultZoom={15}
-    defaultCenter={{ lat: 35.6641, lng: 139.7294 }}
+    defaultZoom={10}
+    defaultCenter={{ lat: 35.669107, lng: 139.6009514 }}
     onClick={props.onMapClick}
   >
     {props.users.map(user => (
