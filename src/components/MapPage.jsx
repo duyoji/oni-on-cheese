@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
+import { withGoogleMap, withScriptjs, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
 import { getCurrentPosition, watchPosition } from '../utils/location';
 import { emit, addHandlerListener as addUpdateLocationHandler } from '../socketHandlers/updateLocation';
 import { addHandlerListener as addLeaveRoomHandler } from '../socketHandlers/leaveRoom';
 import { createUserIcon } from '../utils/icon';
 import { Redirect } from 'react-router-dom';
 
-const GameMap = withGoogleMap(props => {
+const GameMap = withScriptjs(withGoogleMap(props => {
   const renderSelectedMarkerInfo = (user) => {
     return (
       <InfoWindow onCloseClick={props.onCloseInfoWindow}>
@@ -16,6 +16,19 @@ const GameMap = withGoogleMap(props => {
         </div>
       </InfoWindow>
     );
+  };
+
+  const google = window.google;
+  const controlOptions = {
+    options: {
+      fullscreenControl: false,
+      mapTypeControl: false,
+      panControl: false,
+      rotateControl: false,
+      scaleControl: false,
+      streetViewControl: false,
+      zoomControl: false
+    }
   };
 
   return (
@@ -27,6 +40,7 @@ const GameMap = withGoogleMap(props => {
         event.stop();
         props.onMapClick()
       }}
+      {...controlOptions}
     >
       {props.users.map(user => {
         const isMe = props.socketId === user.id;
@@ -46,7 +60,7 @@ const GameMap = withGoogleMap(props => {
       })}
     </GoogleMap>
   )
-});
+}));
 
 class MapPage extends Component {
   constructor(props) {
@@ -87,6 +101,7 @@ class MapPage extends Component {
       <div className="mapPage">
         <GameMap
           className="gameMap"
+          googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyCbwlqVCEnZdTeR6RbEPHm6xgHySVpimKk"
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={
             <div style={{ height: '300px' }} />
