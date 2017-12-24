@@ -86,7 +86,6 @@ describe('src/reducers/index.js', () => {
       });
     });
 
-
     describe('LEAVE_ROOM', () => {
       let state = getDefaultState();
       state.users = [
@@ -110,6 +109,22 @@ describe('src/reducers/index.js', () => {
           { id: 1, location: { latitude: 1, longitude:2 } },
           { id: 3, location: { latitude: 5, longitude:6 } }
         ]);
+      });
+    });
+
+    describe('CONNECTED_TO_SOCKET', () => {
+      let state = getDefaultState();
+      const SOCKET_ID = 'fjasjfalksdjfl;ajsdl;fkjasd';
+
+      it('sets socketId to state.', () => {
+        expect(state.socketId).toEqual(null);
+
+        state = reducer(
+          state,
+          createDummyAction('CONNECTED_TO_SOCKET', {socketId: SOCKET_ID})
+        );
+
+        expect(state.socketId).toEqual(SOCKET_ID);
       });
     });
   });
