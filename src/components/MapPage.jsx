@@ -18,7 +18,6 @@ const GameMap = withScriptjs(withGoogleMap(props => {
     );
   };
 
-  const google = window.google;
   const controlOptions = {
     options: {
       fullscreenControl: false,
@@ -35,7 +34,8 @@ const GameMap = withScriptjs(withGoogleMap(props => {
     <GoogleMap
       ref={props.onMapLoad}
       defaultZoom={10}
-      defaultCenter={{ lat: 35.669107, lng: 139.6009514 }}
+      defaultCenter={{ lat: 35.669107, lng: 139.6009514 }} // Entire Tokyo
+      center={props.startLocation ? convertLocationPropForMarker(props.startLocation) : null}
       onClick={(event) => {
         event.stop();
         props.onMapClick()
@@ -66,7 +66,8 @@ class MapPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedUser: null
+      selectedUser: null,
+      startLocation: null,
     };
   }
 
@@ -82,6 +83,12 @@ class MapPage extends Component {
       const location = {latitude, longitude};
       const roomId = this.props.roomId
       emit({ location, roomId });
+
+      if(!this.state.startLocation) {
+        this.setState({
+          startLocation: {latitude, longitude}
+        });
+      }
     };
     const error = (error) => console.error(error);
 
@@ -120,9 +127,11 @@ class MapPage extends Component {
           users={this.props.users}
           socketId={this.props.socketId}
           selectedUser={this.state.selectedUser}
+          startLocation={this.state.startLocation}
         />
         <div>RoomID: {this.props.roomId}</div>
         <div>The number of players: {this.props.users.length}</div>
+        <div>updateLocationCounter: {this.props.updateLocationCounter}</div>
       </div>
     );
   }
