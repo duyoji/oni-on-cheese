@@ -9,6 +9,7 @@ const mapStateToProps = state => {
   return {
     roomId: state.roomId,
     users: state.users,
+    socketId: state.socketId,
 
     // For debugger
     receiveCounter

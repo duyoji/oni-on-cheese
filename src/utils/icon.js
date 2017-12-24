@@ -1,6 +1,16 @@
 import fontawesome from 'fontawesome-markers';
 
-const DEFAULT_ICON = {
+const ME_ICON = {
+  path: fontawesome.MAP_MARKER,
+  scale: 0.5,
+  strokeWeight: 1,
+  strokeColor: 'black',
+  strokeOpacity: 1,
+  fillColor: '#F44362',
+  fillOpacity: 1.0,
+};
+
+const OTHERS_ICON = {
   path: fontawesome.MAP_MARKER,
   scale: 0.5,
   strokeWeight: 1,
@@ -13,8 +23,8 @@ const DEFAULT_ICON = {
 // Future plan.
 // Switch icon according to roles of each user.
 
-const createUserIcon = () => {
-  const icon = DEFAULT_ICON;
+const createUserIcon = (isMe = false) => {
+  const icon = isMe ? ME_ICON : OTHERS_ICON;
 
   return icon;
 };

@@ -14,13 +14,16 @@ const GameMap = withGoogleMap(props => ( // eslint-disable-line no-unused-vars
     defaultCenter={{ lat: 35.669107, lng: 139.6009514 }}
     onClick={props.onMapClick}
   >
-    {props.users.map(user => (
-      <Marker
-        key={user.id}
-        icon={createUserIcon()}
-        position={convertLocationPropForMarker(user.location)}
-      />
-    ))}
+    {props.users.map(user => {
+      const isMe = props.socketId === user.id;
+      return(
+        <Marker
+          key={user.id}
+          icon={createUserIcon(isMe)}
+          position={convertLocationPropForMarker(user.location)}
+        />
+      );
+    })}
   </GoogleMap>
 ));
 
@@ -66,6 +69,7 @@ class MapPage extends Component {
           onMapLoad={()=>{}}
           onMapClick={()=>{}}
           users={this.props.users}
+          socketId={this.props.socketId}
         />
         <div>RoomID: {this.props.roomId}</div>
         <div>User List</div>
@@ -86,8 +90,9 @@ const convertLocationPropForMarker = ({latitude, longitude}) => {
 MapPage.propTypes = {
   updateCurrentLocation: PropTypes.func.isRequired,
   leaveUserFromRoom: PropTypes.func.isRequired,
+  socketId: PropTypes.string.isRequired,
   users: PropTypes.array.isRequired,
-  roomId: PropTypes.string
+  roomId: PropTypes.string,
 };
 
 export default MapPage;
