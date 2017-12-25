@@ -132,7 +132,7 @@ describe('src/reducers/index.js', () => {
       let state = getDefaultState();
       const USER_NAME = 'DUMMY_USER_NAME';
 
-      it('sets socketId to state.', () => {
+      it('sets userName to state.', () => {
         expect(state.socketId).toEqual(null);
 
         state = reducer(
