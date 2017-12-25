@@ -35,7 +35,7 @@ const GameMap = withScriptjs(withGoogleMap(props => {
     <GoogleMap
       ref={props.onMapLoad}
       defaultZoom={15}
-      center={props.startLocation ? convertLocationPropForMarker(props.startLocation) : null}
+      defaultCenter={convertLocationPropForMarker(props.startLocation)}
       onClick={(event) => {
         event.stop();
         props.onMapClick()
@@ -67,7 +67,7 @@ class MapPage extends Component {
     super(props);
     this.state = {
       selectedUser: null,
-      startLocation: null,
+      startLocation: null
     };
   }
 
@@ -108,7 +108,7 @@ class MapPage extends Component {
     if(!this.state.startLocation) {
       const style = {
         height: '300px',
-        'text-align': 'center',
+        textAlign: 'center',
         background: '#E5E3DF'
       };
 
