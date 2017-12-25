@@ -8,7 +8,7 @@ class GameListPage extends Component {
   componentDidMount() {
     this.props.getRooms();
   }
-
+// add number of players in gamelist section
   render() {
     if (this.props.selectedRoomId) {
       return <Redirect to='/map' />;
