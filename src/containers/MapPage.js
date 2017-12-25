@@ -3,20 +3,22 @@ import MapPage  from '../components/MapPage';
 import { updateLocation } from '../actions/updateLocation';
 import { leaveRoom } from '../actions/leaveRoom';
 
-let receiveCounter = 0;
+let updateLocationCounter = 0; // For debugger
 const mapStateToProps = state => {
-  receiveCounter++;
   return {
     roomId: state.roomId,
     users: state.users,
+    socketId: state.socketId,
+    userName: state.userName,
 
     // For debugger
-    receiveCounter
+    updateLocationCounter
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
     updateCurrentLocation: (user) => {
+      updateLocationCounter++; // For debugger
       dispatch( updateLocation(user) );
     },
     leaveUserFromRoom: (userId) => {
