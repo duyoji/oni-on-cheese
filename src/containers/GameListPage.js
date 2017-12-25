@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import GameListPage from '../components/GameListPage';
 import { getRooms } from '../actions/getRooms';
 import { joinRoom } from '../actions/joinRoom';
+import { getPlayers } from '../actions/getPlayers'
 
 const mapStateToProps = state => {
   return {
@@ -15,6 +16,9 @@ const mapDispatchToProps = dispatch => ({
   },
   joinRoom: (roomId) => {
     dispatch( joinRoom(roomId) );
+  },
+  getPlayers: (rooms) => {
+    dispatch( getPlayers(rooms) );
   }
 });
 
