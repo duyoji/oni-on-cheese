@@ -3,7 +3,8 @@ const getDefaultState = () => {
     roomId: null,
     roomIds: [],
     users: [],
-    socketId: null
+    socketId: null,
+    userName: null,
   }
 };
 
@@ -36,6 +37,10 @@ const reducer = (state = getDefaultState(), action) => {
     case 'CONNECTED_TO_SOCKET':
       return Object.assign({}, state, {
         socketId: action.socketId
+      });
+    case 'SET_USER_NAME':
+      return Object.assign({}, state, {
+        userName: action.userName
       });
     default:
       return state;
