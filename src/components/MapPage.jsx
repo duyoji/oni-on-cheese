@@ -6,6 +6,7 @@ import { emit, addHandlerListener as addUpdateLocationHandler } from '../socketH
 import { addHandlerListener as addLeaveRoomHandler } from '../socketHandlers/leaveRoom';
 import { createUserIcon } from '../utils/icon';
 import { Redirect } from 'react-router-dom';
+import MapLoader from './loaders/MapLoader';
 
 const GameMap = withScriptjs(withGoogleMap(props => {
   const renderSelectedMarkerInfo = (user) => {
@@ -34,7 +35,6 @@ const GameMap = withScriptjs(withGoogleMap(props => {
     <GoogleMap
       ref={props.onMapLoad}
       defaultZoom={15}
-      defaultCenter={{ lat: 35.669107, lng: 139.6009514 }} // Entire Tokyo
       center={props.startLocation ? convertLocationPropForMarker(props.startLocation) : null}
       onClick={(event) => {
         event.stop();
@@ -105,18 +105,26 @@ class MapPage extends Component {
       return <Redirect to='/' />;
     }
 
+    if(!this.state.startLocation) {
+      const style = {
+        height: '300px',
+        'text-align': 'center',
+        background: '#E5E3DF'
+      };
+
+      return (
+        <MapLoader style={style}/>
+      );
+    }
+
     return(
       <div className="mapPage">
         <GameMap
           className="gameMap"
           googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyCbwlqVCEnZdTeR6RbEPHm6xgHySVpimKk"
           loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={
-            <div style={{ height: '300px' }} />
-          }
-          mapElement={
-            <div style={{ height: '100%' }} />
-          }
+          containerElement={<div style={{ height: '300px' }} />}
+          mapElement={<div style={{ height: '100%' }} />}
           onMapLoad={()=>{}}
           onMapClick={()=>{}}
           onMarkerClick={(user) => {
