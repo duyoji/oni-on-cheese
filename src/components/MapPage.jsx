@@ -33,7 +33,7 @@ const GameMap = withScriptjs(withGoogleMap(props => {
   return (
     <GoogleMap
       ref={props.onMapLoad}
-      defaultZoom={10}
+      defaultZoom={15}
       defaultCenter={{ lat: 35.669107, lng: 139.6009514 }} // Entire Tokyo
       center={props.startLocation ? convertLocationPropForMarker(props.startLocation) : null}
       onClick={(event) => {
