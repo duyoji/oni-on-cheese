@@ -1,8 +1,7 @@
 import React from 'react';
-// import ReactDOM from 'react-dom';
 import { shallow } from '../../helpers/configuredEnzymeWithAdapter';
 import InputUserNameModal from '../../../components/modals/InputUserNameModal';
-import { Modal, ModalHeader } from 'reactstrap';
+import { Modal } from 'reactstrap';
 
 describe('src/components/modals/InputUserNameModal.jsx', () => {
   it('shows modal if props.userName is undefined.', () => {
