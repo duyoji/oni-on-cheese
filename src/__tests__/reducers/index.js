@@ -127,6 +127,22 @@ describe('src/reducers/index.js', () => {
         expect(state.socketId).toEqual(SOCKET_ID);
       });
     });
+
+    describe('SET_USER_NAME', () => {
+      let state = getDefaultState();
+      const USER_NAME = 'DUMMY_USER_NAME';
+
+      it('sets socketId to state.', () => {
+        expect(state.socketId).toEqual(null);
+
+        state = reducer(
+          state,
+          createDummyAction('SET_USER_NAME', {userName: USER_NAME})
+        );
+
+        expect(state.userName).toEqual(USER_NAME);
+      });
+    });
   });
 });
 
