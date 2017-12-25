@@ -9,12 +9,13 @@ import {
   InputGroup,
   Input
 } from 'reactstrap';
+import { setUserName, getUserName } from '../../utils/localStorage';
 
 class InputUserNameModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUserName: ''
+      currentUserName: getUserName() || ''
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,6 +29,7 @@ class InputUserNameModal extends Component {
   }
 
   handleSubmit(event) {
+    setUserName(this.state.currentUserName);
     this.props.setUserName(this.state.currentUserName);
   }
 
@@ -63,7 +65,7 @@ class InputUserNameModal extends Component {
 
 InputUserNameModal.propTypes = {
   setUserName: PropTypes.func.isRequired,
-  userName: PropTypes.string
+  userName: PropTypes.string.isRequired
 };
 
 export default InputUserNameModal;
