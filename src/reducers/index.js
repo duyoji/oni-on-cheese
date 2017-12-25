@@ -1,7 +1,10 @@
 const getDefaultState = () => {
   return {
     roomId: null,
-    rooms: []
+    rooms: [],
+    users: [],
+    socketId: null,
+    userName: null,
   }
 };
 
@@ -25,6 +28,26 @@ const reducer = (state = getDefaultState(), action) => {
     case 'GET_PLAYERS':
       return Object.assign({}, state, {
         rooms: action.rooms
+      });
+    case 'UPDATE_LOCATION':
+      const users = [...state.users];
+      const targetUser = users.find(user => user.id === action.user.id);
+      if(!targetUser) {
+        users.push(action.user);
+      } else {
+        Object.assign(targetUser, action.user);
+      }
+      return Object.assign({}, state, {users});
+    case 'LEAVE_ROOM':
+      const newUsers = state.users.filter(user => user.id !== action.userId);
+      return Object.assign({}, state, {users: newUsers});
+    case 'CONNECTED_TO_SOCKET':
+      return Object.assign({}, state, {
+        socketId: action.socketId
+      });
+    case 'SET_USER_NAME':
+      return Object.assign({}, state, {
+        userName: action.userName
       });
     default:
       return state;

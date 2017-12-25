@@ -103,6 +103,23 @@ const User = Nohm.model('User', {
 });
 
 const classMethodsOfUser = {
+  build: async(data) => {
+    if(!data) {
+      throw new Error('`build` takes an object.');
+    }
+    if(!data.id) {
+      throw new Error('Need `id`.');
+    }
+    if(!data.location) {
+      throw new Error('Need `location`.');
+    }
+
+    const user = await Nohm.factory('User');
+    user.property(data);
+
+    return user;
+  },
+
   create: async (data) => {
     const user = await Nohm.factory('User');
     user.id = data.id;

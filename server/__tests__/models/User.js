@@ -42,6 +42,34 @@ describe('server/models/User.js', () => {
       })
     };
 
+    describe('The `build` method', () => {
+      it('should return user instance.', async (done) => {
+        const buildUser = async () => {
+          return await User.build(INPUT_DATA);
+        };
+        const user = await buildUser();
+        expect(user.property('id')).toEqual(USER_ID_FOR_TEST);
+        expect(user.property('name')).toEqual(INPUT_DATA.name);
+        expect(user.property('iconUrl')).toEqual(INPUT_DATA.iconUrl);
+        expect(user.property('location')).toEqual(JSON.parse(INPUT_DATA.location));
+        expect(user.serialize()).toEqual({
+          id: user.property('id'),
+          name: user.property('name'),
+          iconUrl: user.property('iconUrl'),
+          location: user.property('location'),
+        });
+
+        let error;
+        try {
+          await User.build();
+        } catch (err) {
+          error = err;
+        }
+        expect(error instanceof Error).toEqual(true);
+        done();
+      });
+    });
+
     describe('The `create` method', () => {
       it('should return user instance and store data in redis. ', async (done) => {
         const createUser = async () => {

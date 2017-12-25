@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import { ListGroup, ListGroupItem } from 'reactstrap';
+import { ListGroup, ListGroupItem, Badge } from 'reactstrap';
+import '../styles/game-list-page.css';
 
 class GameListPage extends Component {
   componentDidMount() {
@@ -14,16 +15,18 @@ class GameListPage extends Component {
     }
 
     return (
-      <div className="gameListPage">
-        <h2>GameListPage</h2>
+      <div className="gameListPage container">
         <ListGroup>
           {this.props.rooms.map(room => {
             return (
               <ListGroupItem
                 key={room.roomId}
                 tag="button"
-                onClick={(event) => this.props.joinRoom(room.roomId)}
-                action>Room: {room.roomId}</ListGroupItem>
+                onClick={(event) => this.props.joinRoom(roomId)}
+                action>
+                {room.roomId}
+                <Badge pill className="float-right">0</Badge>
+              </ListGroupItem>
             );
           })}
         </ListGroup>
