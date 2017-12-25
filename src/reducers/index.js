@@ -1,7 +1,7 @@
 const getDefaultState = () => {
   return {
     roomId: null,
-    roomIds: [],
+    rooms: [],
     users: [],
     socketId: null,
     userName: null,
@@ -19,8 +19,15 @@ const reducer = (state = getDefaultState(), action) => {
         roomId: action.roomId
       });
     case 'GET_ROOMS':
+      const rooms = action.roomIds.map((roomId) => {
+        return {roomId}
+      });
       return Object.assign({}, state, {
-        roomIds: action.roomIds
+        rooms
+      });
+    case 'GET_PLAYERS':
+      return Object.assign({}, state, {
+        rooms: action.rooms
       });
     case 'UPDATE_LOCATION':
       const users = [...state.users];
