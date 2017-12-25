@@ -2,7 +2,8 @@ const getDefaultState = () => {
   return {
     roomId: null,
     roomIds: [],
-    users: []
+    users: [],
+    socketId: null
   }
 };
 
@@ -32,6 +33,10 @@ const reducer = (state = getDefaultState(), action) => {
     case 'LEAVE_ROOM':
       const newUsers = state.users.filter(user => user.id !== action.userId);
       return Object.assign({}, state, {users: newUsers});
+    case 'CONNECTED_TO_SOCKET':
+      return Object.assign({}, state, {
+        socketId: action.socketId
+      });
     default:
       return state;
   }

@@ -1,30 +1,76 @@
-import React, { Component } from 'react';  // eslint-disable-line no-unused-vars
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps'; // eslint-disable-line no-unused-vars
+import { withGoogleMap, withScriptjs, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
 import { getCurrentPosition, watchPosition } from '../utils/location';
 import { emit, addHandlerListener as addUpdateLocationHandler } from '../socketHandlers/updateLocation';
 import { addHandlerListener as addLeaveRoomHandler } from '../socketHandlers/leaveRoom';
 import { createUserIcon } from '../utils/icon';
 import { Redirect } from 'react-router-dom';
 
-const GameMap = withGoogleMap(props => ( // eslint-disable-line no-unused-vars
-  <GoogleMap
-    ref={props.onMapLoad}
-    defaultZoom={15}
-    defaultCenter={{ lat: 35.6641, lng: 139.7294 }}
-    onClick={props.onMapClick}
-  >
-    {props.users.map(user => (
-      <Marker
-        key={user.id}
-        icon={createUserIcon()}
-        position={convertLocationPropForMarker(user.location)}
-      />
-    ))}
-  </GoogleMap>
-));
+const GameMap = withScriptjs(withGoogleMap(props => {
+  const renderSelectedMarkerInfo = (user) => {
+    return (
+      <InfoWindow onCloseClick={props.onCloseInfoWindow}>
+        <div>
+          {user.name}
+        </div>
+      </InfoWindow>
+    );
+  };
+
+  const controlOptions = {
+    options: {
+      fullscreenControl: false,
+      mapTypeControl: false,
+      panControl: false,
+      rotateControl: false,
+      scaleControl: false,
+      streetViewControl: false,
+      zoomControl: false
+    }
+  };
+
+  return (
+    <GoogleMap
+      ref={props.onMapLoad}
+      defaultZoom={15}
+      defaultCenter={{ lat: 35.669107, lng: 139.6009514 }} // Entire Tokyo
+      center={props.startLocation ? convertLocationPropForMarker(props.startLocation) : null}
+      onClick={(event) => {
+        event.stop();
+        props.onMapClick()
+      }}
+      {...controlOptions}
+    >
+      {props.users.map(user => {
+        const isMe = props.socketId === user.id;
+        return(
+          <Marker
+            key={user.id}
+            icon={createUserIcon(isMe)}
+            position={convertLocationPropForMarker(user.location)}
+            onClick={(event) => {
+              event.stop();
+              props.onMarkerClick(user)
+            }}
+          >
+            {(props.selectedUser === user) ? renderSelectedMarkerInfo(user) : null}
+          </Marker>
+        );
+      })}
+    </GoogleMap>
+  )
+}));
 
 class MapPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedUser: null,
+      startLocation: null,
+    };
+  }
+
   componentDidMount() {
     addUpdateLocationHandler( user => {
       this.props.updateCurrentLocation(user);
@@ -37,6 +83,12 @@ class MapPage extends Component {
       const location = {latitude, longitude};
       const roomId = this.props.roomId
       emit({ location, roomId });
+
+      if(!this.state.startLocation) {
+        this.setState({
+          startLocation: {latitude, longitude}
+        });
+      }
     };
     const error = (error) => console.error(error);
 
@@ -54,29 +106,32 @@ class MapPage extends Component {
 
     return(
       <div className="mapPage">
-        <div>RoomID: {this.props.roomId}</div>
-        <div>Receive Counter: {this.props.receiveCounter}</div>
-        <div>
-          <div>User List</div>
-          <ul>
-            {this.props.users.map(user => (
-              <li key={user.id}>{user.name} : {JSON.stringify(user.location)}</li>
-            ))}
-          </ul>
-        </div>
         <GameMap
           className="gameMap"
+          googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyCbwlqVCEnZdTeR6RbEPHm6xgHySVpimKk"
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={
-            <div style={{ height: window.innerHeight }} />
+            <div style={{ height: '300px' }} />
           }
           mapElement={
             <div style={{ height: '100%' }} />
           }
           onMapLoad={()=>{}}
           onMapClick={()=>{}}
+          onMarkerClick={(user) => {
+            this.setState({selectedUser: user});
+          }}
+          onCloseInfoWindow={() => {
+            this.setState({selectedUser: null});
+          }}
           users={this.props.users}
+          socketId={this.props.socketId}
+          selectedUser={this.state.selectedUser}
+          startLocation={this.state.startLocation}
         />
+        <div>RoomID: {this.props.roomId}</div>
+        <div>The number of players: {this.props.users.length}</div>
+        <div>updateLocationCounter: {this.props.updateLocationCounter}</div>
       </div>
     );
   }
@@ -89,8 +144,9 @@ const convertLocationPropForMarker = ({latitude, longitude}) => {
 MapPage.propTypes = {
   updateCurrentLocation: PropTypes.func.isRequired,
   leaveUserFromRoom: PropTypes.func.isRequired,
+  socketId: PropTypes.string.isRequired,
   users: PropTypes.array.isRequired,
-  roomId: PropTypes.string
+  roomId: PropTypes.string,
 };
 
 export default MapPage;

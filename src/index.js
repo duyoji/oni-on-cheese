@@ -8,6 +8,7 @@ import reducer from './reducers/index';
 import App from './containers/App'; // eslint-disable-line no-unused-vars
 import registerServiceWorker from './registerServiceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
+import './styles/index.css';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer, /* preloadedState, */ composeEnhancers(applyMiddleware(thunk)));

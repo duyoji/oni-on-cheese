@@ -70,6 +70,9 @@
       "<rootDir>/server/__tests__/helpers/",
       "<rootDir>/src/__tests__/helpers/",
       "<rootDir>/node_modules/"
-    ]
+    ],
+    "moduleNameMapper": {
+      "\\.(css)$": "<rootDir>/src/__mocks__/styleMock.js"
+    }
   }
 }
