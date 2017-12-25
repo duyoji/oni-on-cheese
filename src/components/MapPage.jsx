@@ -81,8 +81,9 @@ class MapPage extends Component {
 
     const success = ({latitude, longitude}) => {
       const location = {latitude, longitude};
-      const roomId = this.props.roomId
-      emit({ location, roomId });
+      const roomId = this.props.roomId;
+      const name = this.props.userName;
+      emit({ location, roomId, name });
 
       if(!this.state.startLocation) {
         this.setState({
@@ -146,6 +147,7 @@ MapPage.propTypes = {
   leaveUserFromRoom: PropTypes.func.isRequired,
   socketId: PropTypes.string.isRequired,
   users: PropTypes.array.isRequired,
+  userName: PropTypes.string,
   roomId: PropTypes.string,
 };
 

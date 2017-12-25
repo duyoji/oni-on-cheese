@@ -9,6 +9,7 @@ const mapStateToProps = state => {
     roomId: state.roomId,
     users: state.users,
     socketId: state.socketId,
+    userName: state.userName,
 
     // For debugger
     updateLocationCounter
