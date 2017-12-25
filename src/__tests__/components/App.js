@@ -8,6 +8,7 @@ import { getDefaultState } from '../../reducers/index';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import socket from '../../socketHandlers/index';
+import '../helpers/mockLocalStorage';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
