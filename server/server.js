@@ -18,4 +18,9 @@ if(process.env.NODE_ENV !== 'test') {
   app.use('/', express.static(path.join(__dirname, '../build')));
 }
 
+// Redirect to `/` when unmatch path is requested.
+app.all('*', function(req, res) {
+  res.redirect("http://www.mysite.com/");
+});
+
 export default app;
