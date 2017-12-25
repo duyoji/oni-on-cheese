@@ -1,12 +1,10 @@
 import { getPlayersPromise } from './helpers/getPlayersHelper'
 
 const getPlayers = (rooms) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     try {
-      Promise.all(getPlayersPromise(rooms))
-        .then((updatedRooms) => {
-          dispatch(getPlayersSuccess(updatedRooms));
-        })
+      const updatedRooms = await Promise.all(getPlayersPromise(rooms))
+        dispatch(getPlayersSuccess(updatedRooms));
     } catch(err) {
       console.error(err);
     }

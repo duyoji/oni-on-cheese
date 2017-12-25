@@ -14,7 +14,7 @@ describe('src/actions/getPlayers.js', () => {
     socket.disconnect();
   });
 
-  it('should dispatch action after receiving socket event', () => {
+  it('should dispatch action after receiving socket event', async () => {
     const store = mockStore(getDefaultState());
     const rooms = [
       {roomId: 'id1', numberOfPlayers: 2},
@@ -31,7 +31,7 @@ describe('src/actions/getPlayers.js', () => {
     });
 
     return store.dispatch( getPlayers(rooms) )
-      .then((rooms) => {
+      .then(() => {
         const expectedActions = store.getActions();
         expect(expectedActions[0]).toEqual({
           type: 'GET_PLAYERS',
