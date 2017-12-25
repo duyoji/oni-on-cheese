@@ -6,6 +6,7 @@ import GameListPage from '../containers/GameListPage';
 import MapPage from '../containers/MapPage';
 import Header from '../containers/Header'
 import { addHandlerListener } from '../socketHandlers/connect';
+import InputUserNameModal from '../containers/modals/InputUserNameModal'
 
 class App extends Component {
   componentDidMount() {
@@ -19,6 +20,7 @@ class App extends Component {
         <Route exact={true} path="/" component={TopPage} />
         <Route exact={true} path="/game-list" component={GameListPage} />
         <Route exact={true} path="/map" component={MapPage} />
+        <InputUserNameModal />
       </div>
     );
   }
