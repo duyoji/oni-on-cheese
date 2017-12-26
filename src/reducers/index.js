@@ -18,17 +18,6 @@ const reducer = (state = getDefaultState(), action) => {
       return Object.assign({}, state, {
         roomId: action.roomId
       });
-    case 'GET_ROOMS':
-      const rooms = action.roomIds.map((roomId) => {
-        return {roomId}
-      });
-      return Object.assign({}, state, {
-        rooms
-      });
-    case 'GET_PLAYERS':
-      return Object.assign({}, state, {
-        rooms: action.rooms
-      });
     case 'UPDATE_LOCATION':
       const users = [...state.users];
       const targetUser = users.find(user => user.id === action.user.id);

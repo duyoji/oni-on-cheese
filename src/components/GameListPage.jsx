@@ -36,9 +36,8 @@ class GameListPage extends Component {
 }
 
 GameListPage.propTypes = {
-  getRooms: PropTypes.func.isRequired,
   joinRoom: PropTypes.func.isRequired,
-  getPlayers: PropTypes.func.isRequired,
+  getRoomInfo: PropTypes.func.isRequired,
   rooms: PropTypes.array.isRequired,
   selectedRoomId: PropTypes.string
 };

@@ -1,14 +1,11 @@
-import { getRoomsPromise } from './helpers/getRoomsHelper';
+import { getRoomIdsPromise } from './helpers/getRoomsHelper';
 import { getPlayersPromise } from './helpers/getPlayersHelper'
 
 const getRoomInfo = () => {
   return async function (dispatch) {
     try {
-      const roomIds = await getRoomsPromise();
-      let rooms = roomIds.map((roomId) => {
-        return {roomId};
-      });
-      rooms = await Promise.all(getPlayersPromise(rooms))
+      const roomIds = await getRoomIdsPromise();
+      const rooms = await Promise.all(getPlayersPromise(roomIds))
       dispatch(getRoomInfoSuccess(rooms));
     } catch(err) {
       console.error(err);

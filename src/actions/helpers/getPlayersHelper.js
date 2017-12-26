@@ -5,9 +5,8 @@ const SOCKET_EVENT_TYPES = {
   ON: 'resultGetPlayers'
 }
 
-const getPlayersPromise = (rooms) => {
-  return rooms.map((room) => {
-    const roomId = room.roomId;
+const getPlayersPromise = (roomIds) => {
+  return roomIds.map((roomId) => {
     return new Promise((resolve, reject) => {
       socket.on(SOCKET_EVENT_TYPES.ON + roomId, (data) => {
         if(data.result.error) {
