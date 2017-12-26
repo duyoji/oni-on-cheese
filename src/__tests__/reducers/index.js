@@ -53,6 +53,19 @@ describe('src/reducers/index.js', () => {
       );
       expect(state.rooms).toEqual(rooms);
     })
+    it('updates the number of players when action type is `GET_ROOM_INFO`.', () => {
+      const rooms = [
+        {roomId: 'id1', numberOfPlayers: 2},
+        {roomId: 'id2', numberOfPlayers: 40},
+        {roomId: 'id3', numberOfPlayers: 23}
+      ];
+      const state = reducer(
+        getDefaultState(),
+        createDummyAction('GET_ROOM_INFO', {rooms})
+      );
+      expect(state.rooms).toEqual(rooms);
+    })
+    
 
     describe('UPDATE_LOCATION', () => {
       let state = getDefaultState();
