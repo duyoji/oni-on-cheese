@@ -6,7 +6,7 @@ import '../styles/game-list-page.css';
 
 class GameListPage extends Component {
   componentDidMount() {
-    this.props.getRooms();
+    this.props.getRoomInfo();
   }
 
   render() {

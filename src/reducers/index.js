@@ -49,6 +49,10 @@ const reducer = (state = getDefaultState(), action) => {
       return Object.assign({}, state, {
         userName: action.userName
       });
+    case 'GET_ROOM_INFO':
+      return Object.assign({}, state, {
+        rooms: action.rooms
+      })
     default:
       return state;
   }
