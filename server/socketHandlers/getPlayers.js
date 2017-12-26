@@ -7,12 +7,12 @@ const EVENT_TYPES = {
 
 const getPlayerIds = (socket, socketNameSpace) => {
   socket.on(EVENT_TYPES.ON, (roomId) => {
-    socketNameSpace.adapter.clients([roomId], (err, players) => {
+    socketNameSpace.in(roomId).clients((err, players) => {
       if(err){
         socket.emit(EVENT_TYPES.EMIT, formatOutput({error: err}));
         return;
       }
-      socket.emit(EVENT_TYPES.EMIT, formatOutput({data: players}));
+      socket.emit(EVENT_TYPES.EMIT + roomId, formatOutput({data: players}));
     });
   });
 };
