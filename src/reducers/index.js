@@ -1,7 +1,7 @@
 const getDefaultState = () => {
   return {
     roomId: null,
-    rooms: [],
+    roomIds: [],
     users: [],
     socketId: null,
     userName: null,
@@ -19,15 +19,8 @@ const reducer = (state = getDefaultState(), action) => {
         roomId: action.roomId
       });
     case 'GET_ROOMS':
-      const rooms = action.roomIds.map((roomId) => {
-        return {roomId}
-      });
       return Object.assign({}, state, {
-        rooms
-      });
-    case 'GET_PLAYERS':
-      return Object.assign({}, state, {
-        rooms: action.rooms
+        roomIds: action.roomIds
       });
     case 'UPDATE_LOCATION':
       const users = [...state.users];
@@ -49,10 +42,6 @@ const reducer = (state = getDefaultState(), action) => {
       return Object.assign({}, state, {
         userName: action.userName
       });
-    case 'GET_ROOM_INFO':
-      return Object.assign({}, state, {
-        rooms: action.rooms
-      })
     default:
       return state;
   }

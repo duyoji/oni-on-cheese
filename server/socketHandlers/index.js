@@ -6,7 +6,6 @@ import { leaveRoom } from './leaveRoom';
 import { updateLocation } from './updateLocation';
 import { closeGame } from './closeGame';
 import { disconnect } from './disconnect';
-import { getPlayerIds } from './getPlayers';
 
 const setSocketEventHandler = (socket, socketNameSpace) => {
 
@@ -21,8 +20,7 @@ const setSocketEventHandler = (socket, socketNameSpace) => {
     leaveRoom,
     updateLocation,
     closeGame,
-    disconnect,
-    getPlayerIds
+    disconnect
   ];
 
   handlers.forEach(handler => {
