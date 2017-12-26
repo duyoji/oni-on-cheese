@@ -2,7 +2,7 @@ import reducer, { getDefaultState } from '../../reducers/index';
 describe('src/reducers/index.js', () => {
   describe('The getDefaultState function', () => {
     it('should includes expected prop', () => {
-      const expectedProps = ['roomId', 'roomIds'];
+      const expectedProps = ['roomId', 'rooms'];
       const state = getDefaultState();
       expectedProps.forEach(prop => {
         expect( state.hasOwnProperty(prop) ).toEqual(true);
@@ -30,12 +30,42 @@ describe('src/reducers/index.js', () => {
 
     it('updates roomIds when action type is `GET_ROOMS`.', () => {
       const roomIds = ['id1', 'id2', 'id3'];
+      const rooms = [
+        {roomId: 'id1'},
+        {roomId: 'id2'},
+        {roomId: 'id3'},
+      ];
       const state = reducer(
         getDefaultState(),
         createDummyAction('GET_ROOMS', {roomIds})
       );
-      expect(state.roomIds).toEqual(roomIds);
+      expect(state.rooms).toEqual(rooms);
     });
+    it('updates the number of players when action type is `GET_PLAYERS`.', () => {
+      const rooms = [
+        {roomId: 'id1', numberOfPlayers: 2},
+        {roomId: 'id2', numberOfPlayers: 40},
+        {roomId: 'id3', numberOfPlayers: 23}
+      ];
+      const state = reducer(
+        getDefaultState(),
+        createDummyAction('GET_PLAYERS', {rooms})
+      );
+      expect(state.rooms).toEqual(rooms);
+    })
+    it('updates the number of players when action type is `GET_ROOM_INFO`.', () => {
+      const rooms = [
+        {roomId: 'id1', numberOfPlayers: 2},
+        {roomId: 'id2', numberOfPlayers: 40},
+        {roomId: 'id3', numberOfPlayers: 23}
+      ];
+      const state = reducer(
+        getDefaultState(),
+        createDummyAction('GET_ROOM_INFO', {rooms})
+      );
+      expect(state.rooms).toEqual(rooms);
+    })
+    
 
     describe('UPDATE_LOCATION', () => {
       let state = getDefaultState();
