@@ -7,13 +7,7 @@ import { shallow } from '../helpers/configuredEnzymeWithAdapter';
 
 const mockGetRooms = () => {};
 const mockJoinRoom = () => {};
-const mockGetPlayers = () => {};
-const mockGetRoomInfo = () => {};
-const rooms = [
-  {roomId: 'id1', numberOfPlayers: 2},
-  {roomId: 'id2', numberOfPlayers: 50},
-  {roomId: 'id3', numberOfPlayers: 100}
-];
+const ROOM_IDS = ['room1', 'room2', 'room3'];
 
 describe('src/components/GameListPage.jsx', () => {
   describe('Before selecting a roomId.', () => {
@@ -21,9 +15,7 @@ describe('src/components/GameListPage.jsx', () => {
       const wrapper = shallow( <GameListPage
         getRooms={mockGetRooms}
         joinRoom={mockJoinRoom}
-        getPlayers={mockGetPlayers}
-        getRoomInfo={mockGetRoomInfo}    
-        rooms={rooms}
+        roomIds={ROOM_IDS}
       /> );
 
       expect(wrapper.find(ListGroup).length).toEqual(1);
@@ -36,10 +28,8 @@ describe('src/components/GameListPage.jsx', () => {
       const wrapper = shallow( <GameListPage
         getRooms={mockGetRooms}
         joinRoom={mockJoinRoom}
-        getPlayers={mockGetPlayers}
-        getRoomInfo={mockGetRoomInfo}
-        rooms={rooms}
-        selectedRoomId={rooms[0].roomId}
+        roomIds={ROOM_IDS}
+        selectedRoomId={ROOM_IDS[0]}
       /> );
 
       expect(wrapper.find(Redirect).length).toEqual(1);

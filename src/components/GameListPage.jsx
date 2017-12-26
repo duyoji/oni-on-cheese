@@ -6,7 +6,7 @@ import '../styles/game-list-page.css';
 
 class GameListPage extends Component {
   componentDidMount() {
-    this.props.getRoomInfo();
+    this.props.getRooms();
   }
 
   render() {
@@ -17,15 +17,15 @@ class GameListPage extends Component {
     return (
       <div className="gameListPage container">
         <ListGroup>
-          {this.props.rooms.map(room => {
+          {this.props.roomIds.map(roomId => {
             return (
               <ListGroupItem
-                key={room.roomId}
+                key={roomId}
                 tag="button"
-                onClick={(event) => this.props.joinRoom(room.roomId)}
+                onClick={(event) => this.props.joinRoom(roomId)}
                 action>
-                {room.roomId}
-                <Badge pill className="float-right">{room.numberOfPlayers}</Badge>
+                {roomId}
+                <Badge pill className="float-right">0</Badge>
               </ListGroupItem>
             );
           })}
@@ -38,8 +38,7 @@ class GameListPage extends Component {
 GameListPage.propTypes = {
   getRooms: PropTypes.func.isRequired,
   joinRoom: PropTypes.func.isRequired,
-  getPlayers: PropTypes.func.isRequired,
-  rooms: PropTypes.array.isRequired,
+  roomIds: PropTypes.array.isRequired,
   selectedRoomId: PropTypes.string
 };
 
