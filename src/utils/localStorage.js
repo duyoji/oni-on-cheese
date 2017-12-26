@@ -8,8 +8,15 @@ const buildKey = (key) => {
 };
 
 const setUserName = (userName) => {
-  const key = buildKey(KEY_TYPES.USER_NAME);
-  window.localStorage.setItem(key, userName);
+  // https://stackoverflow.com/questions/21159301/quotaexceedederror-dom-exception-22-an-attempt-was-made-to-add-something-to-st
+  // When user is in private mode, Just ignore.
+  // It only setItem, so we do not need to wrap `getItem` with `try/catch`.
+  try {
+    const key = buildKey(KEY_TYPES.USER_NAME);
+    window.localStorage.setItem(key, userName);
+  } catch (error) {
+    // Error handling
+  }
 };
 
 const getUserName = () => {
