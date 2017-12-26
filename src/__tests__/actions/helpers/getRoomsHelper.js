@@ -1,4 +1,4 @@
-import { getRoomsPromise } from '../../../actions/helpers/getRoomsHelper';
+import { getRoomIdsPromise } from '../../../actions/helpers/getRoomsHelper';
 import socket from '../../socketHandlers/index';
 
 describe('src/__tests__/actions/helpers/joinRoomHelper.js', () => {
@@ -7,7 +7,7 @@ describe('src/__tests__/actions/helpers/joinRoomHelper.js', () => {
   });
 
   it('should return Promise object.', () => {
-    const promise = getRoomsPromise();
+    const promise = getRoomIdsPromise();
     expect(promise instanceof Promise).toEqual(true);
   });
 });
