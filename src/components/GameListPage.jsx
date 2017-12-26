@@ -8,7 +8,7 @@ class GameListPage extends Component {
   componentDidMount() {
     this.props.getRooms();
   }
-// add number of players in gamelist section
+
   render() {
     if (this.props.selectedRoomId) {
       return <Redirect to='/map' />;
@@ -22,10 +22,10 @@ class GameListPage extends Component {
               <ListGroupItem
                 key={room.roomId}
                 tag="button"
-                onClick={(event) => this.props.joinRoom(roomId)}
+                onClick={(event) => this.props.joinRoom(room.roomId)}
                 action>
                 {room.roomId}
-                <Badge pill className="float-right">0</Badge>
+                <Badge pill className="float-right">{room.numberOfPlayers}</Badge>
               </ListGroupItem>
             );
           })}
@@ -38,6 +38,7 @@ class GameListPage extends Component {
 GameListPage.propTypes = {
   getRooms: PropTypes.func.isRequired,
   joinRoom: PropTypes.func.isRequired,
+  getPlayers: PropTypes.func.isRequired,
   rooms: PropTypes.array.isRequired,
   selectedRoomId: PropTypes.string
 };

@@ -7,6 +7,7 @@ import { shallow } from '../helpers/configuredEnzymeWithAdapter';
 
 const mockGetRooms = () => {};
 const mockJoinRoom = () => {};
+const mockGetPlayers = () => {};
 const rooms = [
   {roomId: 'id1', numberOfPlayers: 2},
   {roomId: 'id2', numberOfPlayers: 50},
@@ -19,6 +20,7 @@ describe('src/components/GameListPage.jsx', () => {
       const wrapper = shallow( <GameListPage
         getRooms={mockGetRooms}
         joinRoom={mockJoinRoom}
+        getPlayers={mockGetPlayers}        
         rooms={rooms}
       /> );
 
@@ -32,6 +34,7 @@ describe('src/components/GameListPage.jsx', () => {
       const wrapper = shallow( <GameListPage
         getRooms={mockGetRooms}
         joinRoom={mockJoinRoom}
+        getPlayers={mockGetPlayers}
         rooms={rooms}
         selectedRoomId={rooms[0].roomId}
       /> );
