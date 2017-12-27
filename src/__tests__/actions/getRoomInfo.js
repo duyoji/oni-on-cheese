@@ -15,20 +15,15 @@ describe('src/actions/getRoomInfo.js', () => {
   it('should dispatch action', () => {
     const store = mockStore(getDefaultState());
     const roomIds = ['room1', 'room2', 'room3'];
-    const expectedRooms = [
-      {roomId: 'room1', numberOfPlayers: 2},
-      {roomId: 'room2', numberOfPlayers: 50},
-      {roomId: 'room3', numberOfPlayers: 100}
-    ];
+    const room = {
+      roomId: 'room1',
+      numberOfPlayers: 2
+    };
     sinon.stub(getRoomsHelper, 'getRoomIdsPromise').callsFake(() => {
       return Promise.resolve(roomIds);
     });
     sinon.stub(getPlayersHelper, 'getPlayersPromise').callsFake((roomIds) => {
-      return [
-        Promise.resolve(expectedRooms[0]),
-        Promise.resolve(expectedRooms[1]),
-        Promise.resolve(expectedRooms[2])
-      ];
+      return Promise.resolve(room);
     });
 
     return store.dispatch( getRoomInfo() )
@@ -36,7 +31,7 @@ describe('src/actions/getRoomInfo.js', () => {
       const expectedActions = store.getActions();
       expect(expectedActions[0]).toEqual({
         type: 'GET_ROOM_INFO',
-        rooms: expectedRooms
+        room
       });
       getRoomsHelper.getRoomIdsPromise.restore();
       getPlayersHelper.getPlayersPromise.restore();

@@ -5,18 +5,18 @@ const getRoomInfo = () => {
   return async function (dispatch) {
     try {
       const roomIds = await getRoomIdsPromise();
-      const rooms = await Promise.all(getPlayersPromise(roomIds));
-      dispatch(getRoomInfoSuccess(rooms));
+      const room = await getPlayersPromise(roomIds);
+      dispatch(getRoomInfoSuccess(room));
     } catch(err) {
       console.error(err);
     }
   };
 };
 
-const getRoomInfoSuccess = (rooms) => {
+const getRoomInfoSuccess = (room) => {
   return {
     type: 'GET_ROOM_INFO',
-    rooms
+    room
   };
 };
 
