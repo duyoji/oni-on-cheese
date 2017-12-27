@@ -4,6 +4,7 @@ import { withGoogleMap, withScriptjs, GoogleMap, Marker, InfoWindow } from 'reac
 import { getCurrentPosition, watchPosition } from '../utils/location';
 import { emit, addHandlerListener as addUpdateLocationHandler } from '../socketHandlers/updateLocation';
 import { addHandlerListener as addLeaveRoomHandler } from '../socketHandlers/leaveRoom';
+import { addHandlerListener as addReconnectHandlerListener } from '../socketHandlers/reconnect';
 import { createUserIcon } from '../utils/icon';
 import { Redirect } from 'react-router-dom';
 import MapLoader from './loaders/MapLoader';
@@ -77,6 +78,11 @@ class MapPage extends Component {
     });
     addLeaveRoomHandler( userId => {
       this.props.leaveUserFromRoom(userId);
+    });
+    addReconnectHandlerListener( socket => {
+      const newUserId = socket.id;
+      this.props.reconnectedToSocket(newUserId);
+      this.props.rejoinRoom(this.props.roomId);
     });
 
     const success = ({latitude, longitude}) => {
@@ -153,6 +159,8 @@ const convertLocationPropForMarker = ({latitude, longitude}) => {
 MapPage.propTypes = {
   updateCurrentLocation: PropTypes.func.isRequired,
   leaveUserFromRoom: PropTypes.func.isRequired,
+  reconnectedToSocket: PropTypes.func.isRequired,
+  rejoinRoom: PropTypes.func.isRequired,
   socketId: PropTypes.string.isRequired,
   users: PropTypes.array.isRequired,
   userName: PropTypes.string,
