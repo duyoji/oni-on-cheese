@@ -21,7 +21,7 @@ describe('server/socketHandlers/updateLocation.js', () => {
     longitude: 9999
   };
   const DUMMY_NAME = 'USER_NAME';
-  const DUMMY_ICON_URL = 'https://oni-on-cheese.heroku.com/icon.png'
+  const DUMMY_ICON_URL = 'https://oni-on-cheese.heroku.com/icon.png';
 
   beforeAll((done) => {
     // Wait for connecting to redis
