@@ -5,12 +5,14 @@ import TopPage from '../containers/Top';
 import GameListPage from '../containers/GameListPage';
 import MapPage from '../containers/MapPage';
 import Header from '../containers/Header'
-import { addHandlerListener } from '../socketHandlers/connect';
+import { addHandlerListener as addConnectHandlerListener } from '../socketHandlers/connect';
+import { addHandlerListener as addReconnectHandlerListener } from '../socketHandlers/reconnect';
 import InputUserNameModal from '../containers/modals/InputUserNameModal'
 
 class App extends Component {
   componentDidMount() {
-    addHandlerListener( socket => this.props.connectedToSocket(socket.id) );
+    addConnectHandlerListener( socket => this.props.connectedToSocket(socket.id) );
+    addReconnectHandlerListener( socket => console.log('reconnect!!!', socket) );
   }
 
   render() {
