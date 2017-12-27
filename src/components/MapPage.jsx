@@ -111,9 +111,15 @@ class MapPage extends Component {
       return <Redirect to='/' />;
     }
 
+    // https://developer.mozilla.org/en-US/docs/Web/CSS/length
+    const vh = '60vh';
+
     if(!this.state.startLocation) {
       const style = {
-        height: '300px',
+        height: vh,
+        width: '100vw',
+        display: 'table-cell',
+        verticalAlign: 'middle',
         textAlign: 'center',
         background: '#E5E3DF'
       };
@@ -128,8 +134,8 @@ class MapPage extends Component {
         <GameMap
           className="gameMap"
           googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyCbwlqVCEnZdTeR6RbEPHm6xgHySVpimKk"
-          loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ height: '300px' }} />}
+          loadingElement={<div style={{ height: '100%' }} />}
+          containerElement={<div style={{ height: vh }} />}
           mapElement={<div style={{ height: '100%' }} />}
           onMapLoad={()=>{}}
           onMapClick={()=>{}}
