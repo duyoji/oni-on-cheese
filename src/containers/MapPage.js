@@ -2,6 +2,9 @@ import { connect } from 'react-redux';
 import MapPage  from '../components/MapPage';
 import { updateLocation } from '../actions/updateLocation';
 import { leaveRoom } from '../actions/leaveRoom';
+import { joinRoom } from '../actions/joinRoom';
+import { clearUsers } from '../actions/clearUsers';
+import { connectedToSocket } from '../actions/connectedToSocket';
 
 let updateLocationCounter = 0; // For debugger
 const mapStateToProps = state => {
@@ -23,6 +26,13 @@ const mapDispatchToProps = dispatch => {
     },
     leaveUserFromRoom: (userId) => {
       dispatch( leaveRoom(userId) );
+    },
+    reconnectedToSocket: (newUserId) => {
+      dispatch( clearUsers() );
+      dispatch( connectedToSocket(newUserId) );
+    },
+    rejoinRoom: (roomId) => {
+      dispatch( joinRoom(roomId) );
     }
   };
 };
