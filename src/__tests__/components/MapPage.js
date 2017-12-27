@@ -1,6 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import MapPage from '../../components/MapPage';
+import React from 'react'; // eslint-disable-line no-unused-vars
+import MapPage from '../../components/MapPage'; // eslint-disable-line no-unused-vars
 import { shallow } from '../helpers/configuredEnzymeWithAdapter';
 import * as utilLocation from '../../utils/location';
 import sinon from 'sinon';
@@ -43,7 +42,7 @@ describe('src/components/MapPage.jsx', () => {
       expect(typeof error).toEqual('function');
       expect(options).toEqual(undefined);
 
-      success(createMockLocation())
+      success(createMockLocation());
     });
     sinon.stub(utilLocation, 'watchPosition').callsFake(({success, error, options}) => {
       expect(typeof success).toEqual('function');

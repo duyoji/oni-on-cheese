@@ -1,6 +1,6 @@
 import {emit, addHandlerListener} from '../../socketHandlers/updateLocation';
 import socket from '../../socketHandlers/index';
-import sinon, { expectation } from 'sinon';
+import sinon from 'sinon';
 
 describe('src/socketHandlers/updateLocation.js', () => {
   const LATITUDE = 12345;

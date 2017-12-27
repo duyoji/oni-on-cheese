@@ -1,8 +1,7 @@
-import React from 'react';
+import React from 'react'; // eslint-disable-line no-unused-vars
 import { MemoryRouter } from 'react-router-dom'; // eslint-disable-line no-unused-vars
 import App from '../../components/App'; // eslint-disable-line no-unused-vars
 import { Provider } from 'react-redux'; // eslint-disable-line no-unused-vars
-import { createStore } from 'redux';
 import { mount } from '../helpers/configuredEnzymeWithAdapter';
 import { getDefaultState } from '../../reducers/index';
 import configureMockStore from 'redux-mock-store';
@@ -44,7 +43,7 @@ describe('src/components/App.jsx', () => {
 });
 
 const createWrapper = (path) => {
-const store = mockStore(getDefaultState());
+  const store = mockStore(getDefaultState());
 
   return mount(
     <Provider store={store}>

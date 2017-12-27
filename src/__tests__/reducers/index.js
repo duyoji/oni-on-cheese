@@ -148,6 +148,33 @@ describe('src/reducers/index.js', () => {
         expect(state.userName).toEqual(USER_NAME);
       });
     });
+
+    describe('CLEAR_USERS', () => {
+      let state = getDefaultState();
+      it('clear users in state.', () => {
+        expect(state.users).toEqual([]);
+        const DUMMY_USER_1 = {id:1, location:{lat:1, lng:2}};
+        const DUMMY_USER_2 = {id:2, location:{lat:1, lng:2}};
+
+        // SET dummy data
+        state = reducer(
+          state,
+          createDummyAction('UPDATE_LOCATION', {user: DUMMY_USER_1})
+        );
+        state = reducer(
+          state,
+          createDummyAction('UPDATE_LOCATION', {user: DUMMY_USER_2})
+        );
+        expect(state.users).toEqual([DUMMY_USER_1, DUMMY_USER_2]);
+
+        // test what I want to test here.
+        state = reducer(
+          state,
+          createDummyAction('CLEAR_USERS')
+        );
+        expect(state.users).toEqual([]);
+      });
+    });
   });
 });
 

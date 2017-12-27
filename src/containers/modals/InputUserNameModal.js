@@ -5,7 +5,7 @@ import { setUserName } from '../../actions/setUserName';
 const mapStateToProps = state => {
   return {
     userName: state.userName || '',
-  }
+  };
 };
 
 const mapDispatchToProps = dispatch => ({

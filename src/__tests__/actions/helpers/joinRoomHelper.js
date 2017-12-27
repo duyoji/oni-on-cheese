@@ -1,6 +1,5 @@
 import { joinRoomPromise } from '../../../actions/helpers/joinRoomHelper';
 import socket from '../../socketHandlers/index';
-import { expectation } from 'sinon';
 
 describe('src/__tests__/actions/helpers/joinRoomHelper.js', () => {
   afterAll(() => {

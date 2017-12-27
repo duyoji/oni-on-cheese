@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'; // eslint-disable-line no-unused-vars
 import { shallow } from '../../helpers/configuredEnzymeWithAdapter';
-import InputUserNameModal from '../../../components/modals/InputUserNameModal';
+import InputUserNameModal from '../../../components/modals/InputUserNameModal'; // eslint-disable-line no-unused-vars
 import { Modal } from 'reactstrap';
 import '../../helpers/mockLocalStorage';
 
@@ -25,4 +25,4 @@ describe('src/components/modals/InputUserNameModal.jsx', () => {
   });
 });
 
-const craeteMockFunctionOfSetUserName = (userName) => {};
+const craeteMockFunctionOfSetUserName = (userName) => {}; // eslint-disable-line no-unused-vars

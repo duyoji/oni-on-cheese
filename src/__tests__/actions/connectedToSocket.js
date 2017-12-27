@@ -1,5 +1,4 @@
 import { connectedToSocket } from '../../actions/connectedToSocket';
-import { getDefaultState } from '../../reducers/index';
 
 describe('src/actions/connectedToSocket.js', () => {
   it('return expected action.', () => {
