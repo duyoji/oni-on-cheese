@@ -1,5 +1,4 @@
 import { setUserName } from '../../actions/setUserName';
-import { getDefaultState } from '../../reducers/index';
 
 describe('src/actions/setUserName.js', () => {
   it('return expected action.', () => {

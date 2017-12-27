@@ -6,8 +6,8 @@ const defaultOption = {
 
 const getCurrentPosition = (
   {
-    success = ({latitude, longitude}) => {},
-    error = (err) => {},
+    success = ({latitude, longitude}) => {}, // eslint-disable-line no-unused-vars
+    error = (err) => {}, // eslint-disable-line no-unused-vars
     options = defaultOption
   }
 ) => {
@@ -25,8 +25,8 @@ const getCurrentPosition = (
 
 const watchPosition = (
   {
-    success = ({latitude, longitude}) => {},
-    error = (err) => {},
+    success = ({latitude, longitude}) => {}, // eslint-disable-line no-unused-vars
+    error = (err) => {}, // eslint-disable-line no-unused-vars
     options = defaultOption
   }
 ) => {

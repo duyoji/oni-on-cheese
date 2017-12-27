@@ -24,7 +24,7 @@ describe('src/__tests__/actions/joinRoom.js', () => {
     });
 
     return store.dispatch( joinRoom(roomId) )
-      .then((data) => {
+      .then((data) => { // eslint-disable-line no-unused-vars
         const expectedActions = store.getActions();
         expect(expectedActions[0]).toEqual({
           type: 'JOIN_ROOM',

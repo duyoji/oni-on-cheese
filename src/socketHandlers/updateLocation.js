@@ -12,7 +12,7 @@ const SOCKET_EVENT_TYPES = {
  * optional: name: string
  * optional: iconUrl: string
  */
-const emit = ({location, roomId, id = socket.id, name = socket.id, iconUrl = ''}) => {
+const emit = ({location, roomId, id = socket.id, name = socket.id, iconUrl = ''}) => { // eslint-disable-line no-unused-vars
   socket.emit(SOCKET_EVENT_TYPES.EMIT, {
     id,
     name,
@@ -28,7 +28,7 @@ const emit = ({location, roomId, id = socket.id, name = socket.id, iconUrl = ''}
  * iconUrl: string
  * location: object {latitude, longitude}
  */
-const addHandlerListener = (callback = ({id, name, iconUrl, location}) => {}) => {
+const addHandlerListener = (callback = ({id, name, iconUrl, location}) => {}) => { // eslint-disable-line no-unused-vars
   socket.on(SOCKET_EVENT_TYPES.ON, (data) => {
     if(data.result.error) {
       // TODO: Error handling.

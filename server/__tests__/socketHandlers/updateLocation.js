@@ -21,7 +21,7 @@ describe('server/socketHandlers/updateLocation.js', () => {
     longitude: 9999
   };
   const DUMMY_NAME = 'USER_NAME';
-  const DUMMY_ICON_URL = 'https://oni-on-cheese.heroku.com/icon.png'
+  const DUMMY_ICON_URL = 'https://oni-on-cheese.heroku.com/icon.png';
 
   beforeAll((done) => {
     // Wait for connecting to redis
@@ -73,9 +73,7 @@ describe('server/socketHandlers/updateLocation.js', () => {
   });
 
   it('should includes error in emitted data when `roomId` is not passed.', () => {
-    let receivedEventTypeFromOn = '';
-    const callbackForOn = (eventType, callback) => {
-      receivedEventTypeFromOn = eventType;
+    const callbackForOn = (eventType, callback) => { // eslint-disable-line no-unused-vars
       callback({
         location: DUMMY_LOCATION
       });
@@ -104,9 +102,7 @@ describe('server/socketHandlers/updateLocation.js', () => {
   });
 
   it('should includes error in emitted data when `location` is not passed.', () => {
-    let receivedEventTypeFromOn = '';
-    const callbackForOn = (eventType, callback) => {
-      receivedEventTypeFromOn = eventType;
+    const callbackForOn = (eventType, callback) => { // eslint-disable-line no-unused-vars
       callback({
         roomId: DUMMY_ROOM_ID,
       });

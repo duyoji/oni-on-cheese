@@ -33,9 +33,7 @@ describe('server/socketHandlers/closeGame.js', () => {
   });
 
   it('should emit data when error happens.', () => {
-    let receivedEventTypeFromOn = '';
-    const callbackForOn = (eventType, callback) => {
-      receivedEventTypeFromOn = eventType;
+    const callbackForOn = (eventType, callback) => { // eslint-disable-line no-unused-vars
       callback();
     };
 

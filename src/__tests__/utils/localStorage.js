@@ -6,8 +6,8 @@ const mockLocalStorage = {};
 describe('src/utils/localStorage.js', () => {
   beforeAll(() => {
     window.localStorage = window.localStorage || {};
-    window.localStorage.setItem = window.localStorage.setItem || ((key, value) => {});
-    window.localStorage.getItem = window.localStorage.getItem || ((key) => {});
+    window.localStorage.setItem = window.localStorage.setItem || ((key, value) => {}); // eslint-disable-line no-unused-vars
+    window.localStorage.getItem = window.localStorage.getItem || ((key) => {}); // eslint-disable-line no-unused-vars
   });
 
   describe('The setUserName function', () => {

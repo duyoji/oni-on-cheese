@@ -31,11 +31,11 @@ const updateLocation = (socket, socketNamespace) => {
       })
       .then(user => {
         socketNamespace.in(roomId).emit(EVENT_TYPES.EMIT, formatOutput({data: user.serialize()}));
-        console.log(`Emitted to ${roomId} from ${id} of user, location: ${location}`);
+        console.log(`Emitted to ${roomId} from ${id} of user, location: ${location}`); // eslint-disable-line no-console
       })
       .catch(error => {
         socket.emit(EVENT_TYPES.EMIT, formatOutput({error}));
-        console.error(`Error: Tried to emit to ${roomId} from ${id} of user, the reason of error is ${error}`);
+        console.error(`Error: Tried to emit to ${roomId} from ${id} of user, the reason of error is ${error}`); // eslint-disable-line no-console
       });
   });
 };
