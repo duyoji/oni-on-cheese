@@ -58,11 +58,12 @@
     "hack": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "jest": "jest src/__tests__/components src/__tests__/containers",
+    "jest": "jest",
+    "jest:heroku": "jest server src/__tests__/actions src/__tests__/reducers src/__tests__/socketHandlers src/__tests__/utils",
     "jest:server": "jest server",
     "eject": "react-scripts eject",
     "eslint": "./node_modules/.bin/eslint src server",
-    "postinstall": "yarn eslint && yarn jest && yarn build"
+    "postinstall": "yarn eslint && yarn jest:heroku && yarn build"
   },
   "devDependencies": {
     "eslint": "^4.13.1",
