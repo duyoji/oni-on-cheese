@@ -17,6 +17,4 @@ const getPlayerIds = (socket, socketNameSpace) => {
   });
 };
 
-
-
 export { getPlayerIds };

@@ -9,9 +9,10 @@ commonTestForSocketHandler( getPlayerIds );
 describe('server/socketHanlders/getPlayers.js', () => {
   it('calls on, adapter method and emit', () => {    
     let receivedEventTypeFromOn = '';
+    const dummyRoomId = 'room1'
     const callbackForOn = (eventType, callback) => {
       receivedEventTypeFromOn = eventType;
-      callback();
+      callback(dummyRoomId);
     };
 
     let receivedEventTypeFromEmit = '';
@@ -28,13 +29,17 @@ describe('server/socketHanlders/getPlayers.js', () => {
       callbackForEmit
     );
     const nameSpace = createDummyNameSpace();
-    nameSpace.adapter['clients'] = (roomId, fn) => {
-      fn(err, expectedEmitData);
+    nameSpace.in = (roomId) => {
+      return {
+        clients: (fn) => {
+          fn(err, expectedEmitData);
+        }
+      };
     };
     
     getPlayerIds(socket, nameSpace);
     expect(receivedEventTypeFromOn).toEqual('getPlayers');
-    expect(receivedEventTypeFromEmit).toEqual('resultGetPlayers');
+    expect(receivedEventTypeFromEmit).toEqual('resultGetPlayers' + dummyRoomId);
     expect(receivedDataFromEmit).toEqual({result: {
       data: expectedEmitData
     }})
@@ -61,8 +66,12 @@ describe('server/socketHanlders/getPlayers.js', () => {
       callbackForEmit
     );
     const nameSpace = createDummyNameSpace();
-    nameSpace.adapter['clients'] = (roomIds, fn) => {
-      fn(err, expectedEmitData);
+    nameSpace.in = (roomId) => {
+      return {
+        clients: (fn) => {
+          fn(err, expectedEmitData);
+        }
+      };
     };
     
     getPlayerIds(socket, nameSpace);
