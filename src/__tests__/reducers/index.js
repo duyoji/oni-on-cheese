@@ -27,20 +27,6 @@ describe('src/reducers/index.js', () => {
       );
       expect(state.roomId).toEqual(roomId);
     });
-    
-    it('updates the number of players when action type is `GET_ROOM_INFO`.', () => {
-      const rooms = [
-        {roomId: 'id1', numberOfPlayers: 2},
-        {roomId: 'id2', numberOfPlayers: 40},
-        {roomId: 'id3', numberOfPlayers: 23}
-      ];
-      const state = reducer(
-        getDefaultState(),
-        createDummyAction('GET_ROOM_INFO', {rooms})
-      );
-      expect(state.rooms).toEqual(rooms);
-    });
-    
 
     describe('UPDATE_LOCATION', () => {
       let state = getDefaultState();
@@ -175,6 +161,49 @@ describe('src/reducers/index.js', () => {
         expect(state.users).toEqual([]);
       });
     });
+  });
+});
+
+describe('UPDATE_ROOM', () => {
+  let state = getDefaultState();
+  state.rooms = [
+    { roomId: 1, numberOfPlayers: 1},
+    { roomId: 2, numberOfPlayers: 12},
+    { roomId: 3, numberOfPlayers: 33}
+  ];
+
+  it('updates targetRoom when state.rooms already has the user.', () => {
+    const updatedRoom = {
+      roomId: 2,
+      numberOfPlayers: 10
+    };
+    state = reducer(
+      state,
+      createDummyAction('UPDATE_ROOM', {room: updatedRoom})
+    );
+    expect(state.rooms).toEqual([
+      { roomId: 1, numberOfPlayers: 1},
+      { roomId: 2, numberOfPlayers: 10},
+      { roomId: 3, numberOfPlayers: 33}
+    ]);
+  });
+
+  it('append a new User when state.users doesn not have the user', () => {
+    const appendedRoom = {
+      roomId: 99,
+      numberOfPlayers: 777
+    };
+    state = reducer(
+      state,
+      createDummyAction('UPDATE_ROOM', {room: appendedRoom})
+    );
+
+    expect(state.rooms).toEqual([
+      { roomId: 1, numberOfPlayers: 1},
+      { roomId: 2, numberOfPlayers: 10},
+      { roomId: 3, numberOfPlayers: 33},
+      appendedRoom,
+    ]);
   });
 });
 

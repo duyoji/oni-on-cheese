@@ -49,15 +49,20 @@ const reducer = (state = getDefaultState(), action) => {
         userName: action.userName
       });
     }
-    case 'GET_ROOM_INFO': {
-      return Object.assign({}, state, {
-        rooms: action.rooms
-      });
-    }
     case 'CLEAR_USERS': {
       return Object.assign({}, state, {
         users: []
       });
+    }
+    case 'UPDATE_ROOM': {
+      const rooms = [...state.rooms];
+      const targetRoom = rooms.find(room => room.roomId === action.room.roomId);
+      if(!targetRoom) {
+        rooms.push(action.room);
+      } else {
+        Object.assign(targetRoom, action.room);
+      }
+      return Object.assign({}, state, {rooms});
     }
     default: {
       return state;
