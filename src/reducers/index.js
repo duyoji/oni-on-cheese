@@ -42,6 +42,10 @@ const reducer = (state = getDefaultState(), action) => {
       return Object.assign({}, state, {
         userName: action.userName
       });
+    case 'CLEAR_USERS':
+      return Object.assign({}, state, {
+        users: []
+      });
     default:
       return state;
   }
