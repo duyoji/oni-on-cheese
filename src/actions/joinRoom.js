@@ -8,7 +8,7 @@ const joinRoom = (roomId) => {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 };
 
 const joinRoomSuccess = (roomId) => ({

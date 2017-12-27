@@ -5,6 +5,6 @@ const createRoom = (cb) => {
   socket.on('resultCreateRoom', (data) => {
     cb();
   });
-}
+};
 
 export default createRoom;

@@ -26,7 +26,7 @@ describe('src/utils/location.js', () => {
           } else {
             callbackForError(DUMMY_ERROR);
           }
-      };
+        };
     });
 
     afterAll(() => {
@@ -77,7 +77,7 @@ describe('src/utils/location.js', () => {
           } else {
             callbackForError(DUMMY_ERROR);
           }
-      };
+        };
     });
 
     afterAll(() => {

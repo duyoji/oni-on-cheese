@@ -15,7 +15,7 @@ const joinRoom = (socket, socketNamespace) => {
       }
 
       // For user joining this room.
-      socket.emit(EVENT_TYPES.EMIT, formatOutput({data: `Join succeeded.`}));
+      socket.emit(EVENT_TYPES.EMIT, formatOutput({data: 'Join succeeded.'}));
 
       // For users already joined this room.
       socket.to(roomId).emit(EVENT_TYPES.EMIT, formatOutput({data: `${socket.id} has joined this room.`}));

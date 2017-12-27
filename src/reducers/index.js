@@ -5,7 +5,7 @@ const getDefaultState = () => {
     users: [],
     socketId: null,
     userName: null,
-  }
+  };
 };
 
 const reducer = (state = getDefaultState(), action) => {

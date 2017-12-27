@@ -10,7 +10,7 @@ const updateLocation = (user) => {
   return {
     type: 'UPDATE_LOCATION',
     user
-  }
+  };
 };
 
 export { updateLocation };

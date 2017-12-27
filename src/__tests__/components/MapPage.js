@@ -43,7 +43,7 @@ describe('src/components/MapPage.jsx', () => {
       expect(typeof error).toEqual('function');
       expect(options).toEqual(undefined);
 
-      success(createMockLocation())
+      success(createMockLocation());
     });
     sinon.stub(utilLocation, 'watchPosition').callsFake(({success, error, options}) => {
       expect(typeof success).toEqual('function');

@@ -7,7 +7,7 @@ const mapStateToProps = state => {
   return {
     roomIds: state.roomIds,
     selectedRoomId: state.roomId
-  }
+  };
 };
 const mapDispatchToProps = dispatch => ({
   getRooms: () => {
