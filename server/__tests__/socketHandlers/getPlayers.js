@@ -9,7 +9,7 @@ commonTestForSocketHandler( getPlayerIds );
 describe('server/socketHanlders/getPlayers.js', () => {
   it('calls on, adapter method and emit', () => {    
     let receivedEventTypeFromOn = '';
-    const dummyRoomId = 'room1'
+    const dummyRoomId = 'room1';
     const callbackForOn = (eventType, callback) => {
       receivedEventTypeFromOn = eventType;
       callback(dummyRoomId);
@@ -18,7 +18,10 @@ describe('server/socketHanlders/getPlayers.js', () => {
     let receivedEventTypeFromEmit = '';
     let receivedDataFromEmit = null;
     const err = null;
-    const expectedEmitData = ['player1', 'player2']
+    const expectedEmitData = {
+      playerIds: ['player1', 'player2'],
+      roomId: dummyRoomId
+    };
     const callbackForEmit = (eventType, data) => {
       receivedEventTypeFromEmit = eventType;
       receivedDataFromEmit = data;
@@ -39,7 +42,7 @@ describe('server/socketHanlders/getPlayers.js', () => {
     
     getPlayerIds(socket, nameSpace);
     expect(receivedEventTypeFromOn).toEqual('getPlayers');
-    expect(receivedEventTypeFromEmit).toEqual('resultGetPlayers' + dummyRoomId);
+    expect(receivedEventTypeFromEmit).toEqual('resultGetPlayers');
     expect(receivedDataFromEmit).toEqual({result: {
       data: expectedEmitData
     }})
