@@ -1,8 +1,8 @@
-import {addHandlerListener} from '../../socketHandlers/connect';
+import {addHandlerListener} from '../../socketHandlers/reconnect';
 import socket from '../../socketHandlers/index';
 import sinon, { expectation } from 'sinon';
 
-describe('src/socketHandlers/connect.js', () => {
+describe('src/socketHandlers/reconnect.js', () => {
   afterAll(() => {
     socket.disconnect();
   });
@@ -10,7 +10,7 @@ describe('src/socketHandlers/connect.js', () => {
   describe('The addHandlerListener function', () => {
     it('should call callback function with socket', (done) => {
       sinon.stub(socket, 'on').callsFake((type, callback) => {
-        expect(type).toEqual('connect');
+        expect(type).toEqual('reconnect');
         callback(socket);
       });
 
