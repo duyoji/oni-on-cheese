@@ -9,7 +9,7 @@ const getRooms = () => {
       // TODO: We have to decide a specification when error happen.
       console.error(err);
     }
-  }
+  };
 };
 
 const getRoomsSuccess = (roomIds) => ({

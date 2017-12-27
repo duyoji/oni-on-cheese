@@ -39,7 +39,7 @@ describe('src/reducers/index.js', () => {
         createDummyAction('GET_ROOM_INFO', {rooms})
       );
       expect(state.rooms).toEqual(rooms);
-    })
+    });
     
 
     describe('UPDATE_LOCATION', () => {

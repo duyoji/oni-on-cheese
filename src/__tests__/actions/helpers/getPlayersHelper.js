@@ -1,5 +1,5 @@
-import { getPlayersPromise } from '../../../actions/helpers/getPlayersHelper'
-import socket from '../../socketHandlers/index'
+import { getPlayersPromise } from '../../../actions/helpers/getPlayersHelper';
+import socket from '../../socketHandlers/index';
 
 describe('src/__tests__/actions/helpers/getPlayersHelper.js', () => {
   afterAll(() => {

@@ -3,7 +3,7 @@ import socket from '../../socketHandlers/index';
 const SOCKET_EVENT_TYPES = {
   EMIT: 'getPlayers',
   ON: 'resultGetPlayers'
-}
+};
 
 const getPlayersPromise = (roomIds) => {
   return roomIds.map((roomId) => {
@@ -18,7 +18,7 @@ const getPlayersPromise = (roomIds) => {
             roomId,
             numberOfPlayers
           });
-        };
+        }
       });
       socket.emit(SOCKET_EVENT_TYPES.EMIT, roomId);
     });

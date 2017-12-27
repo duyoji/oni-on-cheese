@@ -22,7 +22,7 @@ describe('src/components/App.jsx', () => {
     it('redirect to login page.', () => {
       const wrapper = createWrapper('/');
       expect(wrapper.find('.topPage').length).toBe(1);
-    })
+    });
   });
 
   describe('When access to `/game-list`', () => {
