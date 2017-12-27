@@ -1,8 +1,7 @@
-import React from 'react';
+import React from 'react'; // eslint-disable-line no-unused-vars
 import { MemoryRouter } from 'react-router-dom'; // eslint-disable-line no-unused-vars
 import App from '../../components/App'; // eslint-disable-line no-unused-vars
 import { Provider } from 'react-redux'; // eslint-disable-line no-unused-vars
-import { createStore } from 'redux';
 import { mount } from '../helpers/configuredEnzymeWithAdapter';
 import { getDefaultState } from '../../reducers/index';
 import configureMockStore from 'redux-mock-store';

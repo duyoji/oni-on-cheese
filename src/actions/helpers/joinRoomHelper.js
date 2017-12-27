@@ -12,7 +12,7 @@ const SOCKET_EVENT_TYPES = {
 // But when I try to create mock of `joinRoomPromise` function in action/joinRoom.js,
 // I couldn't make mock. So I create this function in new file.
 const joinRoomPromise = (roomId) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => { // eslint-disable-line no-unused-vars
     socket.on(SOCKET_EVENT_TYPES.ON, (data) => {
       resolve(data);
     });

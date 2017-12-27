@@ -1,6 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import MapPage from '../../components/MapPage';
+import React from 'react'; // eslint-disable-line no-unused-vars
+import MapPage from '../../components/MapPage'; // eslint-disable-line no-unused-vars
 import { shallow } from '../helpers/configuredEnzymeWithAdapter';
 import * as utilLocation from '../../utils/location';
 import sinon from 'sinon';

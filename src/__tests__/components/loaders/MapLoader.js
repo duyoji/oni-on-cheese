@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'; // eslint-disable-line no-unused-vars
 import { shallow } from '../../helpers/configuredEnzymeWithAdapter';
-import MapLoader from '../../../components/loaders/MapLoader';
+import MapLoader from '../../../components/loaders/MapLoader'; // eslint-disable-line no-unused-vars
 import { BeatLoader } from 'react-spinners';
 
 describe('src/components/loaders/MapLoader.jsx', () => {

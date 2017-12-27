@@ -73,9 +73,7 @@ describe('server/socketHandlers/updateLocation.js', () => {
   });
 
   it('should includes error in emitted data when `roomId` is not passed.', () => {
-    let receivedEventTypeFromOn = '';
-    const callbackForOn = (eventType, callback) => {
-      receivedEventTypeFromOn = eventType;
+    const callbackForOn = (eventType, callback) => { // eslint-disable-line no-unused-vars
       callback({
         location: DUMMY_LOCATION
       });
@@ -104,9 +102,7 @@ describe('server/socketHandlers/updateLocation.js', () => {
   });
 
   it('should includes error in emitted data when `location` is not passed.', () => {
-    let receivedEventTypeFromOn = '';
-    const callbackForOn = (eventType, callback) => {
-      receivedEventTypeFromOn = eventType;
+    const callbackForOn = (eventType, callback) => { // eslint-disable-line no-unused-vars
       callback({
         roomId: DUMMY_ROOM_ID,
       });

@@ -7,8 +7,8 @@ describe('src/utils/location.js', () => {
     code: 1234,
     message: 'This is dummy error.'
   };
-  let callbackForSuccess = ({latitude, longitude}) => {};
-  let callbackForError = (err) => {};
+  let callbackForSuccess = ({latitude, longitude}) => {}; // eslint-disable-line no-unused-vars
+  let callbackForError = (err) => {}; // eslint-disable-line no-unused-vars
 
   describe('The getCurrentPosition function', () => {
     let isSuccess = true;
@@ -16,7 +16,7 @@ describe('src/utils/location.js', () => {
     beforeAll(() => {
       navigator.geolocation = navigator.geolocation || {};
       navigator.geolocation.getCurrentPosition
-        = navigator.geolocation.getCurrentPosition || function(success, error, options) {
+        = navigator.geolocation.getCurrentPosition || function(success, error, options) { // eslint-disable-line no-unused-vars
           if(isSuccess) {
             const position = {
               latitude: DUMMY_LATITUDE,
@@ -67,7 +67,7 @@ describe('src/utils/location.js', () => {
     beforeAll(() => {
       navigator.geolocation = navigator.geolocation || {};
       navigator.geolocation.watchPosition
-        = navigator.geolocation.watchPosition || function(success, error, options) {
+        = navigator.geolocation.watchPosition || function(success, error, options) { // eslint-disable-line no-unused-vars
           if(isSuccess) {
             const position = {
               latitude: DUMMY_LATITUDE,

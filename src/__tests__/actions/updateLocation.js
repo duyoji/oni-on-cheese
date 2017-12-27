@@ -1,5 +1,4 @@
 import { updateLocation } from '../../actions/updateLocation';
-import { getDefaultState } from '../../reducers/index';
 
 describe('src//actions/updateLocation.js', () => {
   it('return expected action.', () => {

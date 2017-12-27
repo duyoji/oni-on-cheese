@@ -1,6 +1,6 @@
 import { addHandlerListener } from '../../socketHandlers/leaveRoom';
 import socket from '../../socketHandlers/index';
-import sinon, { expectation } from 'sinon';
+import sinon from 'sinon';
 
 describe('src/socketHandlers/updateLocation.js', () => {
   afterAll(() => {

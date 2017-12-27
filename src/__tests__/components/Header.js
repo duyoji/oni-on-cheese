@@ -1,6 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Header from '../../components/Header';
+import React from 'react'; // eslint-disable-line no-unused-vars
+import Header from '../../components/Header'; // eslint-disable-line no-unused-vars
 import { Navbar, NavbarBrand } from 'reactstrap';
 import { shallow } from '../helpers/configuredEnzymeWithAdapter';
 

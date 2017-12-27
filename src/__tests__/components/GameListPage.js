@@ -1,6 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import GameListPage from '../../components/GameListPage';
+import React from 'react'; // eslint-disable-line no-unused-vars
+import GameListPage from '../../components/GameListPage'; // eslint-disable-line no-unused-vars
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import { Redirect } from 'react-router-dom';
 import { shallow } from '../helpers/configuredEnzymeWithAdapter';

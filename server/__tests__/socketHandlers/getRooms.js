@@ -44,13 +44,11 @@ describe('server/socketHandlers/getRooms.js', () => {
   });
 
   it('should include error if there is error', () => {
-    let receivedEventTypeFromOn = '';
-    const callbackForOn = (eventType, callback) => {
-      receivedEventTypeFromOn = eventType;
+    const callbackForOn = (eventType, callback) => { // eslint-disable-line no-unused-vars
       callback();
     };
 
-    let receivedEventTypeFromEmit = '';
+    let receivedEventTypeFromEmit = ''; // eslint-disable-line no-unused-vars
     let receivedDataFromEmit = null;
     const callbackForEmit = (eventType, data) => {
       receivedEventTypeFromEmit = eventType;
