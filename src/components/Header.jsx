@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navbar, NavbarBrand } from 'reactstrap';
 
+// https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/accessible-emoji.md
 const Header = (props) => (
   <header className="appHeader">
     <Navbar color="dark" light expand="md">
