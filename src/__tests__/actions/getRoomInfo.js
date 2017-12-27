@@ -6,16 +6,17 @@ import * as getPlayersHelper from '../../actions/helpers/getPlayersHelper';
 import * as getRoomsHelper from '../../actions/helpers/getRoomsHelper';
 import { getDefaultState } from '../../reducers/index';
 import socket from '../../socketHandlers/index';
+import { getRoomIdsPromise } from '../../actions/helpers/getRoomsHelper';
 
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe('src/actions/getRoomInfo.js', () => {
-  it('should dispatch action', () => {
+  it('should call callback function with expected data', () => {
     const store = mockStore(getDefaultState());
     const roomIds = ['room1', 'room2', 'room3'];
-    const room = {
+    const expectedRoom = {
       roomId: 'room1',
       numberOfPlayers: 2
     };
@@ -25,16 +26,12 @@ describe('src/actions/getRoomInfo.js', () => {
     sinon.stub(getPlayersHelper, 'getPlayersPromise').callsFake((roomIds) => {
       return Promise.resolve(room);
     });
-
-    return store.dispatch( getRoomInfo() )
-    .then(() => {
-      const expectedActions = store.getActions();
-      expect(expectedActions[0]).toEqual({
-        type: 'GET_ROOM_INFO',
-        room
-      });
-      getRoomsHelper.getRoomIdsPromise.restore();
-      getPlayersHelper.getPlayersPromise.restore();
-    });
+    const dummyCallback = (room) => {
+      expect(room).toEqual(epectedRoom);
+    };
+    getRoomInfo(dummyCallback)
+    
+    getPlayersHelper.getPlayersPromise.restore();
+    getRoomsHelper.getRoomIdsPromise.restore();
   });
 });
