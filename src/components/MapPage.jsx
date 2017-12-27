@@ -112,7 +112,7 @@ class MapPage extends Component {
     }
 
     // https://developer.mozilla.org/en-US/docs/Web/CSS/length
-    const vh = '70vh';
+    const vh = '60vh';
 
     if(!this.state.startLocation) {
       const style = {
