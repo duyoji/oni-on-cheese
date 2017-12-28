@@ -1,7 +1,7 @@
 const getDefaultState = () => {
   return {
     roomId: null,
-    roomIds: [],
+    rooms: [],
     users: [],
     socketId: null,
     userName: null,
@@ -53,6 +53,16 @@ const reducer = (state = getDefaultState(), action) => {
       return Object.assign({}, state, {
         users: []
       });
+    }
+    case 'UPDATE_ROOM': {
+      const rooms = [...state.rooms];
+      const targetRoom = rooms.find(room => room.roomId === action.room.roomId);
+      if(!targetRoom) {
+        rooms.push(action.room);
+      } else {
+        Object.assign(targetRoom, action.room);
+      }
+      return Object.assign({}, state, {rooms});
     }
     default: {
       return state;

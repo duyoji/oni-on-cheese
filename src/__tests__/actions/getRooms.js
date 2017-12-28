@@ -19,7 +19,7 @@ describe('src/__tests__/actions/getRooms.js', () => {
     const store = mockStore(getDefaultState());
 
     const roomIds = ['room1', 'room2', 'room3'];
-    sinon.stub(helper, 'getRoomsPromise').callsFake(() => {
+    sinon.stub(helper, 'getRoomIdsPromise').callsFake(() => {
       return Promise.resolve(roomIds);
     });
 
@@ -31,7 +31,7 @@ describe('src/__tests__/actions/getRooms.js', () => {
           roomIds
         });
 
-        helper.getRoomsPromise.restore();
+        helper.getRoomIdsPromise.restore();
       });
   });
 });

@@ -2,7 +2,7 @@ import reducer, { getDefaultState } from '../../reducers/index';
 describe('src/reducers/index.js', () => {
   describe('The getDefaultState function', () => {
     it('should includes expected prop', () => {
-      const expectedProps = ['roomId', 'roomIds'];
+      const expectedProps = ['roomId', 'rooms'];
       const state = getDefaultState();
       expectedProps.forEach(prop => {
         expect( state.hasOwnProperty(prop) ).toEqual(true);
@@ -26,15 +26,6 @@ describe('src/reducers/index.js', () => {
         createDummyAction('JOIN_ROOM', {roomId})
       );
       expect(state.roomId).toEqual(roomId);
-    });
-
-    it('updates roomIds when action type is `GET_ROOMS`.', () => {
-      const roomIds = ['id1', 'id2', 'id3'];
-      const state = reducer(
-        getDefaultState(),
-        createDummyAction('GET_ROOMS', {roomIds})
-      );
-      expect(state.roomIds).toEqual(roomIds);
     });
 
     describe('UPDATE_LOCATION', () => {
@@ -170,6 +161,49 @@ describe('src/reducers/index.js', () => {
         expect(state.users).toEqual([]);
       });
     });
+  });
+});
+
+describe('UPDATE_ROOM', () => {
+  let state = getDefaultState();
+  state.rooms = [
+    { roomId: 1, numberOfPlayers: 1},
+    { roomId: 2, numberOfPlayers: 12},
+    { roomId: 3, numberOfPlayers: 33}
+  ];
+
+  it('updates targetRoom when state.rooms already has the user.', () => {
+    const updatedRoom = {
+      roomId: 2,
+      numberOfPlayers: 10
+    };
+    state = reducer(
+      state,
+      createDummyAction('UPDATE_ROOM', {room: updatedRoom})
+    );
+    expect(state.rooms).toEqual([
+      { roomId: 1, numberOfPlayers: 1},
+      { roomId: 2, numberOfPlayers: 10},
+      { roomId: 3, numberOfPlayers: 33}
+    ]);
+  });
+
+  it('append a new User when state.users doesn not have the user', () => {
+    const appendedRoom = {
+      roomId: 99,
+      numberOfPlayers: 777
+    };
+    state = reducer(
+      state,
+      createDummyAction('UPDATE_ROOM', {room: appendedRoom})
+    );
+
+    expect(state.rooms).toEqual([
+      { roomId: 1, numberOfPlayers: 1},
+      { roomId: 2, numberOfPlayers: 10},
+      { roomId: 3, numberOfPlayers: 33},
+      appendedRoom,
+    ]);
   });
 });
 
